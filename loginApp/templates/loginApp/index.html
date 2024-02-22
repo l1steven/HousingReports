@@ -1,32 +1,11 @@
 {% load socialaccount %}
-{% load bootstrap5 %}
-{% bootstrap_css %}
-{% bootstrap_javascript %}
-{% load static %}
 <html>
 <body>
-  <div>
-  <h1>My Google OAuth Project </h1>
+<h1>My Google OAuth Project </h1>
 {% if user.is_authenticated %}
-
   <p>Welcome, You are logged in as {{ user.username }}</p>
-  </div>
 {% else %}
-<div >
-
-<button class="btn btn-primary">
-  <!-- Use JavaScript to redirect to the Google login URL -->
-  <a href="{% provider_login_url 'google' %}">
-      Login With Google as Admin
-  </a>
-</button>
-<button class="btn btn-primary">
-  <!-- Use JavaScript to redirect to the Google login URL -->
-  <a href="{% provider_login_url 'google' %}">
-      Login With Google as Admin
-  </a>
-</button>
-</div>
+  <a href="{% provider_login_url 'google' %}">Login With Google</a>
 {% endif %}
 </body>
 </html>
