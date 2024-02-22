@@ -2,3 +2,5 @@ django-bootstrap-v5
 django-allauth
 gunicorn
 django_heroku
+dj-database-url
+psycopg2
