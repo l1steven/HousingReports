@@ -60,6 +60,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+    'django_bootstrap5',
 ]
 
 MIDDLEWARE = [
@@ -165,7 +166,7 @@ SOCIALACCOUNT_PROVIDERS = {
 
 SITE_ID = 5
 
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/dashboard/'
 LOGOUT_REDIRECT_URL = '/'
 if 'DATABASE_URL' in os.environ:
     import dj_database_url
