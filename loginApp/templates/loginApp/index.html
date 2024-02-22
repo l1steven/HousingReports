@@ -1,11 +1,36 @@
 {% load socialaccount %}
-<html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Google OAuth Project</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f8f9fa;
+      color: navy;
+    }
+    h1 {
+      font-family: 'Times New Roman', Times, serif;
+    }
+    .container {
+      margin-top: 100px; /* Adjust as needed */
+    }
+  </style>
+</head>
 <body>
-<h1>My Google OAuth Project </h1>
-{% if user.is_authenticated %}
-  <p>Welcome, You are logged in as {{ user.username }}</p>
-{% else %}
-  <a href="{% provider_login_url 'google' %}">Login With Google</a>
-{% endif %}
+  <div class="container text-center">
+    <h1>UVA Housing Reporting App</h1>
+    {% if user.is_authenticated %}
+      <p>Welcome, You are logged in as {{ user.username }}</p>
+    {% else %}
+      <a href="{% provider_login_url 'google' %}" class="btn btn-primary">Login With Google</a>
+    {% endif %}
+  </div>
+
+  <!-- Bootstrap Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
