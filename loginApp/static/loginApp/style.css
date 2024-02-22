@@ -2,7 +2,7 @@ li a {
     color: navy;
 }
 body {
-    background: white url("../../templates/loginApp/images/rotunda.png") no-repeat;
+    background: white no-repeat;
 }
 .underline {
   text-decoration: underline;
