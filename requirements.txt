@@ -4,3 +4,4 @@ gunicorn
 django_heroku
 dj-database-url
 psycopg2
+django-bootstrap5
