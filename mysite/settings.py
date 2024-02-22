@@ -10,7 +10,6 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 import os
-import secrets
 from pathlib import Path
 from django.core.checks import templates
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -21,18 +20,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-#SECRET_KEY = 'django-insecure-s=iz$4sc1)2v00@cm^j8))ga#o68_4%7uo4$mg8((y!chxj7xs'
-SECRET_KEY = os.environ.get(
-    "DJANGO_SECRET_KEY",
-    default=secrets.token_urlsafe(nbytes=64),
-)
-# SECURITY WARNING: don't run with debug turned on in production!
-
-IS_HEROKU_APP = "DYNO" in os.environ and not "CI" in os.environ
+SECRET_KEY = 'django-insecure-s=iz$4sc1)2v00@cm^j8))ga#o68_4%7uo4$mg8((y!chxj7xs'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-if not IS_HEROKU_APP:
-    DEBUG = True
+DEBUG = True
 
 ALLOWED_HOSTS = []
 
@@ -161,5 +152,3 @@ SITE_ID = 2
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
-import django_heroku
-django_heroku.settings(locals())
