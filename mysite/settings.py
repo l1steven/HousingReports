@@ -164,15 +164,15 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
-SITE_ID = 6
+SITE_ID = 7
 
 LOGIN_REDIRECT_URL = '/dashboard/'
 LOGOUT_REDIRECT_URL = '/'
 if 'DATABASE_URL' in os.environ:
     import dj_database_url
-    DATABASES = {'default': dj_database_url.config()}
+    DATABASES = {'default': dj_database_url.config(ssl_require=False)}
 import django_heroku
-django_heroku.settings(locals())
+django_heroku.settings(locals(),databases=False)
 # if 'DATABASE_URL' in os.environ:
 #     import dj_database_url
 #     DATABASES = {'default': dj_database_url.config()}
