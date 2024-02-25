@@ -170,7 +170,10 @@ LOGIN_REDIRECT_URL = '/dashboard/'
 LOGOUT_REDIRECT_URL = '/'
 if 'DATABASE_URL' in os.environ:
     import dj_database_url
-    DATABASES = {'default': dj_database_url.config(ssl_require=False)}
+    if 'DYNO' in os.environ and not 'CI' in os.environ:
+        DATABASES = {'default': dj_database_url.config(conn_max_age=600,ssl_require=True)}
+    else:
+        DATABASES = {'default': dj_database_url.config(ssl_require=False)}
 import django_heroku
 django_heroku.settings(locals(),databases=False)
 # if 'DATABASE_URL' in os.environ:
