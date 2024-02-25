@@ -25,6 +25,10 @@
     <h1>UVA Housing Reporting App</h1>
     {% if user.is_authenticated %}
       <p>Welcome, You are logged in as {{ user.username }}</p>
+      <div class="btn-group" role="group">
+        <a href="{% url 'dashboard' %}" class="btn btn-success">Dashboard</a>
+        <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
+      </div>
     {% else %}
       <a href="{% provider_login_url 'google' %}" class="btn btn-primary">Login With Google</a>
     {% endif %}

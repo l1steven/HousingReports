@@ -11,8 +11,9 @@
     {% bootstrap_javascript %}
 </head>
 <body>
-    <div class="container mt-4">
+    <div class="container mt-4 text-center">
         <h1>Welcome, {{ user.username }}! You're a common user</h1>
+        <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
     </div>
 </body>
 </html>
