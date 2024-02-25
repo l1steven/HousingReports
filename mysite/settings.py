@@ -163,13 +163,13 @@ SOCIALACCOUNT_PROVIDERS = {
         }
     }
 }
-SITE_ID=8
+#SITE_ID=7
 
 LOGIN_REDIRECT_URL = '/dashboard/'
 LOGOUT_REDIRECT_URL = '/'
 if 'DATABASE_URL' in os.environ:
     import dj_database_url
-    if 'DYNO' in os.environ and not 'CI' in os.environ:
+    if 'DYNO' in os.environ:
         DATABASES = {'default': dj_database_url.config(conn_max_age=600,ssl_require=True)}
     else:
         DATABASES = {'default': dj_database_url.config(ssl_require=False)}
