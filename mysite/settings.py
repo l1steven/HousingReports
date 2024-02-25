@@ -163,8 +163,12 @@ SOCIALACCOUNT_PROVIDERS = {
         }
     }
 }
-
-SITE_ID = 8
+SITE_ID=1
+from django.contrib.sites.models import Site
+for site in Site.objects.all():
+    if site.name=='gentle-sands-24056-5a14e5b78514.herokuapp.' or site.name=='127.0.0.1:8000':
+        SITE_ID=site.id
+        break
 
 LOGIN_REDIRECT_URL = '/dashboard/'
 LOGOUT_REDIRECT_URL = '/'
