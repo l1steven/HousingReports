@@ -1,6 +1,3 @@
-{% load static %}
-{% load django_bootstrap5 %}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,22 +14,26 @@
 
         <!-- complaints -->
         <h2>Complaints You Have Submitted</h2>
-        <div class="complaints-list">
+        <div class="row"> <!-- Start of .row for card collage -->
             {% for complaint in complaints %}
-            <div class="card mb-3">
-                <div class="card-body">
-                    <h5 class="card-title">{{ complaint.name }}</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">{{ complaint.location }}</h6>
-                    <p class="card-text">{{ complaint.description }}</p>
-                    {% if complaint.upload %}
-                    <div><img src="{{ complaint.upload.url }}" alt="Complaint Image" style="max-width: 100%; height: auto;"></div>
-                    {% endif %}
+            <div class="col-sm-12 col-md-6 col-lg-4 mb-3"> <!-- Column size defined here -->
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ complaint.name }}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">{{ complaint.location }}</h6>
+                        <p class="card-text">{{ complaint.description }}</p>
+                        {% if complaint.upload %}
+                        <div><img src="{{ complaint.upload.url }}" alt="Complaint Image" style="max-width: 100%; height: auto;"></div>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
             {% empty %}
-            <p>You have not submitted any complaints.</p>
+            <div class="col-12">
+                <p>You have not submitted any complaints.</p>
+            </div>
             {% endfor %}
-        </div>
+        </div> <!-- End of .row -->
 
         <!-- bottom buttons -->
         <div class="my-4">
