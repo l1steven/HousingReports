@@ -1,15 +1,14 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-
+from loginApp.models import Complaint
 from loginApp.forms import ComplaintForm
 
 
 @login_required
 def dashboard(request):
-    if request.user.is_superuser:
-        return render(request, 'loginApp/AdminDashboard.html')
-    else:
-        return render(request, 'loginApp/UserDashboard.html')
+    complaints = Complaint.objects.filter(user=request.user) if not request.user.is_superuser else Complaint.objects.all()
+    userType = 'loginApp/AdminDashboard.html' if request.user.is_superuser else 'loginApp/UserDashboard.html'
+    return render(request, userType, {'complaints': complaints})
 
 @login_required
 def complaint_form(request):
