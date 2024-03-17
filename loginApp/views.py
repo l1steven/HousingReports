@@ -1,16 +1,13 @@
 import mimetypes
-
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from loginApp.models import Complaint
-from loginApp.forms import ComplaintForm
-
+from .models import Complaint
+from .forms import ComplaintForm
 
 @login_required
 def dashboard(request):
     complaints = Complaint.objects.filter(user=request.user) if not request.user.is_superuser else Complaint.objects.all()
 
-    # identify file type
     for complaint in complaints:
         if complaint.upload:
             mime_type, _ = mimetypes.guess_type(complaint.upload.url)
@@ -33,6 +30,22 @@ def complaint_form(request):
     else:
         form = ComplaintForm()
     return render(request, 'loginApp/complaint_form.html', {'form': form})
+
+def anonymous_complaint_view(request):
+    if request.method == 'POST':
+        form = ComplaintForm(request.POST, request.FILES)
+        if form.is_valid():
+            complaint = form.save(commit=False)
+            complaint.name = 'Anonymous'
+            complaint.user = None
+            complaint.is_anonymous = True
+            complaint.save()
+            return redirect('complaint_success')
+    else:
+        # when it is a GET request
+        form = ComplaintForm(initial={'name': 'Anonymous'})
+        form.fields['name'].widget.attrs['readonly'] = True
+    return render(request, 'loginApp/anonymous_complaint_form.html', {'form': form})
 
 @login_required
 def complaint_success(request):

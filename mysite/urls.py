@@ -28,4 +28,5 @@ urlpatterns = [
     path('dashboard/', loginAppView.dashboard, name='dashboard'),
     path('complaint/', views.complaint_form, name='complaint_form'),
     path('complaint_success/', views.complaint_success, name='complaint_success'),
+    path('anonymous_complaint/', views.anonymous_complaint_view, name='anonymous_complaint_form'),
 ]
