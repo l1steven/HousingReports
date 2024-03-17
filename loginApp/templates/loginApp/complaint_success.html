@@ -1,0 +1,20 @@
+{% load static %}
+{% load django_bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complaint Filed</title>
+</head>
+<body>
+    <div class="container mt-4">
+        <h1>Complaint Filed Successfully</h1>
+        <p>Your complaint has been successfully submitted.</p>
+        <a href="{% url 'dashboard' %}" class="btn btn-primary">Back to Dashboard</a>
+    </div>
+</body>
+</html>
