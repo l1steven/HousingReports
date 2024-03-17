@@ -13,7 +13,7 @@ def dashboard(request):
     # identify file type
     for complaint in complaints:
         if complaint.upload:
-            mime_type, _ = mimetypes.guess_type(complaint.upload.path)
+            mime_type, _ = mimetypes.guess_type(complaint.upload.url)
             complaint.is_image = mime_type.startswith('image/') if mime_type else False
             complaint.is_pdf = 'application/pdf' == mime_type if mime_type else False
             complaint.is_text = 'text/plain' == mime_type if mime_type else False
