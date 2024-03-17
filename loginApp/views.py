@@ -65,3 +65,6 @@ def anonymous_complaint_view(request):
 @login_required
 def complaint_success(request):
     return render(request, 'loginApp/complaint_success.html')
+
+def complaint_success_anon(request):
+    return render(request, 'loginApp/complaint_success_anon.html')
