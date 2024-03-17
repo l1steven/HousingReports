@@ -13,6 +13,7 @@
 <body>
     <div class="container mt-4">
         <h1>File a Complaint</h1>
+        <a href="{% url 'dashboard' %}" class="btn btn-primary">Back to Dashboard</a>
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form.as_p }}

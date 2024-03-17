@@ -11,9 +11,13 @@
     <title>Anon Dashboard</title>
 </head>
 <body>
+
     <div class="container mt-4 text-center">
-        <h1>Welcome Unnamed! You're an anonymous user.</h1>
-  
+        <h1>Welcome Unnamed! You're an anonymous user. View your complaints or go <a href="/">
+            Back to dashboard
+        </a>
+    </h1>
+        
         <h2>Complaints Overview</h2>
         <div class="list-group mt-4">
             {% for complaint in complaints %}
