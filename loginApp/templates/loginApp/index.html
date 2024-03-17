@@ -9,10 +9,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UVA Housing Reporting App</title>
+    <title>My Google OAuth Project</title>
 </head>
 <body>
     <div class="container text-center mt-4">
+        <h1>UVA Housing Reporting App</h1>
         {% if user.is_authenticated %}
             <p>Welcome, You are logged in as {{ user.username }}</p>
             <div class="btn-group" role="group">
@@ -21,6 +22,7 @@
             </div>
         {% else %}
             <a href="{% provider_login_url 'google' %}" class="btn btn-primary">Login With Google</a>
+            <a href="{% url 'anonymous_complaint_form' %}" class="btn btn-warning">Submit an Anonymous Complaint</a>
         {% endif %}
     </div>
 </body>
