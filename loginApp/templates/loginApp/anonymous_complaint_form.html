@@ -13,7 +13,7 @@
 <body>
     <div class="container mt-4">
         <h1>Submit an Anonymous Complaint</h1>
-        <form method="post">
+        <form method="post" action="/anonymous_complaint/"> 
             {% csrf_token %}
             {% bootstrap_form form %}
             <button type="submit" class="btn btn-primary">Submit Complaint</button>
