@@ -1,3 +1,6 @@
+{% load static %}
+{% load django_bootstrap5 %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,9 +17,9 @@
 
         <!-- complaints -->
         <h2>Complaints You Have Submitted</h2>
-        <div class="row"> <!-- Start of .row for card collage -->
+        <div class="row">
             {% for complaint in complaints %}
-            <div class="col-sm-12 col-md-6 col-lg-4 mb-3"> <!-- Column size defined here -->
+            <div class="col-sm-12 col-md-6 col-lg-4 mb-3">
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">{{ complaint.name }}</h5>
@@ -33,7 +36,7 @@
                 <p>You have not submitted any complaints.</p>
             </div>
             {% endfor %}
-        </div> <!-- End of .row -->
+        </div>
 
         <!-- bottom buttons -->
         <div class="my-4">
