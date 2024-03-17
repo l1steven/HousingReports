@@ -12,25 +12,33 @@
 </head>
 <body>
     <div class="container mt-4 text-center">
-        <h1>Welcome, {{ user.username }}! You're an admin user.</h1>
-        <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
-        <hr>
-        <h2>Complaints Overview</h2>
-        <div class="list-group mt-4">
+        <h1>Welcome, {{ user.username }}! You're an admin user</h1>
+        <div class="my-4">
+            <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
+        </div>
+
+        <h2>Complaints</h2>
+        <div class="row">
             {% for complaint in complaints %}
-                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                    <div class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1">{{ complaint.name }}</h5>
-                        <small>Submitted: {{ complaint.created_at|date:"F d, Y H:i" }}</small>
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ complaint.name }}</h5>
+                        <p class="card-text">{{ complaint.description }}</p>
+                        {% if complaint.upload %}
+                            {% if complaint.is_image %}
+                                <img src="{{ complaint.upload.url }}" alt="Image preview" class="img-fluid">
+                            {% elif complaint.is_pdf %}
+                                <iframe src="{{ complaint.upload.url }}" width="100%" height="200"></iframe>
+                            {% elif complaint.is_text %}
+                                <a href="{{ complaint.upload.url }}" target="_blank">View Text File</a>
+                            {% else %}
+                                <a href="{{ complaint.upload.url }}" target="_blank">Download File</a>
+                            {% endif %}
+                        {% endif %}
                     </div>
-                    <p class="mb-1">Location: {{ complaint.location }}</p>
-                    <p class="mb-1">Description: {{ complaint.description|truncatechars:100 }}</p>
-                    {% if complaint.user %}
-                        <small>By: {{ complaint.user.username }}</small>
-                    {% else %}
-                        <small>By: Anonymous</small>
-                    {% endif %}
-                </a>
+                </div>
+            </div>
             {% empty %}
                 <p>No complaints have been submitted yet.</p>
             {% endfor %}
