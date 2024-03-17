@@ -16,7 +16,7 @@
         <p>You are logged in as a regular user.</p>
 
         <!-- complaints -->
-        <h2>Complaints You Have Submitted</h2>
+        <h2 class="text-center">Complaints You Have Submitted</h2>
         <div class="row">
             {% for complaint in complaints %}
             <div class="col-sm-12 col-md-6 col-lg-4 mb-3">
@@ -26,7 +26,13 @@
                         <h6 class="card-subtitle mb-2 text-muted">{{ complaint.location }}</h6>
                         <p class="card-text">{{ complaint.description }}</p>
                         {% if complaint.upload %}
-                        <div><img src="{{ complaint.upload.url }}" alt="Complaint Image" style="max-width: 100%; height: auto;"></div>
+                            {% if complaint.is_image %}
+                                <div><img src="{{ complaint.upload.url }}" alt="Complaint Image" style="max-width: 100%; height: auto;"></div>
+                            {% elif complaint.is_pdf %}
+                                <div><embed src="{{ complaint.upload.url }}" type="application/pdf" width="100%" height="600px"></div>
+                            {% elif complaint.is_text %}
+                                <div><iframe src="{{ complaint.upload.url }}" style="width:100%; height:600px;" frameborder="0"></iframe></div>
+                            {% endif %}
                         {% endif %}
                     </div>
                 </div>
