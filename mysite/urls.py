@@ -26,6 +26,7 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('logout', LogoutView.as_view(), name="logout"),
     path('dashboard/', loginAppView.dashboard, name='dashboard'),
+    path('dashboard/anon', loginAppView.dashboardanon, name='dashboardanon'),
     path('complaint/', views.complaint_form, name='complaint_form'),
     path('complaint_success/', views.complaint_success, name='complaint_success'),
     path('anonymous_complaint/', views.anonymous_complaint_view, name='anonymous_complaint_form'),

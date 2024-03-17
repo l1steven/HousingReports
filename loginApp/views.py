@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from .models import Complaint
 from .forms import ComplaintForm
 
+
 @login_required
 def dashboard(request):
     complaints = Complaint.objects.filter(user=request.user) if not request.user.is_superuser else Complaint.objects.all()
@@ -16,6 +17,20 @@ def dashboard(request):
             complaint.is_text = 'text/plain' == mime_type if mime_type else False
 
     userType = 'loginApp/AdminDashboard.html' if request.user.is_superuser else 'loginApp/UserDashboard.html'
+    return render(request, userType, {'complaints': complaints})
+
+
+def dashboardanon(request):
+    complaints = Complaint.objects.all()
+
+    for complaint in complaints:
+        if complaint.upload:
+            mime_type, _ = mimetypes.guess_type(complaint.upload.url)
+            complaint.is_image = mime_type.startswith('image/') if mime_type else False
+            complaint.is_pdf = 'application/pdf' == mime_type if mime_type else False
+            complaint.is_text = 'text/plain' == mime_type if mime_type else False
+
+    userType = 'loginApp/AnonDashboard.html'
     return render(request, userType, {'complaints': complaints})
 
 @login_required
@@ -40,7 +55,7 @@ def anonymous_complaint_view(request):
             complaint.user = None
             complaint.is_anonymous = True
             complaint.save()
-            return redirect('complaint_success')
+            return redirect('complaint_success_anon')
     else:
         # when it is a GET request
         form = ComplaintForm(initial={'name': 'Anonymous'})
