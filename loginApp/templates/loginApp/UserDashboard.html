@@ -9,93 +9,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Dashboard</title>
-    <style>
-        .flex-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between; /* Distribute space between flex items */
-        }
-
-        .left-section,
-        .right-section {
-            width: 48%; /* Adjust width of each section */
-        }
-    </style>
 </head>
 <body>
     <div class="container mt-4">
         <h1>Welcome, {{ user.username }}!</h1>
         <p>You are logged in as a regular user.</p>
         
-        <!-- Left container for complaints by the current user -->
-        <div class="flex-container">
-            <div class="left-section">
-                <h2 class="text-center">Complaints You Have Submitted</h2>
-                {% for complaint in complaints %}
-                    {% if complaint.user == user %}
-                        <div class="card mb-3">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ complaint.name }}</h5>
-                                <h6 class="card-subtitle mb-2 text-muted">{{ complaint.location }}</h6>
-                                <p class="card-text">{{ complaint.description }}</p>
-                                {% if complaint.upload %}
-                                    {% if complaint.is_image %}
-                                        <img src="{{ complaint.upload.url }}" alt="Complaint Image" class="img-fluid">
-                                    {% elif complaint.is_pdf %}
-                                        <embed src="{{ complaint.upload.url }}" type="application/pdf" width="100%" height="600px">
-                                    {% elif complaint.is_text %}
-                                        <iframe src="{{ complaint.upload.url }}" style="width:100%; height:600px;" frameborder="0"></iframe>
-                                    {% endif %}
-                                {% endif %}
-                                <form method="post" action="{% url 'delete_complaint' complaint.id %}" class="mt-3">
-                                    {% csrf_token %}
-                                    <button type="submit" class="btn btn-danger">Delete</button>
-                                </form>
-                            </div>
-                        </div>
-                    {% endif %}
-                {% empty %}
-                    <div class="col-12">
-                        <p>You have not submitted any complaints.</p>
+        <!-- complaints -->
+        <h2 class="text-center">Complaints You Have Submitted</h2>
+        <div class="row">
+            {% for complaint in complaints %}
+            <div class="col-sm-12 col-md-6 col-lg-4 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ complaint.name }}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">{{ complaint.location }}</h6>
+                        <p class="card-text">{{ complaint.description }}</p>
+                        {% if complaint.upload %}
+                            {% if complaint.is_image %}
+                                <div><img src="{{ complaint.upload.url }}" alt="Complaint Image" style="max-width: 100%; height: auto;"></div>
+                            {% elif complaint.is_pdf %}
+                                <div><embed src="{{ complaint.upload.url }}" type="application/pdf" width="100%" height="600px"></div>
+                            {% elif complaint.is_text %}
+                                <div><iframe src="{{ complaint.upload.url }}" style="width:100%; height:600px;" frameborder="0"></iframe></div>
+                            {% endif %}
+                        {% endif %}
                     </div>
-                {% endfor %}
+                </div>
             </div>
-
-            <!-- Right container for complaints by other users or anonymous -->
-            <div class="right-section">
-                <h2 class="text-center">Complaints by Other Users or Anonymous</h2>
-                {% for complaint in complaints %}
-                    {% if complaint.user != user or complaint.is_anonymous %}
-                        <div class="card mb-3">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ complaint.name }}</h5>
-                                <h6 class="card-subtitle mb-2 text-muted">{{ complaint.location }}</h6>
-                                <p class="card-text">{{ complaint.description }}</p>
-                                {% if complaint.upload %}
-                                    {% if complaint.is_image %}
-                                        <img src="{{ complaint.upload.url }}" alt="Complaint Image" class="img-fluid">
-                                    {% elif complaint.is_pdf %}
-                                        <embed src="{{ complaint.upload.url }}" type="application/pdf" width="100%" height="600px">
-                                    {% elif complaint.is_text %}
-                                        <iframe src="{{ complaint.upload.url }}" style="width:100%; height:600px;" frameborder="0"></iframe>
-                                    {% endif %}
-                                {% endif %}
-                                <form method="post" action="{% url 'delete_complaint' complaint.id %}" class="mt-3">
-                                    {% csrf_token %}
-                                    <button type="submit" class="btn btn-danger">Delete</button>
-                                </form>
-                            </div>
-                        </div>
-                    {% endif %}
-                {% empty %}
-                    <div class="col-12">
-                        <p>No complaints by other users or anonymous.</p>
-                    </div>
-                {% endfor %}
+            {% empty %}
+            <div class="col-12">
+                <p>You have not submitted any complaints.</p>
             </div>
+            {% endfor %}
         </div>
 
-        <!-- Bottom buttons -->
+        <!-- bottom buttons -->
         <div class="my-4">
             <a href="{% url 'complaint_form' %}" class="btn btn-primary">File a Complaint</a>
             <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
