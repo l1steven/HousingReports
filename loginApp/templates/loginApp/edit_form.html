@@ -13,11 +13,7 @@
         <h1>Edit Form</h1>
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            {% for field in form %}
-            <div class="mb-3">
-                {% bootstrap_form field %}
-            </div>
-            {% endfor %}
+            {% bootstrap_form form %}
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>
