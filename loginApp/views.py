@@ -72,7 +72,7 @@ def deletecomplaintcommon(request):
     if complaint is not None:
         complaint.delete()
     
-    return redirect('dashboard') 
+    return render(request, 'loginApp/UserDashboard.html')
     
 
 
