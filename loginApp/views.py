@@ -77,7 +77,7 @@ def deletecomplaintcommon(request, complaint_id):
 
 @login_required
 def editcomplaintcommon(request, complaint): 
-    complaint = Complaint.objects.all()
+    complaint = Complaint.objects.filter(id=complaint.id).first()
     if request.method == 'POST':
         form = ComplaintForm(request.POST, request.FILES, instance=complaint)
         if form.is_valid():
