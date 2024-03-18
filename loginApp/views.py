@@ -67,8 +67,8 @@ def complaint_success(request):
     return render(request, 'loginApp/complaint_success.html')
 
 
-def deletecomplaintcommon(request): 
-    complaint = Complaint.objects.filter(id=complaint.id).first()
+def deletecomplaintcommon(request, complaint_id): 
+    complaint = Complaint.objects.filter(id=complaint_id).first()
     if complaint is not None:
         complaint.delete()
     
