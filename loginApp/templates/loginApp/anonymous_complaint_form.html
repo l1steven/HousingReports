@@ -12,13 +12,23 @@
 </head>
 <body>
     <div class="container mt-4">
+<<<<<<< HEAD
         <h1>Submit an Anonymous Complaint</h1>
         <form method="post" action="/anonymous_complaint/"> 
+=======
+        <div class="container mt-4 text-center">
+            <h1>Welcome Unnamed! You're an anonymous user. View your complaints or go <a href="/">
+                Back to dashboard
+            </a>
+        </h1>
+        <form method="post">
+>>>>>>> main
             {% csrf_token %}
             {% bootstrap_form form %}
             <button type="submit" class="btn btn-primary">Submit Complaint</button>
         </form>
     </div>
+    
     {% bootstrap_javascript %}
 </body>
 </html>

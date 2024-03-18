@@ -55,7 +55,7 @@ def anonymous_complaint_view(request):
             complaint.user = None
             complaint.is_anonymous = True
             complaint.save()
-            return redirect('complaint_success_anon')
+            return render(request, 'loginApp/complaint_success_anon.html')
     else:
         # when it is a GET request
         form = ComplaintForm(initial={'name': 'Anonymous'})
@@ -65,3 +65,14 @@ def anonymous_complaint_view(request):
 @login_required
 def complaint_success(request):
     return render(request, 'loginApp/complaint_success.html')
+
+
+def deletecomplaintcommon(request, complaint_id): 
+    complaint = Complaint.objects.filter(id=complaint_id).first()
+    if complaint is not None:
+        complaint.delete()
+    complaints = Complaint.objects.filter(user=request.user)
+    return render(request, 'loginApp/UserDashboard.html', {'complaints': complaints})
+    
+
+
