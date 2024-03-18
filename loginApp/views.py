@@ -3,7 +3,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .models import Complaint
 from .forms import ComplaintForm
-
+from ..mysite import settings
+import boto3
 
 @login_required
 def dashboard(request):
@@ -69,8 +70,11 @@ def complaint_success(request):
 
 def deletecomplaintcommon(request, complaint_id): 
     complaint = Complaint.objects.filter(id=complaint_id).first()
+    s3_key = complaint.upload.name
     if complaint is not None:
         complaint.delete()
+        s3 = boto3.client('s3')
+        s3.delete_object(Bucket=settings.AWS_STORAGE_BUCKET_NAME, Key=s3_key)
     complaints = Complaint.objects.filter(user=request.user)
     return render(request, 'loginApp/UserDashboard.html', {'complaints': complaints})
     
