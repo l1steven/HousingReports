@@ -1,0 +1,13 @@
+li a {
+    color: navy;
+}
+body {
+    background: white no-repeat;
+}
+.underline {
+  text-decoration: underline;
+}
+.header {
+  color: navy;
+  font-family: "Times New Roman", Times, serif;
+}
