@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .models import Complaint
 from .forms import ComplaintForm
-from ..mysite import settings
+from mysite import settings
 import boto3
 
 @login_required
