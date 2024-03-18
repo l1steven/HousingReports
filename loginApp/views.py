@@ -71,8 +71,9 @@ def deletecomplaintcommon(request, complaint_id):
     complaint = Complaint.objects.filter(id=complaint_id).first()
     if complaint is not None:
         complaint.delete()
-    
-    return render(request, 'loginApp/UserDashboard.html')
+        return render(request, 'loginApp/UserDashboard.html') 
+    else: 
+        return render(request, 'loginApp/UserDashboard.html')
     
 
 
