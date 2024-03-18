@@ -75,4 +75,15 @@ def deletecomplaintcommon(request, complaint_id):
     return render(request, 'loginApp/UserDashboard.html', {'complaints': complaints})
     
 
+@login_required
+def editcomplaintcommon(request, complaint): 
+    complaint = Complaint.objects.all()
+    if request.method == 'POST':
+        form = ComplaintForm(request.POST, request.FILES, instance=complaint)
+        if form.is_valid():
+            form.save()
+            return redirect('complaint_success')
+    else: 
+        form = ComplaintForm(instance=complaint)
 
+    return render(request, 'loginApp/edit_form.html', {'form': form})
