@@ -66,3 +66,13 @@ def anonymous_complaint_view(request):
 def complaint_success(request):
     return render(request, 'loginApp/complaint_success.html')
 
+
+def deletecomplaintcommon(request): 
+    complaint = Complaint.objects.filter(id=complaint.id).first()
+    if complaint is not None:
+        complaint.delete()
+    
+    return redirect('dashboard') 
+    
+
+
