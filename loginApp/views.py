@@ -100,6 +100,6 @@ def handle_complaint_click(request, complaint_id):
                 if status in dict(Complaint.STATUS_CHOICES):
                     complaint.status = status
                     complaint.save()
-                    return render(request, 'loginApp/complaintviews.html', {'complaint': complaint})
+                    return render(request, 'loginApp/complaintviews.html', {'complaints': complaint})
 
-      return render(request, 'loginApp/complaintviews.html', {'complaint': complaint})
+      return render(request, 'loginApp/complaintviews.html', {'complaints': complaint})
