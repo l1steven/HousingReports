@@ -3,7 +3,6 @@
 {% bootstrap_css %}
 {% bootstrap_javascript %}
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -45,13 +44,10 @@
                    {% if complaint.review %}
                        <small> {{complaint.review}} </small>
                    {% endif %}
-                       <small> {{complaint.status}} </small>
-            
-
-
-                   {% if complaint.status == 'reviewed'%}
+                   <small> {{complaint.status}} </small>
+                   {% if complaint.status == 'reviewed' %}
                        <p>Status: Reviewed</p>
-                   {% elif complaint.status == 'in_progress'%}
+                   {% elif complaint.status == 'in_progress' %}
                        <form action="{% url 'handle_complaint_click' complaint.id %}" method="post">
                            {% csrf_token %}
                            <label for="status">Set Status:</label>
@@ -62,26 +58,21 @@
                            <button type="submit" class="btn btn-primary">Submit</button>
                        </form>
                    {% else %}
-                   <form action="{% url 'handle_complaint_click' complaint.id %}" method="post">
-                       {% csrf_token %}
-                       <label for="status">Set Status:</label>
-                       <select id="status" name="status">
-                           <option value="in_progress">In Progress</option>
-                           <option value="reviewed">Reviewed</option>
-                           <option value="resolved">Resolved</option>
-                           <!-- Add more options as needed -->
-                       </select>
-                       <button type="submit" class="btn btn-primary">Submit</button>
-                   </form>
-               {% endif %}
+                       <form action="{% url 'handle_complaint_click' complaint.id %}" method="post">
+                           {% csrf_token %}
+                           <label for="status">Set Status:</label>
+                           <select id="status" name="status">
+                               <option value="in_progress">In Progress</option>
+                               <option value="reviewed">Reviewed</option>
+                               <option value="resolved">Resolved</option>
+                               <!-- Add more options as needed -->
+                           </select>
+                           <button type="submit" class="btn btn-primary">Submit</button>
+                       </form>
+                   {% endif %}
                </a>
-           {% empty %}
-               <p>This complaint has no content or does not exist</p>
            {% endfor %}
        </div>
    </div>
 </body>
 </html>
-
-
-
