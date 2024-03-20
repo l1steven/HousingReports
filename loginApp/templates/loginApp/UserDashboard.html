@@ -52,6 +52,16 @@
             transition: background-color 0.3s ease;
             margin: 0.25rem; /* Spacing around buttons */
         }
+        .btn-sm {
+            font-size: 0.8rem; /* Smaller font size for buttons */
+            padding: 0.25rem 0.5rem; /* Reduced padding for smaller buttons */
+            margin: 0.25rem; /* Keeps spacing around buttons */
+        }
+        .button-group {
+            display: flex;
+            justify-content: start; /* Align buttons to the start of the container */
+            gap: 0.5rem; /* Space between buttons */
+        }
         .my-4 {
             margin-top: 4rem; /* More vertical space before the bottom buttons */
             margin-bottom: 4rem;
@@ -83,22 +93,24 @@
                         <div style="margin-bottom: 1rem;">
                             <!-- Content based on upload type here -->
                         </div>
-                        <form method="post" action="{% url 'delete_complaint' complaint.id %}" class="mt-3">
-                            {% csrf_token %}
-                            <button type="submit" class="btn btn-danger">Delete</button>
-                        </form>
-                        <form method="post" action="{% url 'edit_complaint' complaint.id %}" class="mt-3">
-                            {% csrf_token %}
-                            <button type="submit" class="btn btn-primary">Edit</button>
-                        </form>
+                        <div class="button-group">
+                            <form method="post" action="{% url 'delete_complaint' complaint.id %}" class="mt-3">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                            </form>
+                            <form method="post" action="{% url 'edit_complaint' complaint.id %}" class="mt-3">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-primary btn-sm">Edit</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
-            </div>
             {% empty %}
             <div class="col-12 text-center">
                 <p>You have not submitted any complaints.</p>
             </div>
             {% endfor %}
+        </div>
         </div>
 
         <div class="my-3" style="text-align: center;">
