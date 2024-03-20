@@ -69,8 +69,11 @@ def complaint_success(request):
 
 def deletecomplaintcommon(request, complaint_id): 
     complaint = Complaint.objects.filter(id=complaint_id).first()
+    s3_key = complaint.upload.name
     if complaint is not None:
         complaint.delete()
+        s3 = boto3.client('s3')
+        s3.delete_object(Bucket=settings.AWS_STORAGE_BUCKET_NAME, Key=s3_key)
     complaints = Complaint.objects.filter(user=request.user)
     return render(request, 'loginApp/UserDashboard.html', {'complaints': complaints})
     
@@ -87,3 +90,16 @@ def editcomplaintcommon(request, complaint):
         form = ComplaintForm(instance=complaint1)
 
     return render(request, 'loginApp/edit_form.html', {'form': form})
+
+def handle_complaint_click(request, complaint_id): 
+      complaint = Complaint.objects.filter(id=complaint_id).first()
+    
+      if request.method == 'POST':
+            if complaint:
+                status = request.POST.get('status')
+                if status in dict(Complaint.STATUS_CHOICES):
+                    complaint.status = status
+                    complaint.save()
+                    return render(request, 'loginApp/complaintviews.html', {'complaint': complaint})
+
+      return render(request, 'loginApp/complaintviews.html', {'complaint': complaint})
