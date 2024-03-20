@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import TemplateView
 from django.contrib.auth.views import LogoutView
-from loginApp import views as loginAppView
+from loginApp import views as loginAppView, views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,4 +26,10 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('logout', LogoutView.as_view(), name="logout"),
     path('dashboard/', loginAppView.dashboard, name='dashboard'),
+    path('dashboard/anon', loginAppView.dashboardanon, name='dashboardanon'),
+    path('complaint/', views.complaint_form, name='complaint_form'),
+    path('complaint_success/', views.complaint_success, name='complaint_success'),
+    path('anonymous_complaint/', views.anonymous_complaint_view, name='anonymous_complaint_form'),
+    path('delete_complaint/<int:complaint_id>/', views.deletecomplaintcommon, name='delete_complaint'),
+    path('edit_complaint/<int:complaint>/', views.editcomplaintcommon, name='edit_complaint'),
 ]
