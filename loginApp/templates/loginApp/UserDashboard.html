@@ -11,6 +11,8 @@
     <title>User Dashboard</title>
     <style>
         body {
+            font-family: 'Times New Roman', Times, serif;
+            color: navy;
             font-family: "Times New Roman", Times, serif;
             margin: 0;
             padding: 0;
@@ -96,6 +98,16 @@
                             {% csrf_token %}
                             <button type="submit" class="btn btn-danger">Delete</button>
                         </form>
+                        <form method="post" action="{% url 'edit_complaint' complaint.id %}" class="mt-3">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger">Edit</button>
+                        </form>
+
+                    {% if complaint.review %}
+                    <small> {{complaint.review}} </small>
+                {% endif %}
+                    <small> {{complaint.status}} </small>
+    
                     </div>
                 </div>
             </div>
