@@ -49,23 +49,19 @@
             
 
 
-                   {% if complaint.status == 'in_progress' %}
-                   {% if complaint.status =='reviewed' %}
+                   {% if complaint.status == 'reviewed'%}
                        <p>Status: Reviewed</p>
-                   {% else %}
+                   {% elif complaint.status == 'in_progress'%}
                        <form action="{% url 'handle_complaint_click' complaint.id %}" method="post">
                            {% csrf_token %}
                            <label for="status">Set Status:</label>
                            <select id="status" name="status">
                                <option value="in_progress" selected>In Progress</option>
                                <option value="reviewed">Reviewed</option>
-                               <option value="resolved">Resolved</option>
-                               <!-- Add more options as needed -->
                            </select>
                            <button type="submit" class="btn btn-primary">Submit</button>
                        </form>
-                   {% endif %}
-               {% else %}
+                   {% else %}
                    <form action="{% url 'handle_complaint_click' complaint.id %}" method="post">
                        {% csrf_token %}
                        <label for="status">Set Status:</label>
