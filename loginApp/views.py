@@ -98,8 +98,11 @@ def handle_complaint_click(request, complaint_id):
       if request.method == 'POST':
             if complaint:
                 status = request.POST.get('status')
+                review = request.POST.get('review')
                 if status in dict(Complaint.STATUS_CHOICES):
                     complaint.status = status
+                    if status == 'reviewed':
+                        complaint.review = review
                     complaint.save()
                     return render(request, 'loginApp/complaintviews.html', {'complaints': complaint})
 

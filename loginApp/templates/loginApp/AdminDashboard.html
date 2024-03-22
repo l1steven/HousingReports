@@ -25,6 +25,8 @@
                     <div class="card-body">
                         <h5 class="card-title">{{ complaint.name }}</h5>
                         <p class="card-text">{{ complaint.description }}</p>
+                        {% if complaint.review %}
+                        <small> {{complaint.review}} </small>
                         {% if complaint.upload %}
                             {% if complaint.is_image %}
                                 <img src="{{ complaint.upload.url }}" alt="Image preview" class="img-fluid">
@@ -39,7 +41,7 @@
                         <!-- Add a link for each complaint -->
                         <a href="{% url 'complaints' complaint.id %}" class="btn btn-primary">View Details</a>
                         <small> {{complaint.status}} </small>
-
+                        
                     </div>
                 </div>
             </div>
