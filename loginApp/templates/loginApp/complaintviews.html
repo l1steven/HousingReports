@@ -48,7 +48,7 @@
                        {% if complaint.status == 'reviewed' %}
                            <p>Status: Reviewed</p>
                        {% elif complaint.status == 'in_progress' %}
-                           <form action="{% url 'complaints' complaint.id %}" method="post">
+                           <form action="" method="post">
                                {% csrf_token %}
                                <label for="status">Set Status:</label>
                                <select id="status" name="status">
@@ -58,7 +58,7 @@
                                <button type="submit" class="btn btn-primary">Submit</button>
                            </form>
                        {% else %}
-                           <form action="{% url 'complaints' complaint.id %}" method="post">
+                           <form action="" method="post">
                                {% csrf_token %}
                                <label for="status">Set Status:</label>
                                <select id="status" name="status">

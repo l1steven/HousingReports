@@ -33,5 +33,4 @@ urlpatterns = [
     path('delete_complaint/<int:complaint_id>/', views.deletecomplaintcommon, name='delete_complaint'),
     path('edit_complaint/<int:complaint>/', views.editcomplaintcommon, name='edit_complaint'),
     path('complaints/<int:complaint_id>/', views.handle_complaint_click, name='complaints'),
-    
 ]
