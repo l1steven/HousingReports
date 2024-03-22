@@ -12,42 +12,37 @@
 </head>
 <body>
    <div class="container mt-4 text-center">
-       <h1>Welcome, {{ user.username }}! Viewing complaint {{ complaints.first.id }}</h1>
+       <h1>Welcome, {{ user.username }}! Viewing complaint {{ complaints.id }}</h1>
        <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
        <hr>
        <h2>Complaints Overview</h2>
        <div class="list-group mt-4">
-               {% with complaint=complaints.first %}
-                   <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                       <div class="d-flex w-100 justify-content-between">
-                           <h5 class="mb-1">{{ complaint.name }}</h5>
-                           <small>Submitted: {{ complaint.created_at|date:"F d, Y H:i" }}</small>
-                       </div>
-                       <p class="mb-1">Location: {{ complaint.location }}</p>
-                       <p class="mb-1">Description: {{ complaint.description|truncatechars:100 }}</p>
-                       {% if complaint.upload %}
-                           {% if complaint.is_image %}
-                           <img src="{{ complaint.upload.url }}" alt="Image preview" class="img-fluid">
-                           {% elif complaint.is_pdf %}
-                           <iframe src="{{ complaint.upload.url }}" width="100%" height="200"></iframe>
-                           {% elif complaint.is_text %}
-                           <a href="{{ complaint.upload.url }}" target="_blank">View Text File</a>
+                           <h5 class="mb-1">{{ complaints.name }}</h5>
+                       <p class="mb-1">Location: {{ complaints.location }}</p>
+                       <p class="mb-1">Description: {{ complaints.description|truncatechars:100 }}</p>
+                       {% if complaints.upload %}
+                           {% if complaints.is_image %}
+                           <img src="{{ complaints.upload.url }}" alt="Image preview" class="img-fluid">
+                           {% elif complaints.is_pdf %}
+                           <iframe src="{{ complaints.upload.url }}" width="100%" height="200"></iframe>
+                           {% elif complaints.is_text %}
+                           <a href="{{ complaints.upload.url }}" target="_blank">View Text File</a>
                            {% else %}
-                           <a href="{{ complaint.upload.url }}" target="_blank">Download File</a>
+                           <a href="{{ complaints.upload.url }}" target="_blank">Download File</a>
                            {% endif %}
                        {% endif %}
-                       {% if complaint.user %}
-                           <small>By: {{ complaint.user.username }}</small>
+                       {% if complaints.user %}
+                           <small>By: {{ complaints.user.username }}</small>
                        {% else %}
                            <small>By: Anonymous</small>
                        {% endif %}
-                       {% if complaint.review %}
-                           <small>{{ complaint.review }}</small>
+                       {% if complaints.review %}
+                           <small>{{ complaints.review }}</small>
                        {% endif %}
-                       <small>{{ complaint.status }}</small>
-                       {% if complaint.status == 'reviewed' %}
+                       <small>{{ complaints.status }}</small>
+                       {% if complaints.status == 'reviewed' %}
                            <p>Status: Reviewed</p>
-                       {% elif complaint.status == 'in_progress' %}
+                       {% elif complaints.status == 'in_progress' %}
                            <form action="" method="post">
                                {% csrf_token %}
                                <label for="status">Set Status:</label>
@@ -64,15 +59,11 @@
                                <select id="status" name="status">
                                    <option value="in_progress">In Progress</option>
                                    <option value="reviewed">Reviewed</option>
-                                   <option value="resolved">Resolved</option>
                                    <!-- Add more options as needed -->
                                </select>
                                <button type="submit" class="btn btn-primary">Submit</button>
                            </form>
                        {% endif %}
-                   </a>
-               {% endwith %}
-         
        </div>
    </div>
 </body>
