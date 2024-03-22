@@ -38,6 +38,8 @@
                         {% endif %}
                         <!-- Add a link for each complaint -->
                         <a href="{% url 'complaints' complaint.id %}" class="btn btn-primary">View Details</a>
+                        <small> {{complaint.status}} </small>
+
                     </div>
                 </div>
             </div>
