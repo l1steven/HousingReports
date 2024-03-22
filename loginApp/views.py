@@ -3,7 +3,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .models import Complaint
 from .forms import ComplaintForm
-
+from mysite  import settings
+import boto3
 
 @login_required
 def dashboard(request):
@@ -66,3 +67,43 @@ def anonymous_complaint_view(request):
 def complaint_success(request):
     return render(request, 'loginApp/complaint_success.html')
 
+
+def deletecomplaintcommon(request, complaint_id): 
+    complaint = Complaint.objects.filter(id=complaint_id).first()
+    s3_key = complaint.upload.name
+    if complaint is not None:
+        complaint.delete()
+        s3 = boto3.client('s3')
+        s3.delete_object(Bucket=settings.AWS_STORAGE_BUCKET_NAME, Key=s3_key)
+    complaints = Complaint.objects.filter(user=request.user)
+    return render(request, 'loginApp/UserDashboard.html', {'complaints': complaints})
+    
+
+@login_required
+def editcomplaintcommon(request, complaint): 
+    complaint1 = Complaint.objects.filter(id=complaint).first()
+    if request.method == 'POST':
+        form = ComplaintForm(request.POST, request.FILES, instance=complaint1)
+        if form.is_valid():
+            form.save()
+            return redirect('complaint_success')
+    else: 
+        form = ComplaintForm(instance=complaint1)
+
+    return render(request, 'loginApp/edit_form.html', {'form': form})
+
+def handle_complaint_click(request, complaint_id): 
+      complaint = Complaint.objects.filter(id=complaint_id).first()
+    
+      if request.method == 'POST':
+            if complaint:
+                status = request.POST.get('status')
+                review = request.POST.get('review')
+                if status in dict(Complaint.STATUS_CHOICES):
+                    complaint.status = status
+                    if status == 'reviewed':
+                        complaint.review = review
+                    complaint.save()
+                    return render(request, 'loginApp/complaintviews.html', {'complaints': complaint})
+
+      return render(request, 'loginApp/complaintviews.html', {'complaints': complaint})

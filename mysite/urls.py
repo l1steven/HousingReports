@@ -30,4 +30,7 @@ urlpatterns = [
     path('complaint/', views.complaint_form, name='complaint_form'),
     path('complaint_success/', views.complaint_success, name='complaint_success'),
     path('anonymous_complaint/', views.anonymous_complaint_view, name='anonymous_complaint_form'),
+    path('delete_complaint/<int:complaint_id>/', views.deletecomplaintcommon, name='delete_complaint'),
+    path('edit_complaint/<int:complaint>/', views.editcomplaintcommon, name='edit_complaint'),
+    path('complaints/<int:complaint_id>/', views.handle_complaint_click, name='complaints'),
 ]
