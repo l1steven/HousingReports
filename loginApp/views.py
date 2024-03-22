@@ -1,6 +1,8 @@
 import mimetypes
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.core.mail import send_mail
+from django.urls import reverse
 from .models import Complaint
 from .forms import ComplaintForm
 from mysite  import settings
@@ -42,6 +44,19 @@ def complaint_form(request):
             complaint = form.save(commit=False)
             complaint.user = request.user
             complaint.save()
+
+            if request.user.email:
+                subject = "Complaint Submission Confirmed"
+                message = f"Dear {request.user.username}, \n\nYour complaint has been successfully submitted and is now under review. Complaint details:\n\n- Name: {complaint.name}\n- Location: {complaint.location}\n- Description: {complaint.description}\n\nWe will notify you of any updates regarding your complaint status.\n\nThank you for bringing this to our attention."
+
+            send_mail(
+                    subject,
+                    message,
+                    settings.EMAIL_HOST_USER,
+                    [request.user.email],
+                    fail_silently=False,
+                )
+
             return redirect('complaint_success')
     else:
         form = ComplaintForm()
@@ -100,10 +115,28 @@ def handle_complaint_click(request, complaint_id):
                 status = request.POST.get('status')
                 review = request.POST.get('review')
                 if status in dict(Complaint.STATUS_CHOICES):
+                    previous_status = complaint.status
+
                     complaint.status = status
                     if status == 'reviewed':
                         complaint.review = review
                     complaint.save()
+
+                    if previous_status != status and complaint.user and complaint.user.email:
+                        subject = "Complaint Update"
+                        message = f'Your complaint status has changed to {complaint.get_status_display()}.'
+                        if status == 'reviewed':
+                            message += f' Review notes: {review}'
+                        
+                        
+                        send_mail(
+                            subject,
+                            message,
+                            settings.EMAIL_HOST_USER,
+                            [complaint.user.email],
+                            fail_silently=False,
+                        )
+
                     return render(request, 'loginApp/complaintviews.html', {'complaints': complaint})
 
       return render(request, 'loginApp/complaintviews.html', {'complaints': complaint})
