@@ -12,6 +12,9 @@
 </head>
 <body>
    <div class="container mt-4 text-center">
+    <a href="/">
+        Back to dashboard
+    </a>
        <h1>Welcome, {{ user.username }}! Viewing complaint {{ complaints.id }}</h1>
        <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
        <hr>
@@ -64,6 +67,7 @@
                                <button type="submit" class="btn btn-primary">Submit</button>
                            </form>
                        {% endif %}
+
        </div>
    </div>
 </body>
