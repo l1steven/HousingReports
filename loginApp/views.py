@@ -47,7 +47,7 @@ def complaint_form(request):
 
             if request.user.email:
                 subject = "Complaint Submission Confirmed"
-                message = f"Dear {request.user.username}, \n\nYour complaint has been successfully submitted and is now under review. Complaint details:\n\n- Name: {complaint.name}\n- Location: {complaint.location}\n- Description: {complaint.description}\n\nWe will notify you of any updates regarding your complaint status.\n\nThank you for bringing this to our attention."
+                message = f"Dear {request.user.username}, \n\nYour complaint has been successfully submitted and is now under review. \n\nComplaint details:\n- Name: {complaint.name}\n- Location: {complaint.location}\n- Description: {complaint.description}\n\nWe will notify you of any updates regarding your complaint status.\n\nThank you for bringing this to our attention."
 
             send_mail(
                     subject,
@@ -124,11 +124,12 @@ def handle_complaint_click(request, complaint_id):
 
                     if previous_status != status and complaint.user and complaint.user.email:
                         subject = "Complaint Update"
-                        message = f'Your complaint status has changed to {complaint.get_status_display()}.'
+                        message = f'Dear {request.user.username},\n\nYour complaint status has changed to: {complaint.get_status_display()}.\n\nComplaint details:\n- Name: {complaint.name}\n- Location: {complaint.location}\n- Description: {complaint.description}\n'
                         if status == 'reviewed':
-                            message += f' Review notes: {review}'
-                        
-                        
+                            message += f'Review notes: {review}\nWe appreciate your patience as we reviewed your complaint. Thank you for bringing this issue to our attention. Your input is invaluable to us in ensuring a safe and comfortable environment'
+                        else:
+                            message += f'Your complaint is now being actively addressed. We are committed to resolving it as swiftly as possible. You will receive further updates as we progress. Please feel free to reach out if you have any questions or need additional assistance in the meantime.'
+                            
                         send_mail(
                             subject,
                             message,
