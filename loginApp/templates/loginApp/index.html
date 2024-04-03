@@ -9,10 +9,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Google OAuth Project</title>
+    <title>Housing Reporting App UVA</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            color: navy;
+        }
+
+        .btn-orange {
+            color: #fff;
+            background-color: #ff7f0e;
+            border-color: #ff7f0e;
+        }
+
+        .btn-orange:hover {
+            color: #fff;
+            background-color: #e65c00;
+            border-color: #e65c00;
+        }
+    </style>
 </head>
 <body>
     <div class="container text-center mt-4">
+       <img src="https://projectb28.s3.amazonaws.com/static/rotunda.png" alt="Rotunda Image" width="300" height="200">
         <h1>UVA Housing Reporting App</h1>
         {% if user.is_authenticated %}
             <p>Welcome, You are logged in as {{ user.username }}</p>
@@ -22,8 +41,10 @@
             </div>
         {% else %}
             <a href="{% provider_login_url 'google' %}" class="btn btn-primary">Login With Google</a>
-            <a href="{% url 'anonymous_complaint_form' %}" class="btn btn-warning">Submit an Anonymous Complaint</a>
+            <a href="{% url 'anonymous_complaint_form' %}" class="btn btn-orange">Submit an Anonymous Complaint</a>
         {% endif %}
     </div>
 </body>
 </html>
+
+

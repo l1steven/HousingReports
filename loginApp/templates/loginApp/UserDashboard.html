@@ -102,12 +102,6 @@
                             {% csrf_token %}
                             <button type="submit" class="btn btn-danger">Edit</button>
                         </form>
-
-                    {% if complaint.review %}
-                    <small> {{complaint.review}} </small>
-                    {% endif %}
-                    <small> {{complaint.status}} </small>
-    
                     </div>
                 </div>
             </div>

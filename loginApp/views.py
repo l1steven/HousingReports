@@ -5,7 +5,7 @@ from django.core.mail import send_mail
 from django.urls import reverse
 from .models import Complaint
 from .forms import ComplaintForm
-from mysite  import settings
+from mysite import settings
 import boto3
 
 @login_required
