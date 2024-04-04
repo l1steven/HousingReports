@@ -7,3 +7,6 @@ psycopg2
 django-bootstrap5
 django-storages
 boto3
+django-haystack
+django-mptt
+django-widget-tweaks
