@@ -10,3 +10,10 @@ boto3
 django-haystack
 django-mptt
 django-widget-tweaks
+markdown2
+pillow
+asgiref
+sqlparse
+tzdata
+django-js-asset
+typing-extensions
