@@ -12,7 +12,7 @@ from django.conf import settings
 
 
 # General
-FORUM_NAME = getattr(settings, 'MACHINA_FORUM_NAME', 'Machina')
+FORUM_NAME = getattr(settings, 'MACHINA_FORUM_NAME', 'B-28')
 MARKUP_LANGUAGE = getattr(
     settings, 'MACHINA_MARKUP_LANGUAGE',
     ('machina.core.markdown.markdown', {'safe_mode': True, 'extras': {'break-on-newline': True}})
