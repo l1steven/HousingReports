@@ -17,3 +17,5 @@ sqlparse
 tzdata
 django-js-asset
 typing-extensions
+pytest
+factory
