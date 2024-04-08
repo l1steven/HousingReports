@@ -76,8 +76,11 @@ def complaint_success(request):
 def deletecomplaintcommon(request, complaint_id): 
     complaint = Complaint.objects.filter(id=complaint_id).first()
     s3_key = complaint.upload.name
+    s3_key = complaint.upload.name
     if complaint is not None:
         complaint.delete()
+        s3 = boto3.client('s3')
+        s3.delete_object(Bucket=settings.AWS_STORAGE_BUCKET_NAME, Key=s3_key)
         s3 = boto3.client('s3')
         s3.delete_object(Bucket=settings.AWS_STORAGE_BUCKET_NAME, Key=s3_key)
     complaints = Complaint.objects.filter(user=request.user)
@@ -96,6 +99,7 @@ def editcomplaintcommon(request, complaint):
         form = ComplaintForm(instance=complaint1)
 
     return render(request, 'loginApp/edit_form.html', {'form': form})
+
 class ThreadListView(ListView):
     template_name="thread_list.html"
     context_object_name="list"
@@ -120,3 +124,21 @@ class CreatePostView(CreateView):
 
     def get_success_url(self):
         return reverse_lazy('thread_detail', kwargs={'pk': self.kwargs['pk']})
+
+
+def handle_complaint_click(request, complaint_id): 
+      complaint = Complaint.objects.filter(id=complaint_id).first()
+    
+      if request.method == 'POST':
+            if complaint:
+                status = request.POST.get('status')
+                review = request.POST.get('review')
+                if status in dict(Complaint.STATUS_CHOICES):
+                    complaint.status = status
+                    if status == 'reviewed':
+                        complaint.review = review
+                    complaint.save()
+                    return render(request, 'loginApp/complaintviews.html', {'complaints': complaint})
+
+      return render(request, 'loginApp/complaintviews.html', {'complaints': complaint})
+

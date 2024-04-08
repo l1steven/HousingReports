@@ -30,8 +30,35 @@
     </style>
 </head>
 <body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">UVA Housing Reporting App</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Reporting Resources
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <li><a class="dropdown-item" href="https://housing.virginia.edu/safety" target="_blank">UVA Housing</a></li>
+                            <li><a class="dropdown-item" href="https://housing.virginia.edu/emergency-procedures" target="_blank">UVA Emergencies</a></li>
+                            <li><a class="dropdown-item" href="https://offgroundshousing.student.virginia.edu/resources/article/1789-off-grounds-housing-guid" target="_blank">Off-Grounds Housing</a></li>
+                            <li><a class="dropdown-item" href="https://www.hud.gov/complaints_home" target="_blank">Dept. of Housing</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Content -->
     <div class="container text-center mt-4">
-       <img src="https://projectb28.s3.amazonaws.com/static/rotunda.png" alt="Rotunda Image" width="300" height="200">
+       <img src="https://projectb28.s3.amazonaws.com/static/rotunda.png" alt="Rotunda Image" width="750" height="550">
         <h1>UVA Housing Reporting App</h1>
         {% if user.is_authenticated %}
             <p>Welcome, You are logged in as {{ user.username }}</p>
