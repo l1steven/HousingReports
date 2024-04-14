@@ -102,7 +102,7 @@ TEMPLATES = [
             BASE_DIR / 'templates',
             MACHINA_MAIN_TEMPLATE_DIR,
         ],
-        #'APP_DIRS': True,
+        'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -111,10 +111,10 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'machina.core.context_processors.metadata',
             ],
-            'loaders': [
-                'django.template.loaders.filesystem.Loader',
-                'django.template.loaders.app_directories.Loader',
-            ]
+            # 'loaders': [
+            #     'django.template.loaders.filesystem.Loader',
+            #     'django.template.loaders.app_directories.Loader',
+            # ]
         },
     },
 ]
