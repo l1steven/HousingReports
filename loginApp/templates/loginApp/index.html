@@ -22,18 +22,36 @@
             color: navy;
             background: url('https://projectb28.s3.amazonaws.com/static/rotunda.png') no-repeat center center fixed;
             background-size: cover;
+            overflow: hidden;
+        }
+
+        .background-with-overlay {
+            position: fixed; /* Use fixed to cover the entire viewport and stay in place on scroll */
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://projectb28.s3.amazonaws.com/static/rotunda.png') no-repeat center center;
+            background-size: cover;
+            z-index: -1; /* Keep it behind the content */
         }
 
         .dark-overlay {
-            background-color: rgba(0, 0, 0, 0.5);
-            position: absolute;
+            background-color: rgba(0, 0, 0, 0.2); /* Apply darkening effect */
+            position: absolute; /* Position it over the background image */
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
+            right: 0;
+            bottom: 0;
+        }
+
+        .content {
+            z-index: 1; /* Ensure content is above the background and overlay */
+            position: relative; /* Adjust positioning as needed */
             display: flex;
             align-items: center;
             justify-content: center;
+            height: 100%;
         }
 
         .login-box {
@@ -107,6 +125,11 @@
 </head>
 <body>
 
+    <div class="background-with-overlay">
+        <div class="dark-overlay"></div>
+    </div>
+    <div class="dark-overlay"></div>
+
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
@@ -133,8 +156,7 @@
     </nav>
 
     <!-- Content -->
-    <div class="dark-overlay">
-        <!-- <img src="https://projectb28.s3.amazonaws.com/static/rotunda.png" alt="Rotunda Image" width="300" height="200"> -->
+    <div class="content">
         <div class="login-box">   
             <img src="https://projectb28.s3.amazonaws.com/static/UHR-Logo-Transparent.png" class="logo" alt="App Logo" width="200" height="auto">
             <!-- <h1>UVA Housing Reporting App</h1> -->
