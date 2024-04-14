@@ -1,4 +1,5 @@
 import mimetypes
+from django.db.models.query import QuerySet
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
@@ -6,6 +7,10 @@ from django.urls import reverse
 from .models import Complaint
 from .forms import ComplaintForm
 from mysite import settings
+from django.utils import timezone
+from django.views.generic import ListView, DetailView, CreateView
+from django.urls import reverse_lazy
+from .models import Thread, Post
 import boto3
 
 @login_required
@@ -86,8 +91,11 @@ def complaint_success(request):
 def deletecomplaintcommon(request, complaint_id): 
     complaint = Complaint.objects.filter(id=complaint_id).first()
     s3_key = complaint.upload.name
+    s3_key = complaint.upload.name
     if complaint is not None:
         complaint.delete()
+        s3 = boto3.client('s3')
+        s3.delete_object(Bucket=settings.AWS_STORAGE_BUCKET_NAME, Key=s3_key)
         s3 = boto3.client('s3')
         s3.delete_object(Bucket=settings.AWS_STORAGE_BUCKET_NAME, Key=s3_key)
     complaints = Complaint.objects.filter(user=request.user)
@@ -106,6 +114,32 @@ def editcomplaintcommon(request, complaint):
         form = ComplaintForm(instance=complaint1)
 
     return render(request, 'loginApp/edit_form.html', {'form': form})
+
+class ThreadListView(ListView):
+    template_name="thread_list.html"
+    context_object_name="list"
+    def get_queryset(self):
+        return Thread.objects.order_by("-created_at")
+
+class ThreadDetailView(DetailView):
+    model = Thread
+
+class CreateThreadView(CreateView):
+    model = Thread
+    fields = ['title']
+    success_url = reverse_lazy('thread_list')
+
+class CreatePostView(CreateView):
+    model = Post
+    fields = ['content']
+    
+    def form_valid(self, form):
+        form.instance.thread_id = self.kwargs['pk']
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('thread_detail', kwargs={'pk': self.kwargs['pk']})
+
 
 def handle_complaint_click(request, complaint_id): 
       complaint = Complaint.objects.filter(id=complaint_id).first()
@@ -141,3 +175,4 @@ def handle_complaint_click(request, complaint_id):
                     return render(request, 'loginApp/complaintviews.html', {'complaints': complaint})
 
       return render(request, 'loginApp/complaintviews.html', {'complaints': complaint})
+

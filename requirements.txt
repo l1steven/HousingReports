@@ -7,3 +7,16 @@ psycopg2
 django-bootstrap5
 django-storages
 boto3
+django-haystack
+django-mptt
+django-widget-tweaks
+markdown2
+pillow
+asgiref
+sqlparse
+tzdata
+django-js-asset
+typing-extensions
+pytest
+factory-boy
+faker
