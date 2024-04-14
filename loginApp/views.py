@@ -76,10 +76,14 @@ def complaint_success(request):
 def deletecomplaintcommon(request, complaint_id): 
     complaint = Complaint.objects.filter(id=complaint_id).first()
     if complaint is not None:
-        s3_key = complaint.upload.name
+        if complaint.upload:  # Check if upload field is not null
+            s3_key = complaint.upload.name
+            s3 = boto3.client('s3')
+            s3.delete_object(Bucket=settings.AWS_STORAGE_BUCKET_NAME, Key=s3_key)
+        
+        # Delete the complaint from the database after handling the file deletion
         complaint.delete()
-        s3 = boto3.client('s3')
-        s3.delete_object(Bucket=settings.AWS_STORAGE_BUCKET_NAME, Key=s3_key)
+
     complaints = Complaint.objects.filter(user=request.user)
     return render(request, 'loginApp/UserDashboard.html', {'complaints': complaints})
     
