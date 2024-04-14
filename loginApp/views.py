@@ -81,8 +81,6 @@ def deletecomplaintcommon(request, complaint_id):
         complaint.delete()
         s3 = boto3.client('s3')
         s3.delete_object(Bucket=settings.AWS_STORAGE_BUCKET_NAME, Key=s3_key)
-        s3 = boto3.client('s3')
-        s3.delete_object(Bucket=settings.AWS_STORAGE_BUCKET_NAME, Key=s3_key)
     complaints = Complaint.objects.filter(user=request.user)
     return render(request, 'loginApp/UserDashboard.html', {'complaints': complaints})
     
