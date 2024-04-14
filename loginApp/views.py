@@ -178,7 +178,7 @@ def handle_complaint_click(request, complaint_id):
 
                     if previous_status != status and complaint.user and complaint.user.email:
                         subject = "Complaint Update"
-                        message = f'Dear {request.user.username},\n\nYour complaint status has changed to: {complaint.get_status_display()}.\n\nComplaint details:\n- Name: {complaint.name}\n- Location: {complaint.location}\n- Description: {complaint.description}\n\n'
+                        message = f'Dear {complaint.user},\n\nYour complaint status has changed to: {complaint.get_status_display()}.\n\nComplaint details:\n- Name: {complaint.name}\n- Location: {complaint.location}\n- Description: {complaint.description}\n\n'
                         if status == 'reviewed':
                             message += f'Review notes:\n{review}\n\nWe appreciate your patience as we reviewed your complaint. Thank you for bringing this issue to our attention. Your input is invaluable to us in ensuring a safe and comfortable environment'
                         else:
