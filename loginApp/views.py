@@ -105,15 +105,16 @@ def deletecomplaintcommon(request, complaint_id):
         return HttpResponseRedirect(reverse('dashboard'))
 
     if request.method == 'POST':
-        s3 = boto3.client('s3')
-        s3_url = complaint.upload.url
-        parsed_url = urlparse(s3_url)
-        s3_key = parsed_url.path[1:] 
-        try:
-            s3.delete_object(Bucket=settings.AWS_STORAGE_BUCKET_NAME, Key=s3_key)
-        except Exception as e:
-            messages.error(request, "Error deleting file from storage.")
-            return HttpResponseRedirect(reverse('dashboard'))
+        if complaint.upload: 
+            s3 = boto3.client('s3')
+            s3_url = complaint.upload.url
+            parsed_url = urlparse(s3_url)
+            s3_key = parsed_url.path[1:] 
+            try:
+                s3.delete_object(Bucket=settings.AWS_STORAGE_BUCKET_NAME, Key=s3_key)
+            except Exception as e:
+                messages.error(request, "Error deleting file from storage.")
+                return HttpResponseRedirect(reverse('dashboard'))
         complaint.delete()
         messages.success(request, "Complaint deleted successfully.")
         return HttpResponseRedirect(reverse('dashboard'))
