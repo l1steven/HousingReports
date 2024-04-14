@@ -73,18 +73,31 @@ def complaint_success(request):
     return render(request, 'loginApp/complaint_success.html')
 
 
-def deletecomplaintcommon(request, complaint_id): 
-    complaint = Complaint.objects.filter(id=complaint_id).first()
-    s3_key = complaint.upload.name
-    s3_key = complaint.upload.name
-    if complaint is not None:
+from django.contrib import messages
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+from django.shortcuts import get_object_or_404
+
+@login_required
+def deletecomplaintcommon(request, complaint_id):
+    complaint = get_object_or_404(Complaint, id=complaint_id)
+    if request.user != complaint.user and not request.user.is_superuser:
+        messages.error(request, "You do not have permission to delete this complaint.")
+        return HttpResponseRedirect(reverse('dashboard'))
+
+    if request.method == 'POST':
+        s3 = boto3.client('s3')
+        s3_key = complaint.upload.name
+        try:
+            s3.delete_object(Bucket=settings.AWS_STORAGE_BUCKET_NAME, Key=s3_key)
+        except Exception as e:
+            messages.error(request, "Error deleting file from storage.")
+            return HttpResponseRedirect(reverse('dashboard'))
         complaint.delete()
-        s3 = boto3.client('s3')
-        s3.delete_object(Bucket=settings.AWS_STORAGE_BUCKET_NAME, Key=s3_key)
-        s3 = boto3.client('s3')
-        s3.delete_object(Bucket=settings.AWS_STORAGE_BUCKET_NAME, Key=s3_key)
-    complaints = Complaint.objects.filter(user=request.user)
-    return render(request, 'loginApp/UserDashboard.html', {'complaints': complaints})
+        messages.success(request, "Complaint deleted successfully.")
+        return HttpResponseRedirect(reverse('dashboard'))
+    return render(request, 'loginApp/delete_confirmation.html', {'complaint': complaint})
+
     
 
 @login_required
