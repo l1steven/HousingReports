@@ -11,6 +11,10 @@ from django.urls import reverse_lazy
 from .models import Thread, Post
 import boto3
 
+from django.contrib import messages
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+from django.shortcuts import get_object_or_404
 @login_required
 def dashboard(request):
     complaints = Complaint.objects.filter(user=request.user) if not request.user.is_superuser else Complaint.objects.all()
