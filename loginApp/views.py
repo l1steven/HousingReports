@@ -10,7 +10,7 @@ from django.views.generic import ListView, DetailView, CreateView
 from django.urls import reverse_lazy
 from .models import Thread, Post
 import boto3
-
+from urllib.parse import urlparse
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.urls import reverse
@@ -91,7 +91,9 @@ def deletecomplaintcommon(request, complaint_id):
 
     if request.method == 'POST':
         s3 = boto3.client('s3')
-        s3_key = complaint.upload.name
+        s3_url = complaint.upload.url
+        parsed_url = urlparse(s3_url)
+        s3_key = parsed_url.path[1:] 
         try:
             s3.delete_object(Bucket=settings.AWS_STORAGE_BUCKET_NAME, Key=s3_key)
         except Exception as e:
