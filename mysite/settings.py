@@ -13,6 +13,9 @@ import os
 import secrets
 from pathlib import Path
 
+# from dotenv import load_dotenv
+# load_dotenv()
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -217,6 +220,7 @@ if 'DATABASE_URL' in os.environ:
         DATABASES = {'default': dj_database_url.config(ssl_require=False)}
 import django_heroku
 django_heroku.settings(locals(),databases=False)
+
 # if 'DATABASE_URL' in os.environ:
 #     import dj_database_url
 #     DATABASES = {'default': dj_database_url.config()}
@@ -244,3 +248,11 @@ from machina import MACHINA_MAIN_STATIC_DIR
 STATICFILES_DIRS = (
     MACHINA_MAIN_STATIC_DIR,
     )
+
+# Email configuration
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')

@@ -11,15 +11,109 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Housing Reporting App UVA</title>
     <style>
-        body {
-            font-family: 'Times New Roman', Times, serif;
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+        html, body {
+            height: 100%;
+            margin: 0;
+            /* font-family: 'Times New Roman', Times, serif; */
+            font-family: 'Roboto', sans-serif;
+            font-weight: 300;
             color: navy;
+            background: url('https://projectb28.s3.amazonaws.com/static/rotunda.png') no-repeat center center fixed;
+            background-size: cover;
+            overflow: hidden;
+        }
+
+        .background-with-overlay {
+            position: fixed; /* Use fixed to cover the entire viewport and stay in place on scroll */
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://projectb28.s3.amazonaws.com/static/rotunda.png') no-repeat center center;
+            background-size: cover;
+            z-index: -1; /* Keep it behind the content */
+        }
+
+        .dark-overlay {
+            background-color: rgba(0, 0, 0, 0.2); /* Apply darkening effect */
+            position: absolute; /* Position it over the background image */
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+
+        .content {
+            z-index: 1; /* Ensure content is above the background and overlay */
+            position: relative; /* Adjust positioning as needed */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+        }
+
+        .login-box {
+            background-color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 80%;
+            max-width: 300px;
+        }
+
+        .logo {
+            margin-bottom: 5px; /* Adjust spacing as needed */
+            margin-top: 0px;
+            align-self: center;
+            width: 150px;
+        }
+
+        .login-box > a {
+            width: 100%; /* Make buttons expand to the container width */
+            margin-bottom: 10px; /* Adds space between the buttons */
+            text-align: center;
+            border-radius: 10px;
+        }
+
+        .google-btn {
+            color: #1F1F1F;
+            border-color: #747775;
+            background-color: white;
+            border-width: 1px;
+            display: inline-flex; /* Flex container */
+            align-items: center; /* Vertical centering */
+            justify-content: center; /* Horizontal centering */
+            text-decoration: none; /* Removes the underline from links */
+            font-size: 15px;
+            padding: 0.5em 1em; /* Adds space inside the button */
+            border-radius: 10px; /* Rounded corners for the button */
+            margin-bottom: 10px; /* Adds space between the buttons */
+            width: 100%; /* Make buttons expand to the container width */
+            box-sizing: border-box; /* Includes padding and border in the element's total width and height */
+        }
+
+        .google-btn:hover {
+            background-color: #F2F2F2; /* Google button color */
+            border-color: none;
+        }
+
+        .google-logo {
+            margin-right: 10px; /* Space between the logo and text */
+            width: 23px;
+            height: 23px;
         }
 
         .btn-orange {
             color: #fff;
             background-color: #ff7f0e;
             border-color: #ff7f0e;
+            font-size: 15px;
         }
 
         .btn-orange:hover {
@@ -30,6 +124,11 @@
     </style>
 </head>
 <body>
+
+    <div class="background-with-overlay">
+        <div class="dark-overlay"></div>
+    </div>
+    <div class="dark-overlay"></div>
 
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -57,19 +156,23 @@
     </nav>
 
     <!-- Content -->
-    <div class="container text-center mt-4">
-       <img src="https://projectb28.s3.amazonaws.com/static/rotunda.png" alt="Rotunda Image" width="750" height="550">
-        <h1>UVA Housing Reporting App</h1>
-        {% if user.is_authenticated %}
-            <p>Welcome, You are logged in as {{ user.username }}</p>
-            <div class="btn-group" role="group">
-                <a href="{% url 'dashboard' %}" class="btn btn-success">Dashboard</a>
-                <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
-            </div>
-        {% else %}
-            <a href="{% provider_login_url 'google' %}" class="btn btn-primary">Login With Google</a>
-            <a href="{% url 'anonymous_complaint_form' %}" class="btn btn-orange">Submit an Anonymous Complaint</a>
-        {% endif %}
+    <div class="content">
+        <div class="login-box">   
+            <img src="https://projectb28.s3.amazonaws.com/static/UHR-Logo-Transparent.png" class="logo" alt="App Logo" width="200" height="auto">
+            <!-- <h1>UVA Housing Reporting App</h1> -->
+            {% if user.is_authenticated %}
+                <p>Welcome, You are logged in as {{ user.username }}</p>
+                <div class="btn-group" role="group">
+                    <a href="{% url 'dashboard' %}" class="btn btn-success">Dashboard</a>
+                    <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
+                </div>
+            {% else %}
+                <a href="{% provider_login_url 'google' %}" class="btn google-btn">
+                    <img src="https://projectb28.s3.amazonaws.com/static/google-logo.png" class="google-logo" alt="Google Logo" width="20" height="20">Login With Google
+                </a>
+                <a href="{% url 'anonymous_complaint_form' %}" class="btn btn-orange">Submit an Anonymous Complaint</a>
+            {% endif %}
+        </div> 
     </div>
 </body>
 </html>
