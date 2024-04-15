@@ -1,52 +1,81 @@
 {% load static %}
 {% load django_bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
-    {% bootstrap_css %}
-    {% bootstrap_javascript %}
+    <style>
+        header {
+            background-color: #fff; /* White background for the header */
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,.1); /* A subtle shadow for depth */
+        }
+
+        .complaint-card {
+            margin-bottom: 20px;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+        }
+
+        .card-text {
+            font-size: 1rem;
+        }
+
+        .card-link {
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
-    <div class="container mt-4 text-center">
-        <h1>Welcome, {{ user.username }}! You're an admin user.</h1>
-        <div class="my-4">
-            <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
+    <header>
+        <div class="container">
+            <h1>Welcome, {{ user.username }}! You're an admin user</h1>
+            <div>
+                <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
+            </div>
         </div>
+    </header>
 
-        <h2>Complaints Overview</h2>
+    <div class="container mt-4">
+        <h2>Complaints</h2>
         <div class="row">
             {% for complaint in complaints %}
-                <div class="col-md-4">
-                    <div class="card mb-4">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ complaint.name }}</h5>
-                            <p class="card-text">{{ complaint.description }}</p>
-                            {% if complaint.review %}
-                                <small>{{ complaint.review }}</small>
+            <div class="col-md-4 complaint-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ complaint.name }}</h5>
+                        <p class="card-text">{{ complaint.description }}</p>
+                        {% if complaint.review %}
+                        <small> {{complaint.review}} </small>
+                        {% endif %}
+                        {% if complaint.upload %}
+                            {% if complaint.is_image %}
+                                <img src="{{ complaint.upload.url }}" alt="Image preview" class="img-fluid">
+                            {% elif complaint.is_pdf %}
+                                <iframe src="{{ complaint.upload.url }}" width="100%" height="200"></iframe>
+                            {% elif complaint.is_text %}
+                                <a href="{{ complaint.upload.url }}" target="_blank">View Text File</a>
+                            {% else %}
+                                <a href="{{ complaint.upload.url }}" target="_blank">Download File</a>
                             {% endif %}
-                            {% if complaint.upload %}
-                                {% if complaint.is_image %}
-                                    <img src="{{ complaint.upload.url }}" alt="Image preview" class="img-fluid">
-                                {% elif complaint.is_pdf %}
-                                    <iframe src="{{ complaint.upload.url }}" width="100%" height="200"></iframe>
-                                {% elif complaint.is_text %}
-                                    <a href="{{ complaint.upload.url }}" target="_blank">View Text File</a>
-                                {% else %}
-                                    <a href="{{ complaint.upload.url }}" target="_blank">Download File</a>
-                                {% endif %}
-                            {% endif %}
-                            <a href="{% url 'complaints' complaint.id %}" class="btn btn-primary mt-2">View Details</a>
-                            <small>Status: {{ complaint.status }}</small>
-                        </div>
+                        {% endif %}
+                        <a href="{% url 'complaints' complaint.id %}" class="btn btn-primary card-link">View Details</a>
+                        <small> {{complaint.status}} </small>
                     </div>
                 </div>
+            </div>
             {% empty %}
-                <p>No complaints have been submitted yet.</p>
+                <p class="col">No complaints have been submitted yet.</p>
             {% endfor %}
         </div>
     </div>
 </body>
 </html>
+
