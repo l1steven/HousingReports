@@ -59,7 +59,7 @@
         </div>
     </header>
 
-    <div class="container mt-3">
+    <div class="container mt-3" style="max-height: 400px; overflow-y: auto;">
         <form method="post">
             {% csrf_token %}
             {% bootstrap_form form %}
