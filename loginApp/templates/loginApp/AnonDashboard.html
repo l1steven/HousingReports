@@ -45,7 +45,6 @@
 
                             <p class="card-text">Location: {{ complaint.location }}</p>
                             <p class="card-text">Description: {{ complaint.description }}</p>
-                            {% endif %}
                             {% if complaint.upload %}
                                 {% if complaint.is_image %}
                                     <img src="{{ complaint.upload.url }}" alt="Image preview" class="img-fluid">

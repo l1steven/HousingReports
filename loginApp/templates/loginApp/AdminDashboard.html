@@ -79,9 +79,10 @@
             <div class="col-md-4 mb-3">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">{{ Name: complaint.name }}</h5>
-                        <p class="card-text">{{ Location: complaint.location }}</p>
-                        <p class="card-text">{{ Description: complaint.description }}</p>
+                        <h5 class="card-title">Name: {{ complaint.name }}</h5>
+                        <p class="card-text">Location: {{  complaint.location }}</p>
+                        <p class="card-text">Description:  {{ complaint.description }}</p>
+                        <small> Status: {{complaint.status}} </small>
                         {% if complaint.review %}
                         <small> Review: {{complaint.review}} </small>
                         {% endif %}
@@ -97,7 +98,6 @@
                             {% endif %}
                         {% endif %}
                         <a href="{% url 'complaints' complaint.id %}" class="btn btn-primary btn-sm mt-2">View Details</a>
-                        <small> {{complaint.status}} </small>
                     </div>
                 </div>
             </div>
