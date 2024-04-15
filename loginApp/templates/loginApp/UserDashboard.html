@@ -43,7 +43,9 @@
             box-shadow: 0 2px 4px rgba(0,0,0,.1); /* Adding shadow to cards for depth */
         }
         .card-body {
-            padding: 2rem; /* More padding within cards */
+            max-height: 150px; /* Set maximum height for card body */
+            overflow-y: auto; /* Add vertical scroll if content exceeds max height */
+            padding: 1rem;
         }
         .card-title, .card-subtitle, .card-text {
             margin-bottom: 1rem; /* Uniform margin-bottom */
