@@ -8,10 +8,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Dashboard</title>
-    {% load static %}
-    {% load django_bootstrap5 %}
-    {% bootstrap_css %}
-    {% bootstrap_javascript %}
     <style>
         body {
             font-family: 'Times New Roman', Times, serif;
@@ -104,6 +100,14 @@
                             <h6 class="card-subtitle mb-2 text-muted">{{ complaint.location }}</h6>
                             <p class="card-text">{{ complaint.description }}</p>
                             <!-- Display complaint upload, if exists -->
+                            {% if complaint.status %}
+                            <div>Status: {{ complaint.status }}</div>
+                            {% endif %}
+                        
+                         <!-- Display complaint review if it exists -->
+                            {% if complaint.review %}
+                            <div>Review: {{ complaint.review }}</div>
+                            {% endif %}
                             {% if complaint.upload %}
                                 {% if complaint.is_image %}
                                     <img src="{{ complaint.upload.url }}" alt="Image preview" class="img-fluid">
