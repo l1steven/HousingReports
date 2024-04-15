@@ -13,7 +13,6 @@ from .forms import ComplaintForm
 from .models import Complaint
 from .models import Thread, Post
 
-
 @login_required
 def dashboard(request):
     complaints = Complaint.objects.filter(
