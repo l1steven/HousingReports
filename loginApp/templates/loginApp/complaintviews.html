@@ -6,72 +6,103 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Admin Dashboard</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <style>
+        /* Matching font and container style */
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            color: navy;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa; /* A light grey background */
+        }
+        .container {
+            margin: 2rem auto;
+            max-width: 960px; /* Wider container for better layout on desktop */
+            padding: 0 1rem;
+        }
+        .btn {
+            font-size: 1rem;
+            padding: 0.75rem 1.5rem; /* Larger buttons */
+            border-radius: 0.5rem; /* Rounded corners for buttons */
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin: 0.25rem; /* Spacing around buttons */
+        }
+        .mt-4 {
+            margin-top: 4rem; /* Increased top margin */
+        }
+        .text-center {
+            text-align: center; /* Center align text */
+        }
+        .list-group {
+            margin-top: 2rem; /* Increased top margin for the list */
+        }
+        .list-group-item {
+            padding: 1rem; /* Increased padding for list items */
+        }
+    </style>
 </head>
 <body>
-   <div class="container mt-4 text-center">
-    <a href="/">
-        Back to dashboard
-    </a>
-       <h1>Welcome, {{ user.username }}! Viewing complaint {{ complaints.id }}</h1>
-       <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
-       <hr>
-       <h2>Complaints Overview</h2>
-       <div class="list-group mt-4">
-                           <h5 class="mb-1">{{ complaints.name }}</h5>
-                       <p class="mb-1">Location: {{ complaints.location }}</p>
-                       <p class="mb-1">Description: {{ complaints.description|truncatechars:100 }}</p>
-                       {% if complaints.upload %}
-                           {% if complaints.is_image %}
-                           <img src="{{ complaints.upload.url }}" alt="Image preview" class="img-fluid">
-                           {% elif complaints.is_pdf %}
-                           <iframe src="{{ complaints.upload.url }}" width="100%" height="200"></iframe>
-                           {% elif complaints.is_text %}
-                           <a href="{{ complaints.upload.url }}" target="_blank">View Text File</a>
-                           {% else %}
-                           <a href="{{ complaints.upload.url }}" target="_blank">Download File</a>
-                           {% endif %}
-                       {% endif %}
-                       {% if complaints.user %}
-                           <small>By: {{ complaints.user.username }}</small>
-                       {% else %}
-                           <small>By: Anonymous</small>
-                       {% endif %}
-                       {% if complaints.review %}
-                           <small>{{ complaints.review }}</small>
-                       {% endif %}
-                       <small>{{ complaints.status }}</small>
-                       {% if complaints.status == 'reviewed' %}
-                           <p>Status: Reviewed</p>
-                       {% elif complaints.status == 'in_progress' %}
-                           <form action="" method="post">
-                               {% csrf_token %}
-                               <label for="status">Set Status:</label>
-                               <select id="status" name="status">
-                                   <option value="in_progress" selected>In Progress</option>
-                                   <option value="reviewed">Reviewed</option>
-                                   <label for="review">Enter your review:</label>
-                                   <br>
-        <textarea id="review" name="review" rows="4" cols="50"></textarea><br>
-                               </select>
-                               <button type="submit" class="btn btn-primary">Submit</button>
-                           </form>
-                       {% else %}
-                           <form action="" method="post">
-                               {% csrf_token %}
-                               <label for="status">Set Status:</label>
-                               <select id="status" name="status">
-                                   <option value="in_progress">In Progress</option>
-                                   <option value="reviewed">Reviewed</option>
-                                   <!-- Add more options as needed -->
-                               </select>
-                               <button type="submit" class="btn btn-primary">Submit</button>
-                           </form>
-                       {% endif %}
-
-       </div>
-   </div>
+    <div class="container mt-4 text-center">
+        <a href="/">Back to dashboard</a>
+        <h1>Welcome, {{ user.username }}! Viewing complaint {{ complaints.id }}</h1>
+        <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
+        <hr>
+        <h2>Complaints Overview</h2>
+        <div class="list-group mt-4">
+            <h5 class="list-group-item-heading mb-1">{{ complaints.name }}</h5>
+            <p class="list-group-item-text mb-1">Location: {{ complaints.location }}</p>
+            <p class="list-group-item-text mb-1">Description: {{ complaints.description|truncatechars:100 }}</p>
+            {% if complaints.upload %}
+                {% if complaints.is_image %}
+                    <img src="{{ complaints.upload.url }}" alt="Image preview" class="img-fluid">
+                {% elif complaints.is_pdf %}
+                    <iframe src="{{ complaints.upload.url }}" width="100%" height="200"></iframe>
+                {% elif complaints.is_text %}
+                    <a href="{{ complaints.upload.url }}" target="_blank">View Text File</a>
+                {% else %}
+                    <a href="{{ complaints.upload.url }}" target="_blank">Download File</a>
+                {% endif %}
+            {% endif %}
+            {% if complaints.user %}
+                <small>By: {{ complaints.user.username }}</small>
+            {% else %}
+                <small>By: Anonymous</small>
+            {% endif %}
+            {% if complaints.review %}
+                <small>{{ complaints.review }}</small>
+            {% endif %}
+            <small>{{ complaints.status }}</small>
+            {% if complaints.status == 'reviewed' %}
+                <p>Status: Reviewed</p>
+            {% elif complaints.status == 'in_progress' %}
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <label for="status">Set Status:</label>
+                    <select id="status" name="status">
+                        <option value="in_progress" selected>In Progress</option>
+                        <option value="reviewed">Reviewed</option>
+                    </select>
+                    <label for="review">Enter your review:</label><br>
+                    <textarea id="review" name="review" rows="4" cols="50"></textarea><br>
+                    <button type="submit" class="btn btn-primary mt-2">Submit</button>
+                </form>
+            {% else %}
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <label for="status">Set Status:</label>
+                    <select id="status" name="status">
+                        <option value="in_progress">In Progress</option>
+                        <option value="reviewed">Reviewed</option>
+                        <!-- Add more options as needed -->
+                    </select>
+                    <button type="submit" class="btn btn-primary mt-2">Submit</button>
+                </form>
+            {% endif %}
+        </div>
+    </div>
 </body>
 </html>
