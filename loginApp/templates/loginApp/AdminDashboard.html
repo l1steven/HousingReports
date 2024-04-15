@@ -10,35 +10,65 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
     <style>
+        /* Matching font and card style */
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            color: navy;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa; /* A light grey background */
+        }
         header {
             background-color: #fff; /* White background for the header */
             padding: 1rem;
             box-shadow: 0 2px 4px rgba(0,0,0,.1); /* A subtle shadow for depth */
         }
-
-        .complaint-card {
-            margin-bottom: 20px;
+        .welcome-message {
+            margin: 0;
+            padding: 0 1rem; /* Padding for the welcome message */
+            font-size: 1.2rem; /* Larger font size for welcome message */
+            color: #333; /* Darker text color for contrast */
         }
-
-        .card-title {
-            font-size: 1.25rem;
+        .container {
+            margin: 2rem auto;
+            max-width: 960px; /* Wider container for better layout on desktop */
+            padding: 0 1rem;
         }
-
-        .card-text {
+        .card {
+            margin-bottom: 2rem; /* Increased spacing between cards */
+            border: none; /* Removing border */
+            box-shadow: 0 2px 4px rgba(0,0,0,.1); /* Adding shadow to cards for depth */
+        }
+        .card-body {
+            padding: 2rem; /* More padding within cards */
+        }
+        .card-title, .card-subtitle, .card-text {
+            margin-bottom: 1rem; /* Uniform margin-bottom */
+        }
+        .btn {
             font-size: 1rem;
+            padding: 0.75rem 1.5rem; /* Larger buttons */
+            border-radius: 0.5rem; /* Rounded corners for buttons */
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin: 0.25rem; /* Spacing around buttons */
         }
-
-        .card-link {
-            margin-top: 10px;
+        .btn-sm {
+            font-size: 0.8rem; /* Smaller font size for buttons */
+            padding: 0.7rem 1.4rem; /* Reduced padding for smaller buttons */
+            margin: 0.25rem; /* Keeps spacing around buttons */
+        }
+        .button-group {
+            display: flex;
+            justify-content: start; /* Align buttons to the start of the container */
+            gap: 0.25rem; /* Space between buttons */
         }
     </style>
 </head>
 <body>
     <header>
-        <div class="container">
-            <h1>Welcome, {{ user.username }}! You're an admin user
-                <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
-            </h1>
+        <div class="welcome-message">
+            Welcome, {{ user.username }}! You're an admin user
         </div>
     </header>
 
@@ -46,7 +76,7 @@
         <h2>Complaints</h2>
         <div class="row">
             {% for complaint in complaints %}
-            <div class="col-md-4 complaint-card">
+            <div class="col-md-4 mb-3">
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">{{ complaint.name }}</h5>
@@ -65,7 +95,7 @@
                                 <a href="{{ complaint.upload.url }}" target="_blank">Download File</a>
                             {% endif %}
                         {% endif %}
-                        <a href="{% url 'complaints' complaint.id %}" class="btn btn-primary card-link">View Details</a>
+                        <a href="{% url 'complaints' complaint.id %}" class="btn btn-primary btn-sm mt-2">View Details</a>
                         <small> {{complaint.status}} </small>
                     </div>
                 </div>
@@ -77,4 +107,3 @@
     </div>
 </body>
 </html>
-
