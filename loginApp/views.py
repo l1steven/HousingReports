@@ -180,7 +180,7 @@ def handle_complaint_click(request, complaint_id):
                 previous_status = complaint.status
 
                 complaint.status = status
-                if status == 'reviewed':
+                if status == 'reviewed' or status == 'in_progress':
                     complaint.review = review
                 complaint.save()
 
