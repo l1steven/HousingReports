@@ -18,6 +18,12 @@
             padding: 0;
             background-color: #f8f9fa; /* A light grey background */
         }
+        header {
+            background-color: #fff; /* White background for the header */
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,.1); /* A subtle shadow for depth */
+            font-size: 1.2rem; /* Larger font size for header */
+        }
         .container {
             margin: 2rem auto;
             max-width: 960px; /* Wider container for better layout on desktop */
@@ -43,13 +49,21 @@
         .list-group-item {
             padding: 1rem; /* Increased padding for list items */
         }
+        .return-link {
+            margin-top: 2rem; /* Add space above the return link */
+        }
     </style>
 </head>
 <body>
+    <header>
+        <div style="text-align: right;">
+            <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
+        </div>
+    </header>
+
     <div class="container mt-4 text-center">
         <a href="/">Back to dashboard</a>
         <h1>Welcome, {{ user.username }}! Viewing complaint {{ complaints.id }}</h1>
-        <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
         <hr>
         <h2>Complaints Overview</h2>
         <div class="list-group mt-4">
@@ -103,6 +117,10 @@
                 </form>
             {% endif %}
         </div>
+    </div>
+
+    <div class="return-link text-center">
+        <a href="/">Back to dashboard</a>
     </div>
 </body>
 </html>
