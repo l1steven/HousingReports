@@ -25,7 +25,7 @@
         <div class="container">
             <div class="row">
                 <div class="col">
-                    <h1>Welcome, {{ user.username }}! You're an admin user</h1>
+                    <h1>Welcome, {{ user.username }}! You're an anon user</h1>
                 </div>
                 <div class="col text-end">
                     <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
@@ -57,8 +57,6 @@
                                     <a href="{{ complaint.upload.url }}" target="_blank">Download File</a>
                                 {% endif %}
                             {% endif %}
-                            <a href="{% url 'complaints' complaint.id %}" class="btn btn-primary mt-2">View Details</a>
-                            <small>Status: {{ complaint.status }}</small>
                         </div>
                     </div>
                 </div>
