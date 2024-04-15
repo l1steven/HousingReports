@@ -62,8 +62,7 @@
     </header>
 
     <div class="container mt-4 text-center">
-        <a href="/">Back to dashboard</a>
-        <h1>Welcome, {{ user.username }}! Viewing complaint {{ complaints.id }}</h1>
+        <h1>Welcome, {{ user.username| capfirst }}! Viewing complaint {{ complaints.id }}</h1>
         <hr>
         <h2>Complaints Overview</h2>
         <div class="list-group mt-4">
@@ -120,7 +119,7 @@
     </div>
 
     <div class="return-link text-center">
-        <a href="/">Back to dashboard</a>
+        <a href="/dashboard/">Back to dashboard</a>
     </div>
 </body>
 </html>
