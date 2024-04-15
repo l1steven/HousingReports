@@ -16,9 +16,6 @@ from .models import Thread, Post
 
 @login_required
 def dashboard(request):
-    if request.user.is_superuser:
-        return HttpResponseRedirect(reverse('logout'))
-
     complaints = Complaint.objects.filter(
         user=request.user) if not (request.user.groups.filter(
         name='Site Admin').exists()) else Complaint.objects.all()
