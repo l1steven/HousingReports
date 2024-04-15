@@ -87,12 +87,7 @@
         footer a:hover {
             text-decoration: underline; /* Underline on hover for links */
         }
-        .uploaded-file {
-            margin-top: 1rem; /* Add space above uploaded file content */
-        }
-        .container {
-        margin-bottom: 120px; /* Adjust this value based on the height of your footer */
-    }
+
     </style>
 </head>
 <body>
@@ -116,19 +111,16 @@
                         <h5 class="card-title">{{ complaint.name }}</h5>
                         <h6 class="card-subtitle mb-2 text-muted">{{ complaint.location }}</h6>
                         <p class="card-text">{{ complaint.description }}</p>
-                        <!-- Display complaint upload, if exists -->
                         {% if complaint.upload %}
-                            <div class="uploaded-file">
-                                {% if complaint.is_image %}
-                                    <img src="{{ complaint.upload.url }}" alt="Uploaded Image" class="img-fluid">
-                                {% elif complaint.is_pdf %}
-                                    <iframe src="{{ complaint.upload.url }}" width="100%" height="200"></iframe>
-                                {% elif complaint.is_text %}
-                                    <a href="{{ complaint.upload.url }}" target="_blank">View Text File</a>
-                                {% else %}
-                                    <a href="{{ complaint.upload.url }}" target="_blank">Download File</a>
-                                {% endif %}
-                            </div>
+                            {% if complaint.is_image %}
+                                <img src="{{ complaint.upload.url }}" alt="Image preview" class="img-fluid">
+                            {% elif complaint.is_pdf %}
+                                <iframe src="{{ complaint.upload.url }}" width="100%" height="200"></iframe>
+                            {% elif complaint.is_text %}
+                                <a href="{{ complaint.upload.url }}" target="_blank">View Text File</a>
+                            {% else %}
+                                <a href="{{ complaint.upload.url }}" target="_blank">Download File</a>
+                            {% endif %}
                         {% endif %}
                         <div class="button-group">
                             <form method="post" action="{% url 'delete_complaint' complaint.id %}" class="mt-3">
@@ -154,12 +146,20 @@
             <a href="{% url 'complaint_form' %}" class="btn btn-primary">File a Complaint</a>
             <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
         </div>
-        <footer>
-        This system is a class project and is not monitored. Do not submit real information.
-        For more information, visit
-        <a href="https://s24.cs3240.org/project.html" target="_blank">our project page</a>.
-    </footer>
+        <footer id="myFooter">
+            This system is a class project and is not monitored. Do not submit real information.
+            For more information, visit
+            <a href="https://s24.cs3240.org/project.html" target="_blank">our project page</a>.
+        </footer>
     </div>
+
+    <script>
+        // Calculate the height of the footer
+        var footerHeight = document.getElementById('myFooter').offsetHeight;
+
+        // Set the margin-bottom of the container to accommodate the footer height
+        document.querySelector('.container').style.marginBottom = footerHeight + 'px';
+    </script>
 </body>
 </html>
 
