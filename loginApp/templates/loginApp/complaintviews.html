@@ -89,26 +89,29 @@
                 <small>{{ complaints.review }}</small>
             {% endif %}
             <small>{{ complaints.status }}</small>
-            {% if complaints.status == 'reviewed' %}
-                <p>Status: Reviewed</p>
-            {% else %}
-                <form action="/dashboard/" method="post">
-                    {% csrf_token %}
-                    <label for="status">Set Status:</label>
-                    <select id="status" name="status">
-                        <option value="in_progress" selected>In Progress</option>
-                        <option value="reviewed">Reviewed</option>
-                    </select>
-                    <label for="review">Enter your review:</label><br>
-                    <textarea id="review" name="review" rows="4" cols="50"></textarea><br>
-                    <button type="submit" class="btn btn-primary mt-2">Submit</button>
-                </form>
-            {% endif %}
+            <form action="/dashboard/" method="post" id="complaintForm">
+                {% csrf_token %}
+                <input type="hidden" id="status" name="status" value="in_progress">
+                <label for="review">Enter your review:</label><br>
+                <textarea id="review" name="review" rows="4" cols="50"></textarea><br>
+                <button type="submit" class="btn btn-primary mt-2">Submit</button>
+            </form>
         </div>
     </div>
 
     <div class="return-link text-center">
         <a href="/dashboard/">Back to dashboard</a>
     </div>
+
+    <script>
+        document.getElementById("complaintForm").addEventListener("submit", function(event) {
+            // Get the value from the review textarea
+            var review = document.getElementById("review").value;
+            // Set the value of the status input field to the review value
+            document.getElementById("status").value = review;
+            // Allow the form submission to proceed
+            return true;
+        });
+    </script>
 </body>
 </html>
