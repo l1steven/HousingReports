@@ -79,8 +79,9 @@
             <div class="col-md-4 mb-3">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">{{ complaint.name }}</h5>
-                        <p class="card-text">{{ complaint.description }}</p>
+                        <h5 class="card-title">{{ Name: complaint.name }}</h5>
+                        <p class="card-text">{{ Location: complaint.location }}</p>
+                        <p class="card-text">{{ Description: complaint.description }}</p>
                         {% if complaint.review %}
                         <small> Review: {{complaint.review}} </small>
                         {% endif %}

@@ -96,9 +96,9 @@
                 <div class="col-sm-12 col-md-6 col-lg-4 mb-3">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">{{ complaint.name }}</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">{{ complaint.location }}</h6>
-                            <p class="card-text">{{ complaint.description }}</p>
+                            <h5 class="card-title">Name: {{ complaint.name }}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">Location: {{ complaint.location }}</h6>
+                            <p class="card-text">Description: {{ complaint.description }}</p>
                             <!-- Display complaint upload, if exists -->
                             {% if complaint.status %}
                             <div>Status: {{ complaint.status }}</div>
