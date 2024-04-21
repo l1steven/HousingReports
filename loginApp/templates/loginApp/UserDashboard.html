@@ -2,6 +2,7 @@
 {% load django_bootstrap5 %}
 {% bootstrap_css %}
 {% bootstrap_javascript %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,112 +10,101 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Dashboard</title>
     <style>
-        body {
-            font-family: 'Times New Roman', Times, serif;
-            color: navy;
+        html, body {
+            height: 100%; /* Set the height to take the full viewport height */
             margin: 0;
             padding: 0;
-            background-color: #f8f9fa; /* A light grey background */
+        }
+        .body-container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Use the full viewport height */
         }
         header {
-            background-color: #fff; /* White background for the header */
+            background-color: #fff;
             padding: 1rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,.1); /* A subtle shadow for depth */
-        }
-        .welcome-message {
-            margin: 0;
-            padding: 0 1rem; /* Padding for the welcome message */
-            font-size: 1.2rem; /* Larger font size for welcome message */
-            color: #333; /* Darker text color for contrast */
+            box-shadow: 0 2px 4px rgba(0,0,0,.1);
         }
         .container {
+            flex: 1; /* Allows the container to expand and consume the necessary space */
             margin: 2rem auto;
-            max-width: 960px; /* Wider container for better layout on desktop */
+            max-width: 960px;
             padding: 0 1rem;
         }
-        .card {
-            margin-bottom: 2rem; /* Increased spacing between cards */
-            border: none; /* Removing border */
-            box-shadow: 0 2px 4px rgba(0,0,0,.1); /* Adding shadow to cards for depth */
-        }
-        .card-body {
-            padding: 1rem;
-        }
-        .card-title, .card-subtitle, .card-text {
-            margin-bottom: 1rem; /* Uniform margin-bottom */
-        }
-        .btn {
-            font-size: 1rem;
-            padding: 0.75rem 1.5rem; /* Larger buttons */
-            border-radius: 0.5rem; /* Rounded corners for buttons */
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            margin: 0.25rem; /* Spacing around buttons */
-        }
-        .btn-sm {
-            font-size: 0.8rem; /* Smaller font size for buttons */
-            padding: 0.7rem 1.4rem; /* Reduced padding for smaller buttons */
-            margin: 0.25rem; /* Keeps spacing around buttons */
-        }
-        .button-group {
-            display: flex;
-            justify-content: start; /* Align buttons to the start of the container */
-            gap: 0.25rem; /* Space between buttons */
-        }
         footer {
-            background-color: #343a40; /* Bootstrap dark background */
-            color: #ffffff; /* White text color */
+            background-color: #343a40;
+            color: #ffffff;
             text-align: center;
-            padding: 2rem 0; /* Adjusted padding for top and bottom */
+            padding: 1rem 0;
             width: 100%;
             font-size: 1.2rem;
         }
-        footer a {
-            color: #dcdcdc; /* Lighter text color for links */
-            text-decoration: none; /* No underline on links */
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            color: navy;
+            background-color: #f8f9fa;
         }
-        footer a:hover {
-            text-decoration: underline; /* Underline on hover for links */
+        .welcome-message {
+            font-size: 1.2rem;
+            color: #333;
+            padding: 0 1rem;
+        }
+        .card {
+            margin-bottom: 2rem;
+            border: none;
+            box-shadow: 0 2px 4px rgba(0,0,0,.1);
+        }
+        .card-body {
+            max-height: 300px;
+            overflow-y: auto;
+            padding: 1rem;
+        }
+        .btn, .btn-sm {
+            font-size: 1rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin: 0.25rem;
+        }
+        .btn-sm {
+            font-size: 0.8rem;
+            padding: 0.7rem 1.4rem;
+        }
+        .button-group {
+            display: flex;
+            justify-content: start;
+            gap: 0.25rem;
         }
     </style>
 </head>
 <body>
-    <header>
-        <div class="welcome-message">
-            Welcome, {{ user.username|capfirst }}! This is your User Dashboard - You are logged in as a Regular User. 
-            Access the community forum for you: <a href="/forum" class="btn btn-primary">Go to Community Forum (For Anonymous Users)</a>
+    <div class="body-container">
+        <header>
+            <div class="welcome-message">
+                Welcome, {{ user.username|capfirst }}! This is your User Dashboard - You are logged in as a Regular User.
+            </div>
+        </header>
 
-        </div>
-    </header>
+        <div class="container">
+            <div class="text-center">
+                <img src="https://projectb28.s3.amazonaws.com/static/society.png" alt="Rotunda Image" width="250" height="150">
+                <h1>Complaints You Have Submitted</h1>
+            </div>
 
-    <div class="container">
-        <div class="text-center">
-            <img src="https://projectb28.s3.amazonaws.com/static/society.png" alt="Rotunda Image" width="250" height="150">
-            <h1>Complaints You Have Submitted</h1>
-        </div>
-
-        <div class="row">
-            {% for complaint in complaints %}
+            <div class="row">
+                {% for complaint in complaints %}
                 <div class="col-sm-12 col-md-6 col-lg-4 mb-3">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Name: {{ complaint.name }}</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">Location: {{ complaint.location }}</h6>
-                            <p class="card-text">Description: {{ complaint.description }}</p>
-                            <!-- Display complaint upload, if exists -->
-                            {% if complaint.status %}
-                            <div>Status: {{ complaint.status }}</div>
-                            {% endif %}
-                        
-                         <!-- Display complaint review if it exists -->
-                            {% if complaint.review %}
-                            <div>Review: {{ complaint.review }}</div>
-                            {% endif %}
+                            <h5 class="card-title">{{ complaint.name }}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">{{ complaint.location }}</h6>
+                            <p class="card-text">{{ complaint.description }}</p>
                             {% if complaint.upload %}
                                 {% if complaint.is_image %}
                                     <img src="{{ complaint.upload.url }}" alt="Image preview" class="img-fluid">
                                 {% elif complaint.is_pdf %}
-                                <iframe src="{{ complaint.upload.url }}" width="100%" height="200"></iframe>
+                                    <iframe src="{{ complaint.upload.url }}" width="75%" height="100"></iframe>
                                 {% elif complaint.is_text %}
                                     <a href="{{ complaint.upload.url }}" target="_blank">View Text File</a>
                                 {% else %}
@@ -134,17 +124,18 @@
                         </div>
                     </div>
                 </div>
-            {% empty %}
+                {% empty %}
                 <div class="col-12 text-center">
                     <p>You have not submitted any complaints.</p>
                 </div>
-            {% endfor %}
-        </div>
-    </div>
+                {% endfor %}
+            </div>
 
-    <div class="my-3" style="text-align: center;">
-        <a href="{% url 'complaint_form' %}" class="btn btn-primary">File a Complaint</a>
-        <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
+            <div style="text-align: center; margin-top: 4rem; margin-bottom: 4rem;">
+                <a href="{% url 'complaint_form' %}" class="btn btn-primary">File a Complaint</a>
+                <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
+            </div>
+        </div>
     </div>
 
     <footer>
@@ -154,3 +145,4 @@
     </footer>
 </body>
 </html>
+
