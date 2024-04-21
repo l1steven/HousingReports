@@ -10,36 +10,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Submit an Anonymous Complaint</title>
     <style>
-        body {
-            font-family: 'Times New Roman', Times, serif;
+        html, body {
+            height: 100%; /* Set the height to take the full viewport height */
+            margin: 0;
+            padding: 0;
         }
-        h1, h2, h3, h4, h5, h6 {
-            color: navy;
-        }
-        a {
-            color: navy;
+        .body-container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Use the full viewport height */
         }
         header {
             background-color: #fff; /* White background for the header */
             padding: 1rem;
             box-shadow: 0 2px 4px rgba(0,0,0,.1); /* A subtle shadow for depth */
         }
-        .welcome-message {
-            margin: 0;
-            padding: 0 1rem; /* Padding for the welcome message */
-            font-size: 1.2rem; /* Larger font size for welcome message */
-            color: #333; /* Darker text color for contrast */
+        .container {
+            flex: 1; /* Allows the container to expand and consume the necessary space */
+            padding: 1rem;
+            max-width: 800px; /* Adjust width as needed */
+            margin: auto;
         }
-         footer {
+        footer {
             background-color: #343a40; /* Bootstrap dark background */
             color: #ffffff; /* White text color */
             text-align: center;
             padding: 1rem 0;
-            position: fixed;
-            left: 0;
-            bottom: 0;
-            width: 100%;
             font-size: 1.2rem;
+        }
+        body {
+            font-family: 'Times New Roman', Times, serif;
+        }
+        h1, h2, h3, h4, h5, h6, a {
+            color: navy;
+        }
+        .welcome-message {
+            font-size: 1.2rem;
+            color: #333; /* Darker text color for contrast */
         }
         footer a {
             color: #dcdcdc; /* Lighter text color for links */
@@ -51,27 +58,27 @@
     </style>
 </head>
 <body>
-    <header>
-        <div class="welcome-message">
-            Welcome, Unnamed! You're an anonymous user. Go <a href="/">
-                back to home.
-            </a>
+    <div class="body-container">
+        <header>
+            <div class="welcome-message">
+                Welcome, Unnamed! You're an anonymous user. Go <a href="/">back to home.</a>
+            </div>
+        </header>
+
+        <div class="container mt-3">
+            <form method="post">
+                {% csrf_token %}
+                {% bootstrap_form form %}
+                <button type="submit" class="btn btn-primary">Submit Complaint</button>
+            </form>
         </div>
-    </header>
 
-    <div class="container mt-3" style="max-height: 400px; overflow-y: auto;">
-        <form method="post">
-            {% csrf_token %}
-            {% bootstrap_form form %}
-            <button type="submit" class="btn btn-primary">Submit Complaint</button>
-        </form>
+        <footer>
+            This system is a class project and is not monitored. Do not submit real information.
+            For more information, visit
+            <a href="https://s24.cs3240.org/project.html" target="_blank">our project page</a>.
+        </footer>
     </div>
-
-    <footer>
-        This system is a class project and is not monitored. Do not submit real information.
-        For more information, visit
-        <a href="https://s24.cs3240.org/project.html" target="_blank">our project page</a>.
-    </footer>
     {% bootstrap_javascript %}
 </body>
 </html>
