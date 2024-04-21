@@ -61,19 +61,24 @@
             justify-content: start; /* Align buttons to the start of the container */
             gap: 0.25rem; /* Space between buttons */
         }
-        footer {
+        .navbar.fixed-bottom {
             background-color: #343a40; /* Bootstrap dark background */
             color: #ffffff; /* White text color */
             text-align: center;
             padding: 2rem 0; /* Adjusted padding for top and bottom */
             width: 100%;
             font-size: 1.2rem;
+            position: fixed; /* Fix position to the bottom */
+            bottom: 0; /* Align to bottom */
+            left: 0; /* Align to left */
+            right: 0; /* Align to right */
+            z-index: 1030; /* Higher z-index to keep on top of other content */
         }
-        footer a {
+        .navbar.fixed-bottom a {
             color: #dcdcdc; /* Lighter text color for links */
             text-decoration: none; /* No underline on links */
         }
-        footer a:hover {
+        .navbar.fixed-bottom a:hover {
             text-decoration: underline; /* Underline on hover for links */
         }
     </style>
@@ -82,8 +87,7 @@
     <header>
         <div class="welcome-message">
             Welcome, {{ user.username|capfirst }}! This is your User Dashboard - You are logged in as a Regular User.
-            Access the community forum for you: <a href="/forum" class="btn btn-primary">Go to Community Forum</a>
-
+            Access the community forum for you: <a href="/forum" class="btn btn-primary">Go to Community Forum (For Anonymous Users)</a>
         </div>
     </header>
 
@@ -101,20 +105,17 @@
                             <h5 class="card-title">Name: {{ complaint.name }}</h5>
                             <h6 class="card-subtitle mb-2 text-muted">Location: {{ complaint.location }}</h6>
                             <p class="card-text">Description: {{ complaint.description }}</p>
-                            <!-- Display complaint upload, if exists -->
                             {% if complaint.status %}
-                            <div>Status: {{ complaint.status }}</div>
+                                <div>Status: {{ complaint.status }}</div>
                             {% endif %}
-
-                         <!-- Display complaint review if it exists -->
                             {% if complaint.review %}
-                            <div>Review: {{ complaint.review }}</div>
+                                <div>Review: {{ complaint.review }}</div>
                             {% endif %}
                             {% if complaint.upload %}
                                 {% if complaint.is_image %}
                                     <img src="{{ complaint.upload.url }}" alt="Image preview" class="img-fluid">
                                 {% elif complaint.is_pdf %}
-                                <iframe src="{{ complaint.upload.url }}" width="100%" height="200"></iframe>
+                                    <iframe src="{{ complaint.upload.url }}" width="100%" height="200"></iframe>
                                 {% elif complaint.is_text %}
                                     <a href="{{ complaint.upload.url }}" target="_blank">View Text File</a>
                                 {% else %}
@@ -147,10 +148,10 @@
         <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
     </div>
 
-    <footer>
+    <div class="navbar fixed-bottom">
         This system is a class project and is not monitored. Do not submit real information.
         For more information, visit
         <a href="https://s24.cs3240.org/project.html" target="_blank">our project page</a>.
-    </footer>
+    </div>
 </body>
 </html>
