@@ -9,18 +9,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Submit an Anonymous Complaint</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Roboto', sans-serif;
-        }
-        h1, h2, h3, h4, h5, h6 {
-            color: navy;
-        }
-        a {
-            color: navy;
+            background-color: #f5f5f5; /* Google Forms beige-like background */
+            margin: 0;
+            padding-bottom: 120px; /* Space for footer */
+            color: #202124; /* Google Forms-like text color */
         }
         header {
-            background-color: #fff; /* White background for the header */
+            background-color: #ffffff; /* White background for the header */
             padding: 1rem;
             box-shadow: 0 2px 4px rgba(0,0,0,.1); /* A subtle shadow for depth */
         }
@@ -30,7 +29,37 @@
             font-size: 1.2rem; /* Larger font size for welcome message */
             color: #333; /* Darker text color for contrast */
         }
-         .navbar.fixed-bottom {
+        .container {
+            background-color: #ffffff; /* White background color for the container */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Soft shadow for depth */
+            padding: 20px;
+            margin: 0 auto; /* Centering */
+            width: 100%; /* Full width */
+            max-width: 700px; /* Max width for the form content */
+            overflow-y: auto; /* Add vertical scroll if content exceeds height */
+            max-height: 400px; /* Set max height to 400px */
+        }
+        h1 {
+            text-align: center;
+            font-weight: 300;
+            padding: 20px 0; /* Space above and below the title */
+        }
+        .btn-primary {
+            background-color: #1a73e8; /* Google Forms-like button color */
+            border: none;
+            padding: 10px 24px;
+            color: white;
+            font-size: 14px;
+            line-height: 1.42857;
+            border-radius: 4px;
+            margin-top: 20px; /* Space above the button */
+            display: block; /* Make the button block to fill width */
+            width: 100%; /* Full width button */
+        }
+        .btn-primary:hover {
+            background-color: #1358b4; /* Darker on hover */
+        }
+        .navbar.fixed-bottom {
     display: flex;
     justify-content: center; /* Horizontally center the content */
     align-items: center; /* Vertically center the content */
@@ -56,18 +85,22 @@
 .navbar.fixed-bottom a:hover {
     text-decoration: underline; /* Underline on hover for links */
 }
+        /* Adjust the height of the textarea */
+        textarea#id_description {
+            height: 150px; /* Adjust the height as needed */
+            resize: vertical; /* Allow vertical resizing */
+        }
     </style>
 </head>
 <body>
     <header>
         <div class="welcome-message">
-            Welcome, Unnamed! You're an anonymous user. Go <a href="/">
-                back to home.
-            </a>
+            Welcome, Unnamed! You're an anonymous user. Go <a href="/">back to home.</a>
         </div>
     </header>
 
-    <div class="container mt-3" style="max-height: 400px; overflow-y: auto;">
+    <div class="container mt-3">
+        <h1>Submit an Anonymous Complaint</h1>
         <form method="post">
             {% csrf_token %}
             {% bootstrap_form form %}
@@ -75,7 +108,7 @@
         </form>
     </div>
 
-   <div class="navbar fixed-bottom">
+    <div class="navbar fixed-bottom">
         <span>This system is a class project and is not monitored. Do not submit real information. For more information, visit our project page at <a href="https://s24.cs3240.org/project.html" target="_blank">s24.cs3240.org/project.html</a>.</span>
     </div>
     {% bootstrap_javascript %}
