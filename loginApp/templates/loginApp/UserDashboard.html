@@ -76,27 +76,32 @@
             gap: 0.25rem;
         }
         .navbar.fixed-bottom {
-            background-color: #343a40; /* Bootstrap dark background */
-            color: #ffffff; /* White text color */
-            text-align: center;
-            padding: 1rem 0; /* Adjusted padding for top and bottom */
-            width: 100%;
-            font-size: 1rem;
-            position: fixed; /* Fix position to the bottom */
-            bottom: 0; /* Align to bottom */
-            left: 0; /* Align to left */
-            right: 0; /* Align to right */
-            z-index: 1030; /* Higher z-index to keep on top of other content */
-        }
-        .navbar.fixed-bottom a {
-            color: #dcdcdc; /* Lighter text color for links */
-            text-decoration: none; /* No underline on links */
-            font-weight: bold;
-        }
-        .navbar.fixed-bottom a:hover {
-            color: #ffffff; /* White color on hover */
-            text-decoration: underline; /* Underline on hover for links */
-        }
+    display: flex;
+    justify-content: center; /* Horizontally center the content */
+    align-items: center; /* Vertically center the content */
+    background-color: #394451; /* Dark blue-ish gray color */
+    color: #ffffff; /* White text color for contrast */
+    padding: 1rem 0;
+    width: 100%;
+    font-size: 1rem;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1030;
+    text-align: center;
+}
+
+.navbar.fixed-bottom a {
+    color: #ffffff; /* White text color for links for better visibility */
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.navbar.fixed-bottom a:hover {
+    text-decoration: underline; /* Underline on hover for links */
+}
+
     </style>
 </head>
 <body>
