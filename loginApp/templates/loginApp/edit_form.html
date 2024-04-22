@@ -12,24 +12,33 @@
             margin-bottom: 120px; /* Add a bottom margin to the container equivalent to the footer's height */
         }
 
-        footer {
-            background-color: #343a40; /* Bootstrap dark background */
-            color: #ffffff; /* White text color */
-            text-align: center;
-            padding: 1rem 0;
-            position: fixed;
-            left: 0;
-            bottom: 0;
-            width: 100%;
-            font-size: 1.2rem;
-        }
-        footer a {
-            color: #dcdcdc; /* Lighter text color for links */
-            text-decoration: none; /* No underline on links */
-        }
-        footer a:hover {
-            text-decoration: underline; /* Underline on hover for links */
-        }
+       .navbar.fixed-bottom {
+    display: flex;
+    justify-content: center; /* Horizontally center the content */
+    align-items: center; /* Vertically center the content */
+    background-color: #394451; /* Dark blue-ish gray color */
+    color: #ffffff; /* White text color for contrast */
+    padding: 1rem 0;
+    width: 100%;
+    font-size: 1rem;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1030;
+    text-align: center;
+}
+
+.navbar.fixed-bottom a {
+    color: #ffffff; /* White text color for links for better visibility */
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.navbar.fixed-bottom a:hover {
+    text-decoration: underline; /* Underline on hover for links */
+}
+
     </style>
 </head>
 <body>
@@ -42,10 +51,8 @@
         </form>
     </div>
     {% bootstrap_javascript %}
- <footer>
-        This system is a class project and is not monitored. Do not submit real information.
-        For more information, visit
-        <a href="https://s24.cs3240.org/project.html" target="_blank">our project page</a>.
-    </footer>
+    <div class="navbar fixed-bottom">
+        <span>This system is a class project and is not monitored. Do not submit real information. For more information, visit our project page at <a href="https://s24.cs3240.org/project.html" target="_blank">s24.cs3240.org/project.html</a>.</span>
+    </div>
 </body>
 </html>
