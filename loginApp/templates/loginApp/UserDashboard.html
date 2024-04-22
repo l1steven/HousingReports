@@ -86,6 +86,23 @@
         .navbar.sticky-bottom a:hover {
             text-decoration: underline; /* Underline on hover for links */
         }
+        footer{
+            background-color: #343a40;
+             color: #ffffff;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        footer a {
+            color: #dcdcdc; /* Lighter text color for links */
+            text-decoration: none; /* No underline on links */
+        }
+
+        footer a:hover {
+            text-decoration: underline; /* Underline on hover for links */
+        }
     </style>
 </head>
 <body>
@@ -150,11 +167,8 @@
             <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
         </div>
     </div>
-
-    <div class="foot">
-        <div class="navbar sticky-bottom">
-            <span>This system is a class project and is not monitored. Do not submit real information. For more information, visit <a href="https://s24.cs3240.org/project.html" target="_blank">our project page</a>.</span>
-        </div>
-    </div>
+    <footer>
+        This system is a class project and is not monitored. Do not submit real information. For more information, visit <a href="https://s24.cs3240.org/project.html" target="_blank">our project page</a>
+    </footer>
 </body>
 </html>
