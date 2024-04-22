@@ -26,8 +26,8 @@
         }
         .welcome-message {
             margin: 0;
-            padding: 0 1rem; /* Padding for the welcome message */
-            font-size: 1.2rem; /* Larger font size for welcome message */
+            padding: 0 .5rem; /* Padding for the welcome message */
+            font-size: 1.0rem; /* Larger font size for welcome message */
             color: #333; /* Darker text color for contrast */
         }
         .main-content {
@@ -37,7 +37,7 @@
             max-width: 960px; /* Wider container for better layout on desktop */
         }
         .card {
-            margin-bottom: 2rem; /* Increased spacing between cards */
+            margin-bottom: 1rem; /* Increased spacing between cards */
             border: none; /* Removing border */
             box-shadow: 0 2px 4px rgba(0,0,0,.1); /* Adding shadow to cards for depth */
         }
@@ -49,7 +49,7 @@
         }
         .btn {
             font-size: 1rem;
-            padding: 0.75rem 1.5rem; /* Larger buttons */
+            padding: 0.5rem 1.0rem; /* Larger buttons */
             border-radius: 0.5rem; /* Rounded corners for buttons */
             cursor: pointer;
             transition: background-color 0.3s ease;
@@ -57,7 +57,7 @@
         }
         .btn-sm {
             font-size: 0.8rem; /* Smaller font size for buttons */
-            padding: 0.7rem 1.4rem; /* Reduced padding for smaller buttons */
+            padding: 0.6rem 1.2rem; /* Reduced padding for smaller buttons */
             margin: 0.25rem; /* Keeps spacing around buttons */
         }
         .button-group {
@@ -99,7 +99,6 @@
             color: #dcdcdc; /* Lighter text color for links */
             text-decoration: none; /* No underline on links */
         }
-
         footer a:hover {
             text-decoration: underline; /* Underline on hover for links */
         }
@@ -114,10 +113,9 @@
     </header>
     <div class="main-content">
         <div class="text-center">
-            <img src="https://projectb28.s3.amazonaws.com/static/society.png" alt="Rotunda Image" width="250" height="150">
+            <img src="https://projectb28.s3.amazonaws.com/static/society.png" alt="Rotunda Image" width="200" height="100">
             <h1>Complaints You Have Submitted</h1>
         </div>
-
         <div class="row">
             {% for complaint in complaints %}
                 <div class="col-sm-12 col-md-6 col-lg-4 mb-3">
