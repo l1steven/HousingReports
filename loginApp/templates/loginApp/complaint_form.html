@@ -9,13 +9,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>File a Complaint</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet">
     <style>
-         .container {
-            margin-bottom: 120px; /* Add a bottom margin to the container equivalent to the footer's height */
-        }
         body {
             font-family: 'Roboto', sans-serif;
-            color: navy;
+            background-color: #f5f5f5; /* Google Forms beige-like background */
+            margin: 0;
+            padding-bottom: 120px; /* Space for footer */
+        }
+        .form-container {
+            max-width: 700px; /* Width of the form */
+            margin: 2% auto 120px; /* Center the form with automatic side margins and push from the footer */
+            background-color: #ffffff; /* White background for the form */
+            padding: 20px; /* Padding inside the form */
+            box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23); /* Shadow around the form */
+            border-radius: 8px; /* Rounded corners for the form */
+        }
+        h1 {
+            color: #202124; /* Google Forms-like title color */
+            font-weight: 400;
+            text-align: center;
+        }
+        .btn-primary {
+            background-color: #1a73e8; /* Google Forms-like button color */
+            border: none;
+            padding: 10px 24px;
+            color: white;
+            font-size: 14px;
+            line-height: 1.42857;
+            border-radius: 4px;
+            margin-top: 20px; /* Space above the button */
+        }
+        .btn-primary:hover {
+            background-color: #1358b4; /* Darker on hover */
         }
         .navbar.fixed-bottom {
             background-color: #343a40; /* Bootstrap dark background */
@@ -23,27 +49,26 @@
             text-align: center;
             padding: 1rem 0; /* Adjusted padding for top and bottom */
             width: 100%;
-            font-size: 1.2rem;
+            font-size: 1rem;
             position: fixed; /* Fix position to the bottom */
             bottom: 0; /* Align to bottom */
             left: 0; /* Align to left */
             right: 0; /* Align to right */
-            display: flex; /* Use flexbox for alignment */
-            align-items: center; /* Center text vertically */
-            justify-content: center; /* Center text horizontally */
             z-index: 1030; /* Higher z-index to keep on top of other content */
         }
         .navbar.fixed-bottom a {
             color: #dcdcdc; /* Lighter text color for links */
             text-decoration: none; /* No underline on links */
+            font-weight: bold;
         }
         .navbar.fixed-bottom a:hover {
+            color: #ffffff; /* White color on hover */
             text-decoration: underline; /* Underline on hover for links */
         }
     </style>
 </head>
 <body>
-    <div class="container mt-4">
+    <div class="form-container">
         <h1>File a Complaint</h1>
         <a href="{% url 'dashboard' %}" class="btn btn-primary">Back to Dashboard</a>
         <form method="post" enctype="multipart/form-data">
@@ -52,8 +77,8 @@
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>
- <div class="navbar fixed-bottom">
-    <span>This system is a class project and is not monitored. Do not submit real information. For more information, visit <a href="https://s24.cs3240.org/project.html" target="_blank">our project page</a>.</span>
-</div>
+    <div class="navbar fixed-bottom">
+        <span>This system is a class project and is not monitored. Do not submit real information. For more information, visit our project page at <a href="https://s24.cs3240.org/project.html" target="_blank">s24.cs3240.org/project.html</a>.</span>
+    </div>
 </body>
 </html>

@@ -1,5 +1,4 @@
-{% load static %}
-{% load static %}
+ {% load static %}
 {% load django_bootstrap5 %}
 {% bootstrap_css %}
 {% bootstrap_javascript %}
@@ -52,9 +51,15 @@
             margin-bottom: 2rem;
             border: 1px solid #dedede;
             box-shadow: 0 2px 4px rgba(0,0,0,.1);
+            border-radius: 0.5rem;
+            overflow: hidden;
         }
         .card-body {
             padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 250px;
         }
         .card-title {
             color: #0056b3;
@@ -108,7 +113,7 @@
                         <div class="card-body">
                             <h5 class="card-title">{{ complaint.name }}</h5>
                             <h6 class="card-subtitle mb-2 text-muted">Location: {{ complaint.location }}</h6>
-                            <p class="card-text">Description: {{ complaint.description }}</p>
+                            <p class="card-text">{{ complaint.description }}</p>
                             {% if complaint.status %}
                                 <div>Status: {{ complaint.status }}</div>
                             {% endif %}
