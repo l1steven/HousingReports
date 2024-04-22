@@ -123,7 +123,6 @@ def deletecomplaintcommon(request, complaint_id):
         return HttpResponseRedirect(reverse('dashboard'))
     return render(request, 'loginApp/delete_confirmation.html', {'complaint': complaint})
 
-
 @login_required
 def editcomplaintcommon(request, complaint):
     complaint1 = Complaint.objects.filter(id=complaint).first()
@@ -134,7 +133,7 @@ def editcomplaintcommon(request, complaint):
             return redirect('complaint_success')
     else:
         form = ComplaintForm(instance=complaint1)
-
+    
     return render(request, 'loginApp/edit_form.html', {'form': form})
 
 
