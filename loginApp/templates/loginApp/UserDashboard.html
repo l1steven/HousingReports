@@ -1,3 +1,7 @@
+{% load static %}
+{% load django_bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +10,7 @@
     <title>User Dashboard</title>
     <style>
         html, body {
-            height: 100%;
+            height: 100%; /* Ensure that the html and body occupy full height */
             margin: 0;
             padding: 0;
             display: flex;
@@ -16,85 +20,79 @@
             background-color: #f8f9fa;
         }
         header {
-            background-color: #fff;
+            background-color: #fff; /* White background for the header */
             padding: 1rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,.1);
-        }
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,.1); /* A subtle shadow for depth */
         }
         .welcome-message {
             margin: 0;
-            padding: 0 1rem;
-            font-size: 1.2rem;
-            color: #333;
-        }
-        .btn-navy {
-            background-color: navy;
-            color: white;
-            border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.5rem;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-        .btn-navy:hover {
-            background-color: darkblue;
+            padding: 0 1rem; /* Padding for the welcome message */
+            font-size: 1.2rem; /* Larger font size for welcome message */
+            color: #333; /* Darker text color for contrast */
         }
         .main-content {
             flex: 1;
             padding: 0 1rem;
             margin: 2rem auto;
-            max-width: 960px;
+            max-width: 960px; /* Wider container for better layout on desktop */
         }
         .card {
-            margin-bottom: 2rem;
-            border: none;
-            box-shadow: 0 2px 4px rgba(0,0,0,.1);
+            margin-bottom: 2rem; /* Increased spacing between cards */
+            border: none; /* Removing border */
+            box-shadow: 0 2px 4px rgba(0,0,0,.1); /* Adding shadow to cards for depth */
         }
         .card-body {
             padding: 1rem;
         }
         .card-title, .card-subtitle, .card-text {
-            margin-bottom: 1rem;
+            margin-bottom: 1rem; /* Uniform margin-bottom */
+        }
+        .btn {
+            font-size: 1rem;
+            padding: 0.75rem 1.5rem; /* Larger buttons */
+            border-radius: 0.5rem; /* Rounded corners for buttons */
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin: 0.25rem; /* Spacing around buttons */
+        }
+        .btn-sm {
+            font-size: 0.8rem; /* Smaller font size for buttons */
+            padding: 0.7rem 1.4rem; /* Reduced padding for smaller buttons */
+            margin: 0.25rem; /* Keeps spacing around buttons */
         }
         .button-group {
             display: flex;
-            justify-content: start;
-            gap: 0.25rem;
+            justify-content: start; /* Align buttons to the start of the container */
+            gap: 0.25rem; /* Space between buttons */
         }
         .navbar.sticky-bottom {
             position: absolute;
             bottom: 0;
             left: 0;
             right: 0;
-            background-color: #343a40;
-            color: #ffffff;
+            background-color: #343a40; /* Bootstrap dark background */
+            color: #ffffff; /* White text color */
             text-align: center;
-            padding: 1rem 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1030;
+            padding: 1rem 0; /* Adjusted padding for top and bottom */
+            display: flex; /* Use flexbox for alignment */
+            align-items: center; /* Center text vertically */
+            justify-content: center; /* Center text horizontally */
+            z-index: 1030; /* Higher z-index to keep on top of other content */
         }
         .navbar.sticky-bottom a {
-            color: #dcdcdc;
-            text-decoration: none;
+            color: #dcdcdc; /* Lighter text color for links */
+            text-decoration: none; /* No underline on links */
         }
         .navbar.sticky-bottom a:hover {
-            text-decoration: underline;
+            text-decoration: underline; /* Underline on hover for links */
         }
     </style>
 </head>
 <body>
     <header>
-        <div class="header-content">
-            <div class="welcome-message">
-                Welcome, {{ user.username|capfirst }}! This is your User Dashboard - You are logged in as a Regular User.
-            </div>
-            <a href="/forum" class="btn btn-navy">Community Forum</a>
+        <div class="welcome-message">
+            Welcome, {{ user.username|capfirst }}! This is your User Dashboard - You are logged in as a Regular User.
+            Access the community forum for you: <a href="/forum" class="btn btn-primary">Go to Community Forum (For Anonymous Users)</a>
         </div>
     </header>
     <div class="main-content">
