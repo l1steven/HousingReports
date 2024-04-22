@@ -4,6 +4,8 @@ from loginApp.models import Complaint
 
 
 class ComplaintForm(forms.ModelForm):
+    upload = forms.FileField(widget=forms.ClearableFileInput(attrs={'multiple': True}))
+
     class Meta:
         model = Complaint
         fields = ['name', 'location', 'description', 'upload']
@@ -14,6 +16,8 @@ class ComplaintForm(forms.ModelForm):
         }
 
 class AnonymousComplaintForm(forms.ModelForm):
+    upload = forms.FileField(widget=forms.ClearableFileInput(attrs={'multiple': True}))
+
     def __init__(self, *args, **kwargs):
         super(AnonymousComplaintForm, self).__init__(*args, **kwargs)
         self.fields['name'].initial = 'Anonymous'
