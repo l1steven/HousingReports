@@ -50,9 +50,11 @@
             background-color: #1358b4; /* Darker on hover */
         }
         .navbar.fixed-bottom {
-    background-color: #6c6d6f; /* Dark blue-ish gray color */
+    display: flex;
+    justify-content: center; /* Horizontally center the content */
+    align-items: center; /* Vertically center the content */
+    background-color: #394451; /* Dark blue-ish gray color */
     color: #ffffff; /* White text color for contrast */
-    text-align: center;
     padding: 1rem 0;
     width: 100%;
     font-size: 1rem;
@@ -61,27 +63,19 @@
     left: 0;
     right: 0;
     z-index: 1030;
+    text-align: center;
 }
 
-/* Ensuring the text within the span is centered as well */
-.navbar.fixed-bottom span,
-.navbar.fixed-bottom a {
-    display: block; /* Makes the text align in the center */
-    text-align: center; /* Center text for all resolutions */
-    color: inherit; /* Ensures the link color is the same as the text color */
-    font-weight: bold;
-}
-
-/* Styles for the link within the footer to ensure visibility and style consistency */
 .navbar.fixed-bottom a {
     color: #ffffff; /* White text color for links for better visibility */
     text-decoration: none;
+    font-weight: bold;
 }
 
 .navbar.fixed-bottom a:hover {
-    color: #ffffff; /* White color on hover */
     text-decoration: underline; /* Underline on hover for links */
 }
+
 
     </style>
 </head>
