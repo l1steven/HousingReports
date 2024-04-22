@@ -6,7 +6,6 @@
     <title>User Dashboard</title>
     <style>
         html, body {
-            height: 100%;
             margin: 0;
             padding: 0;
             display: flex;
@@ -16,7 +15,7 @@
         }
         header {
             background-color: #fff;
-            padding: 1rem 1rem 1rem 2rem;
+            padding: 1rem 2rem;
             box-shadow: 0 2px 4px rgba(0,0,0,.1);
             display: flex;
             justify-content: space-between;
@@ -26,87 +25,74 @@
             font-size: 1rem;
             color: #333;
         }
-        .btn-primary {
-            background-color: #007bff;
+        .btn-community {
+            background-color: #0056b3;
             color: white;
             border: none;
             padding: 0.5rem 1rem;
-            border-radius: 0.5rem;
+            border-radius: 0.25rem;
             text-decoration: none;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3s;
         }
-        .btn-primary:hover {
-            background-color: #0056b3;
+        .btn-community:hover {
+            background-color: #003d82;
         }
         .main-content {
-            flex: 1;
             padding: 2rem;
-            margin-top: 1rem;
-            max-width: 960px;
             width: 100%;
-            box-sizing: border-box;
-        }
-        .text-center {
-            text-align: center;
-        }
-        .text-center h1 {
-            margin-bottom: 2rem;
+            max-width: 1200px;
+            margin: auto;
         }
         .card {
             background-color: #fff;
             border-radius: 0.5rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,.1);
-            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,.2);
+            margin: 1rem auto;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
         }
-        .card-body {
-            padding: 1.5rem;
+        .card-content {
+            padding: 1rem;
+            flex: 1;
         }
-        .card-title {
-            font-size: 1.25rem;
-            color: #333;
-            margin-bottom: 0.5rem;
+        .card-content img, .card-content iframe, .card-content a {
+            max-height: 200px;
+            overflow-y: auto;
         }
-        .card-subtitle {
-            font-size: 1rem;
-            color: #666;
-            margin-bottom: 0.5rem;
+        .card-actions {
+            background: #f4f4f4;
+            padding: 0.5rem;
+            display: flex;
+            justify-content: flex-end;
         }
-        .card-text {
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-        }
-        .btn {
-            font-size: 0.9rem;
+        .card-actions button {
+            border: none;
             padding: 0.4rem 0.8rem;
-            border-radius: 0.5rem;
+            margin-left: 0.5rem;
+            border-radius: 0.25rem;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3s;
         }
-        .btn-danger {
+        .btn-delete {
             background-color: #dc3545;
             color: white;
         }
-        .btn-danger:hover {
-            background-color: #bd2130;
+        .btn-delete:hover {
+            background-color: #c82333;
         }
         .btn-edit {
             background-color: #ffc107;
-            color: #333;
+            color: #212529;
         }
         .btn-edit:hover {
             background-color: #e0a800;
-        }
-        .button-group {
-            display: flex;
-            justify-content: flex-start;
-            gap: 0.5rem;
         }
         footer {
             background-color: #343a40;
             color: #ffffff;
             text-align: center;
-            padding: 1rem 0;
+            padding: 1rem;
             position: fixed;
             bottom: 0;
             width: 100%;
@@ -121,22 +107,6 @@
         footer a:hover {
             text-decoration: underline;
         }
-        @media (max-width: 768px) {
-            .welcome-message,
-            .btn-primary {
-                font-size: 0.9rem;
-                padding: 0.4rem 0.8rem;
-            }
-            .main-content {
-                padding: 1rem;
-            }
-            .button-group {
-                flex-direction: column;
-            }
-            .btn {
-                width: 100%;
-            }
-        }
     </style>
 </head>
 <body>
@@ -144,31 +114,36 @@
         <div class="welcome-message">
             Welcome, Madeline! This is your User Dashboard - You are logged in as a Regular User.
         </div>
-        <a href="/forum" class="btn btn-primary">Go to Community Forum</a>
+        <a href="/forum" class="btn-community">Go to Community Forum</a>
     </header>
     <div class="main-content">
-        <div class="text-center">
-            <img src="https://projectb28.s3.amazonaws.com/static/society.png" alt="Rotunda Image" style="width: auto; max-width: 100%; height: auto;">
-            <h1>Complaints You Have Submitted</h1>
-        </div>
-        <!-- Card example -->
+        <!-- Dynamic content for each complaint -->
+        {% for complaint in complaints %}
         <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Name: Madeline Wise</h5>
-                <h6 class="card-subtitle">Location: Greenhouse</h6>
-                <p class="card-text">Description: Complaint</p>
-                <p class="card-text">Status: Not Reviewed</p>
-                <div class="button-group">
-                    <button class="btn btn-danger">Delete</button>
-                    <button class="btn btn-edit">Edit</button>
-                </div>
+            <div class="card-content">
+                <h5>Name: {{ complaint.name }}</h5>
+                <h6>Location: {{ complaint.location }}</h6>
+                <p>Description: {{ complaint.description }}</p>
+                <p>Status: {{ complaint.status }}</p>
+                <!-- Conditional content for uploads -->
+                {% if complaint.upload %}
+                    {% if complaint.is_image %}
+                        <img src="{{ complaint.upload.url }}" alt="Uploaded image">
+                    {% elif complaint.is_pdf %}
+                        <iframe src="{{ complaint.upload.url }}"></iframe>
+                    {% elif complaint.is_text %}
+                        <a href="{{ complaint.upload.url }}" target="_blank">View Text File</a>
+                    {% else %}
+                        <a href="{{ complaint.upload.url }}" target="_blank">Download File</a>
+                    {% endif %}
+                {% endif %}
+            </div>
+            <div class="card-actions">
+                <button class="btn-delete">Delete</button>
+                <button class="btn-edit">Edit</button>
             </div>
         </div>
-        <!-- Repeat above card for each complaint -->
-        <div class="text-center" style="margin-top: 2rem;">
-            <button class="btn btn-primary">File a Complaint</button>
-            <button class="btn btn-danger">Logout</button>
-        </div>
+        {% endfor %}
     </div>
     <footer>
         This system is a class project and is not monitored. Do not submit real information. For more information, visit <a href="https://s24.cs3240.org/project.html" target="_blank">our project page</a>.
