@@ -50,30 +50,39 @@
             background-color: #1358b4; /* Darker on hover */
         }
         .navbar.fixed-bottom {
-            background-color: rgb(180, 182, 185); /* Bootstrap dark background */
-            color: #ffffff; /* White text color */
-            text-align: center;
-            padding: 1rem 0; /* Adjusted padding for top and bottom */
-            width: 100%;
-            font-size: 1rem;
-            position: fixed; /* Fix position to the bottom */
-            bottom: 0; /* Align to bottom */
-            left: 0; /* Align to left */
-            right: 0; /* Align to right */
-            z-index: 1030; /* Higher z-index to keep on top of other content */
-        }
-        .navbar.fixed-bottom a {
-            color: #dcdcdc; /* Lighter text color for links */
-            text-decoration: none; /* No underline on links */
-            font-weight: bold;
-        }
-        .navbar.fixed-bottom a:hover {
-            color: #ffffff; /* White color on hover */
-            text-decoration: underline; /* Underline on hover for links */
-        }
-        .navbar.fixed-bottom span {
-            display: block;
-        }
+    background-color: #6c6d6f; /* Dark blue-ish gray color */
+    color: #ffffff; /* White text color for contrast */
+    text-align: center;
+    padding: 1rem 0;
+    width: 100%;
+    font-size: 1rem;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1030;
+}
+
+/* Ensuring the text within the span is centered as well */
+.navbar.fixed-bottom span,
+.navbar.fixed-bottom a {
+    display: block; /* Makes the text align in the center */
+    text-align: center; /* Center text for all resolutions */
+    color: inherit; /* Ensures the link color is the same as the text color */
+    font-weight: bold;
+}
+
+/* Styles for the link within the footer to ensure visibility and style consistency */
+.navbar.fixed-bottom a {
+    color: #ffffff; /* White text color for links for better visibility */
+    text-decoration: none;
+}
+
+.navbar.fixed-bottom a:hover {
+    color: #ffffff; /* White color on hover */
+    text-decoration: underline; /* Underline on hover for links */
+}
+
     </style>
 </head>
 <body>
