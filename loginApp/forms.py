@@ -11,11 +11,10 @@ class ComplaintForm(forms.ModelForm):
             'name': forms.TextInput(attrs={'class': 'form-control'}),
             'location': forms.TextInput(attrs={'class': 'form-control'}),
             'description': forms.Textarea(attrs={'class': 'form-control'}),
-            'upload': forms.ClearableFileInput(attrs={'multiple': True, 'class': 'form-control'}),
-
         }
 
 class AnonymousComplaintForm(forms.ModelForm):
+
     def __init__(self, *args, **kwargs):
         super(AnonymousComplaintForm, self).__init__(*args, **kwargs)
         self.fields['name'].initial = 'Anonymous'
@@ -29,5 +28,5 @@ class AnonymousComplaintForm(forms.ModelForm):
         widgets = {
             'location': forms.TextInput(attrs={'class': 'form-control'}),
             'description': forms.Textarea(attrs={'class': 'form-control'}),
-            'upload': forms.ClearableFileInput(attrs={'multiple': True, 'class': 'form-control'}),
+            'upload': forms.FileInput(attrs={'class': 'form-control'}),
         }
