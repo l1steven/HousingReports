@@ -22,10 +22,6 @@
             padding-bottom: 120px; /* Space for footer */
             color: #202124; /* Google Forms-like text color */
         }
-        .content-container {
-            width: 100%;
-            padding: 40px 20px; /* Padding around the content */
-        }
         .form-runway {
             background-color: #ffffff; /* White background color for the 'runway' */
             box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Soft shadow for depth */
@@ -80,19 +76,16 @@
 .navbar.fixed-bottom a:hover {
     text-decoration: underline; /* Underline on hover for links */
 }
-
     </style>
 </head>
 <body>
-    <div class="content-container">
-        <div class="form-runway">
-            <h1>Edit Form</h1>
-            <form method="post" enctype="multipart/form-data">
-                {% csrf_token %}
-                {% bootstrap_form form %}
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
-        </div>
+    <div class="form-runway">
+        <h1>Edit Form</h1>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% bootstrap_form form %}
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
     </div>
     {% bootstrap_javascript %}
     <div class="navbar fixed-bottom">
