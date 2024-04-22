@@ -45,21 +45,21 @@
             box-shadow: 0 2px 4px rgba(0,0,0,.1); /* A subtle shadow for depth */
         }
         .card-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 2rem;
-            padding: 2rem;
-        }
-        .profile-card {
-            width: 300px; /* Fixed width */
-            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); /* Card shadow */
-            text-align: center;
-            background-color: #fff;
-            border-radius: 10px;
-            padding: 2rem;
-            margin-bottom: 2rem; /* Space below card */
-        }
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* This will create as many columns as can fit in the space */
+    gap: 2rem; /* Adjust the gap between cards */
+    padding: 2rem;
+    justify-content: center;
+}
+
+.profile-card {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); /* Card shadow */
+    text-align: center;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 1rem; /* Adjust padding to fit the content */
+    margin-bottom: 2rem; /* Space below card */
+}
         .profile-card img {
             border-radius: 50%; /* Circular image */
             width: 100px; /* Fixed image width */
@@ -105,7 +105,7 @@
     </header>
     <div class="top-header">
     <h1>Lost and Found</h1>
-    <p>This site is a University-centered Lost and Found app.</p>
+    <p>This site is a University-centered Housing Reporting app.</p>
     <p>We created this site during the Spring of 2024 in CS 3240 at the University of Virginia.</p>
 </div>
 
