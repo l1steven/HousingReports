@@ -36,40 +36,17 @@
             margin: 2rem auto;
             max-width: 960px; /* Wider container for better layout on desktop */
         }
-        .row {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* This will create as many columns as can fit in the space */
-    gap: 2rem; /* Adjust the gap between cards */
-    padding: 2rem;
-    justify-content: center;
-}
         .card {
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); /* Card shadow similar to profile-card */
-    background-color: #fff; /* Background color */
-    border-radius: 10px; /* Rounded corners */
-    padding: 1rem; /* Padding inside the card */
-    margin-bottom: 2rem; /* Space below each card */
-    text-align: center; /* Centering text inside the card */
-}
-
-.card-body {
-    padding: 1rem; /* Consistent padding for internal card content */
-}
-
-.card-title {
-    font-size: 1.5rem; /* Larger font size for the title */
-    color: navy; /* Navy color for text */
-}
-
-.card-subtitle {
-    font-size: 1rem; /* Font size for subtitle */
-    color: #333; /* Dark grey for subtitle text */
-}
-
-    .card-text {
-        font-size: 1rem; /* Font size for text */
-        color: #333; /* Dark grey for normal text */
-    }
+            margin-bottom: 2rem; /* Increased spacing between cards */
+            border: none; /* Removing border */
+            box-shadow: 0 2px 4px rgba(0,0,0,.1); /* Adding shadow to cards for depth */
+        }
+        .card-body {
+            padding: 1rem;
+        }
+        .card-title, .card-subtitle, .card-text {
+            margin-bottom: 1rem; /* Uniform margin-bottom */
+        }
         .btn {
             font-size: 1rem;
             padding: 0.75rem 1.5rem; /* Larger buttons */
