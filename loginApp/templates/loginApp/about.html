@@ -1,0 +1,152 @@
+{% load static %}
+{% load django_bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            color: navy;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa; /* A light grey background */
+        }
+        .top-header {
+        text-align: center;
+        padding: 1rem;
+        background-color: #f8f9fa;
+        border-bottom: 5px solid navy; /* Adjust as needed */
+    }
+
+    .content-section {
+        margin: 2rem 5%; /* Adjust margins as needed */
+        padding-left: 20px; /* Adjust padding as needed */
+        border-left: 4px solid #007bff; /* Bootstrap primary blue */
+    }
+
+    .content-section h2 {
+        font-size: 2rem; /* Adjust font size as needed */
+        color: navy; /* Adjust text color as needed */
+        padding-bottom: .5rem;
+    }
+
+    .content-section p {
+        font-size: 1rem; /* Adjust font size as needed */
+        color: #333; /* Adjust text color as needed */
+    }
+        header {
+            background-color: #fff; /* White background for the header */
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,.1); /* A subtle shadow for depth */
+        }
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            padding: 2rem;
+        }
+        .profile-card {
+            width: 300px; /* Fixed width */
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); /* Card shadow */
+            text-align: center;
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 2rem; /* Space below card */
+        }
+        .profile-card img {
+            border-radius: 50%; /* Circular image */
+            width: 100px; /* Fixed image width */
+            height: 100px; /* Fixed image height */
+            margin: 0 auto; /* Center the image */
+        }
+        .profile-card h2 {
+            font-size: 1.5rem; /* Name font size */
+        }
+        .profile-card p {
+            font-size: 1rem; /* Email and role font size */
+            color: #333; /* Text color */
+        }
+        .navbar.fixed-bottom {
+            background-color: #343a40; /* Bootstrap dark background */
+            color: #ffffff; /* White text color */
+            text-align: center;
+            padding: 1rem 0; /* Adjusted padding for top and bottom */
+            width: 100%;
+            font-size: 1.2rem;
+            position: fixed; /* Fix position to the bottom */
+            bottom: 0; /* Align to bottom */
+            left: 0; /* Align to left */
+            right: 0; /* Align to right */
+            display: flex; /* Use flexbox for alignment */
+            align-items: center; /* Center text vertically */
+            justify-content: center; /* Center text horizontally */
+            z-index: 1030; /* Higher z-index to keep on top of other content */
+        }
+        .navbar.fixed-bottom a {
+            color: #dcdcdc; /* Lighter text color for links */
+            text-decoration: none; /* No underline on links */
+        }
+        .navbar.fixed-bottom a:hover {
+            text-decoration: underline; /* Underline on hover for links */
+        }
+    </style>
+
+    </head>
+<body>
+    <header>
+        <!-- Your header content -->
+    </header>
+    <div class="top-header">
+    <h1>Lost and Found</h1>
+    <p>This site is a University-centered Lost and Found app.</p>
+    <p>We created this site during the Spring of 2024 in CS 3240 at the University of Virginia.</p>
+</div>
+
+<!-- Add these sections for the content with vertical blue bars -->
+<div class="content-section">
+    <h2>Why a Housing Reporting App?</h2>
+    <p>A University of Virginia (UVA) housing reporting app is a crucial tool needed to enhance the safety and well-being of students residing on campus. Currently, there is no streamlined method for students to quickly and effectively report housing issues, whether they be maintenance problems, safety concerns, or violations of housing policies. By implementing a dedicated app, UVA can ensure that students have a direct and efficient way to communicate their housing-related incidents. This not only expedites the resolution process but also promotes a proactive approach to maintaining the quality and security of student accommodations. Such a platform would centralize reports, track response times, and ultimately foster a safer living environment for all students.</p>
+</div>
+
+    <div class="card-container">
+        <!-- Card for Rui Zhang -->
+        <div class="profile-card">
+            <h2>Rui Zhang</h2>
+            <p>kwf8hq@virginia.edu</p>
+            <p>Software Architect</p>
+        </div>
+        <!-- Card for Kevin Lam -->
+        <div class="profile-card">
+            <h2>Kevin Lam</h2>
+            <p>bkg8jy@virginia.edu</p>
+            <p>Requirements Manager</p>
+        </div>
+        <div class="profile-card">
+            <h2>Tenzin Nargee</h2>
+            <p>ghf3ky@virginia.edu</p>
+            <p>Testing Manager</p>
+        </div>
+        <div class="profile-card">
+            <h2>Steven Li</h2>
+            <p>ddm4wx@virginia.edu</p>
+            <p>DevOps</p>
+        </div>
+        <div class="profile-card">
+            <h2>Madeline Wise</h2>
+            <p>faa2fw@virginia.edu</p>
+            <p>Scrum Master</p>
+        </div>
+    </div>
+    <div class="navbar fixed-bottom">
+    <span>This system is a class project and is not monitored. Do not submit real information. For more information, visit <a href="https://s24.cs3240.org/project.html" target="_blank">our project page</a>.</span>
+</div>
+    {% bootstrap_javascript %}
+</body>
+</html>
