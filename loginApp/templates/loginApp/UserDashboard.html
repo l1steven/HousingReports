@@ -146,6 +146,10 @@
             {% endfor %}
         </div>
     </div>
+    <div class="button-container text-center" style="margin: 2rem;">
+        <a href="{% url 'complaint_form' %}" class="btn btn-primary">File a Complaint</a>
+        <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
+    </div>
 
     <div class="foot">
         <div class="navbar sticky-bottom">
