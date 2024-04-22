@@ -50,7 +50,26 @@
             background-color: #1358b4; /* Darker on hover */
         }
         .navbar.fixed-bottom {
-            /* ...existing styles... */
+            background-color: #343a40; /* Bootstrap dark background */
+            color: #ffffff; /* White text color */
+            text-align: center;
+            padding: 1rem 0; /* Adjusted padding for top and bottom */
+            width: 100%;
+            font-size: 1rem;
+            position: fixed; /* Fix position to the bottom */
+            bottom: 0; /* Align to bottom */
+            left: 0; /* Align to left */
+            right: 0; /* Align to right */
+            z-index: 1030; /* Higher z-index to keep on top of other content */
+        }
+        .navbar.fixed-bottom a {
+            color: #dcdcdc; /* Lighter text color for links */
+            text-decoration: none; /* No underline on links */
+            font-weight: bold;
+        }
+        .navbar.fixed-bottom a:hover {
+            color: #ffffff; /* White color on hover */
+            text-decoration: underline; /* Underline on hover for links */
         }
     </style>
 </head>
