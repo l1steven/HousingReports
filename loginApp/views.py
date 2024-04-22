@@ -202,3 +202,7 @@ def handle_complaint_click(request, complaint_id):
                 return render(request, 'loginApp/complaintviews.html', {'complaints': complaint})
 
     return render(request, 'loginApp/complaintviews.html', {'complaints': complaint})
+
+
+def about(request):
+    return render(request, 'about.html')
