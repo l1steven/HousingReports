@@ -111,7 +111,10 @@
             <img src="{% static 'society.png' %}" alt="Rotunda Image" width="100" height="60">
             <h1>Complaints You Have Submitted</h1>
         </div>
-
+        <div style="margin: 2rem;">
+            <a href="{% url 'complaint_form' %}" class="btn btn-primary">File a Complaint</a>
+            <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
+        </div>
         <div class="row">
             {% for complaint in complaints %}
                 <div class="col-sm-12 col-md-6 col-lg-4 mb-3">
@@ -155,10 +158,6 @@
                     <p>You have not submitted any complaints.</p>
                 </div>
             {% endfor %}
-        </div>
-        <div style="margin: 2rem;">
-            <a href="{% url 'complaint_form' %}" class="btn btn-primary">File a Complaint</a>
-            <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
         </div>
     </div>
     <div class="navbar fixed-bottom">
