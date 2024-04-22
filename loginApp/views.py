@@ -205,4 +205,4 @@ def handle_complaint_click(request, complaint_id):
 
 
 def about(request):
-    return render(request, 'about.html')
+    return render(request, 'loginApp/about.html')
