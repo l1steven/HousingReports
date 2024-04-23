@@ -59,6 +59,7 @@
             padding: 1rem;
         }
         .card-body {
+            padding: .5rem;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -79,6 +80,24 @@
             color: #0056b3;
             font-weight: 500;
         }
+        .btn-edit, .btn-delete {
+    padding: 0.25rem 0.75rem; /* consistent padding for both buttons */
+    color: white; /* white text for visibility */
+    border: none; /* no border */
+    margin: 0.25rem; /* some space around the buttons */
+    flex-grow: 1; /* each button will fill the space evenly */
+    text-align: center; /* center the text inside buttons */
+}
+
+/* Specific style for the Edit button */
+.btn-edit {
+    background-color: #007bff; /* Bootstrap primary blue for Edit */
+}
+
+/* Specific style for the Delete button */
+.btn-delete {
+    background-color: #dc3545; /* Bootstrap danger red for Delete */
+}
         .btn, .btn-sm {
             border-radius: 0.5rem;
             transition: background-color 0.3s ease;
@@ -164,9 +183,9 @@
                         <div class="button-group">
                             <form method="post" action="{% url 'delete_complaint' complaint.id %}" class="mt-3">
                                 {% csrf_token %}
-                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                <button type="submit" class="btn btn-delete btn-sm">Delete</button>
                             </form>
-                            <a href="{% url 'edit_complaint' complaint.id %}" class="btn btn-primary btn-sm">Edit</a>
+                            <a href="{% url 'edit_complaint' complaint.id %}" class="btn btn-edit btn-sm">Edit</a>
                         </div>
                     </div>
                 </div>
