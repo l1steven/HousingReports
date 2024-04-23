@@ -68,6 +68,11 @@
         }
         .content-container {
             overflow-y: auto;
+            display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* This will create as many columns as can fit in the space */
+    gap: 2rem; /* Adjust the gap between cards */
+    padding: 2rem;
+    justify-content: center;
         }
         .file-container {
             max-height: 100px;
