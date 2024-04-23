@@ -81,23 +81,31 @@
             font-weight: 500;
         }
         .btn-edit, .btn-delete {
-    padding: 0.25rem 0.75rem; /* consistent padding for both buttons */
+    display: inline-block; /* Align buttons side by side */
+    padding: 0.5rem 1rem; /* consistent padding for both buttons */
     color: white; /* white text for visibility */
     border: none; /* no border */
-    margin: 0.25rem; /* some space around the buttons */
-    flex-grow: 1; /* each button will fill the space evenly */
+    font-size: 1rem; /* standard font size for readability */
+    line-height: 1.5; /* standard line height for better text alignment */
     text-align: center; /* center the text inside buttons */
+    vertical-align: middle; /* align buttons vertically */
+    cursor: pointer; /* change cursor to pointer on hover */
+    margin-right: 0.5rem; /* margin to the right of the buttons */
+    text-decoration: none; /* remove underline from links */
 }
 
 /* Specific style for the Edit button */
 .btn-edit {
     background-color: #007bff; /* Bootstrap primary blue for Edit */
+    width: 90px; /* fixed width to match Delete button */
 }
 
 /* Specific style for the Delete button */
 .btn-delete {
     background-color: #dc3545; /* Bootstrap danger red for Delete */
+    width: 90px; /* fixed width to match Edit button */
 }
+
         .btn, .btn-sm {
             border-radius: 0.5rem;
             transition: background-color 0.3s ease;
