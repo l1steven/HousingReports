@@ -111,10 +111,13 @@
             transition: background-color 0.3s ease;
         }
         .button-group {
-            position: absolute; /* Set position to absolute */
-            bottom: 10px; /* Adjust as needed */
-            left: 50%; /* Place the button group at the center horizontally */
-            transform: translateX(-50%); /* Adjust for centering */
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex; /* Set display to flex */
+    justify-content: center; /* Center the buttons horizontally */
+    align-items: center; /* Center the buttons vertically */
         }
         .navbar.fixed-bottom {
             display: flex;
