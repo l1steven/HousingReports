@@ -33,6 +33,27 @@
             max-width: 960px;
             text-align: center;
         }
+        .profile-card {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); /* Card shadow */
+    text-align: center;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 1rem; /* Adjust padding to fit the content */
+    margin-bottom: 2rem; /* Space below card */
+}
+        .profile-card img {
+            border-radius: 50%; /* Circular image */
+            width: 100px; /* Fixed image width */
+            height: 100px; /* Fixed image height */
+            margin: 0 auto; /* Center the image */
+        }
+        .profile-card h2 {
+            font-size: 1.5rem; /* Name font size */
+        }
+        .profile-card p {
+            font-size: 1rem; /* Email and role font size */
+            color: #333; /* Text color */
+        }
         .dashboard-header {
             border-bottom: 4px solid #0056b3;
             padding-bottom: 1rem;
@@ -47,41 +68,7 @@
             font-weight: 500;
             margin: 0.5rem 0;
         }
-        .card {
-            background: #fff;
-            margin: 1.5rem;
-            border: 1px solid #dedede;
-            box-shadow: 0 2px 4px rgba(0,0,0,.1);
-            border-radius: 0.5rem;
-            overflow: hidden;
-            height: 225px; /* Set a fixed height */
-            width: 100%;
-            padding: 1rem;
-        }
-        .card-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); /* Adjust 'minmax' as needed */
-    gap: 1rem; /* Adjust the gap between cards */
-    padding: 1rem;
-    justify-content: center;
-}
 
-@media (min-width: 1200px) { /* Adjust this breakpoint as needed */
-    .card-container {
-        grid-template-columns: repeat(5, 1fr); /* 5 columns for larger screens */
-    }
-}
-        .card-body {
-            padding: .5rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            height: 125%;
-            width: 125%;
-        }
-        .content-container {
-            overflow-y: auto;
-        }
         .file-container {
             max-height: 100px;
             overflow-y: auto;
@@ -89,10 +76,7 @@
         .text-file-content {
             white-space: pre-wrap;
         }
-        .card-title {
-            color: #0056b3;
-            font-weight: 450;
-        }
+
         .btn-edit, .btn-delete {
     display: inline-block; /* Align buttons side by side */
     padding: 0.5rem 1rem; /* consistent padding for both buttons */
@@ -174,17 +158,15 @@
     </div>
     <div class="card-container">
         {% for complaint in complaints %}
-                <div class="card">
-                    <div class="card-body">
-                        <div class="content-container">
-                            <h5 class="card-title">{{ complaint.name }}</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">Location: {{ complaint.location }}</h6>
-                            <p class="card-text">{{ complaint.description }}</p>
+                <div class=“profile-card”>
+                            <h2>{{ complaint.name }}</h2>
+                            <p>Location: {{ complaint.location }}</p>
+                            <p>{{ complaint.description }}</p>
                             {% if complaint.status %}
-                                <div>Status: {{ complaint.status }}</div>
+                                <p>Status: {{ complaint.status }}</p>
                             {% endif %}
                             {% if complaint.review %}
-                                <div>Review: {{ complaint.review }}</div>
+                                <p>Review: {{ complaint.review }}</p>
                             {% endif %}
                             {% if complaint.upload %}
                                 <div class="file-container">
@@ -198,8 +180,7 @@
                                         <a href="{{ complaint.upload.url }}" target="_blank">Download File</a>
                                     {% endif %}
                                 </div>
-                            {% endif %}
-                        </div>
+                            {% endif %
                         <div class="button-group">
                             <form method="post" action="{% url 'delete_complaint' complaint.id %}" class="mt-3">
                                 {% csrf_token %}
@@ -207,9 +188,9 @@
                                 <a href="{% url 'edit_complaint' complaint.id %}" class="btn btn-edit btn-sm">Edit</a>
                             </form>
                         </div>
-                    </div>
-                </div>
+
             </div>
+</div>
         {% empty %}
             <div class="col-12 text-center">
                 <p>You have not submitted any complaints.</p>
