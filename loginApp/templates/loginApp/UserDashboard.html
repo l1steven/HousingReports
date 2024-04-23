@@ -33,15 +33,16 @@
             text-align: center;
         }
         .profile-card {
-            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); /* Card shadow */
-            text-align: center;
-            background-color: #fff;
-            border-radius: 10px;
-            padding: 1rem; /* Adjust padding to fit the content */
-            margin-bottom: 2rem; /* Space below card */
-            margin-right: 1rem; /* Add some space between cards */
-            height:325px;
-            width:325px;
+            position: relative; /* Set position to relative */
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    text-align: center;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 1rem;
+    margin-bottom: 2rem;
+    margin-right: 1rem;
+    height: 325px;
+    width: 325px;
         }
         .profile-card:last-child {
             margin-right: 0; /* Remove margin from the last card to prevent overflow */
@@ -110,9 +111,10 @@
             transition: background-color 0.3s ease;
         }
         .button-group {
-            display: flex;
-            justify-content: start;
-            gap: 0.25rem;
+            position: absolute; /* Set position to absolute */
+            bottom: 10px; /* Adjust as needed */
+            left: 50%; /* Place the button group at the center horizontally */
+            transform: translateX(-50%); /* Adjust for centering */
         }
         .navbar.fixed-bottom {
             display: flex;
@@ -167,37 +169,37 @@
     </div>
     <div class="card-container" style="display: flex; flex-wrap: wrap; justify-content: space-between;">
         {% for complaint in complaints %}
-            <div class="profile-card">
-                <h2>{{ complaint.name }}</h2>
-                <p>Location: {{ complaint.location }}</p>
-                <p>{{ complaint.description }}</p>
-                {% if complaint.status %}
-                    <p>Status: {{ complaint.status }}</p>
-                {% endif %}
-                {% if complaint.review %}
-                    <p>Review: {{ complaint.review }}</p>
-                {% endif %}
-                {% if complaint.upload %}
-                    <div class="file-container">
-                        {% if complaint.is_image %}
-                            <img src="{{ complaint.upload.url }}" alt="Image preview" class="img-fluid">
-                        {% elif complaint.is_pdf %}
-                            <iframe src="{{ complaint.upload.url }}" width="100%" height="200"></iframe>
-                        {% elif complaint.is_text %}
-                            <div class="text-file-content">{{ complaint.upload.url }}</div>
-                        {% else %}
-                            <a href="{{ complaint.upload.url }}" target="_blank">Download File</a>
-                        {% endif %}
-                    </div>
-                {% endif %}
-                <div class="button-group">
-                    <form method="post" action="{% url 'delete_complaint' complaint.id %}" class="mt-3">
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-delete btn-sm">Delete</button>
-                        <a href="{% url 'edit_complaint' complaint.id %}" class="btn btn-edit btn-sm">Edit</a>
-                    </form>
-                </div>
-            </div>
+           <div class="profile-card">
+    <h2>{{ complaint.name }}</h2>
+    <p>Location: {{ complaint.location }}</p>
+    <p>{{ complaint.description }}</p>
+    {% if complaint.status %}
+        <p>Status: {{ complaint.status }}</p>
+    {% endif %}
+    {% if complaint.review %}
+        <p>Review: {{ complaint.review }}</p>
+    {% endif %}
+    {% if complaint.upload %}
+        <div class="file-container">
+            {% if complaint.is_image %}
+                <img src="{{ complaint.upload.url }}" alt="Image preview" class="img-fluid">
+            {% elif complaint.is_pdf %}
+                <iframe src="{{ complaint.upload.url }}" width="100%" height="200"></iframe>
+            {% elif complaint.is_text %}
+                <div class="text-file-content">{{ complaint.upload.url }}</div>
+            {% else %}
+                <a href="{{ complaint.upload.url }}" target="_blank">Download File</a>
+            {% endif %}
+        </div>
+    {% endif %}
+    <div class="button-group">
+        <form method="post" action="{% url 'delete_complaint' complaint.id %}" class="mt-3">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-delete btn-sm">Delete</button>
+        </form>
+        <a href="{% url 'edit_complaint' complaint.id %}" class="btn btn-edit btn-sm">Edit</a>
+    </div>
+</div>
         {% empty %}
             <div class="col-12 text-center">
                 <p>You have not submitted any complaints.</p>
