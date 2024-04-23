@@ -55,15 +55,21 @@
             border-radius: 0.5rem;
             overflow: hidden;
             height: 225px; /* Set a fixed height */
-            width: 225px;
+            width: 100%;
             padding: 1rem;
         }
         .card-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* This will create as many columns as can fit in the space */
-    gap: 2rem; /* Adjust the gap between cards */
-    padding: 2rem;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); /* Adjust 'minmax' as needed */
+    gap: 1rem; /* Adjust the gap between cards */
+    padding: 1rem;
     justify-content: center;
+}
+
+@media (min-width: 1200px) { /* Adjust this breakpoint as needed */
+    .card-container {
+        grid-template-columns: repeat(5, 1fr); /* 5 columns for larger screens */
+    }
 }
         .card-body {
             padding: .5rem;
