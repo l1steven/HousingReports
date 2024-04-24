@@ -6,7 +6,7 @@ from loginApp.models import Complaint
 class ComplaintForm(forms.ModelForm):
     class Meta:
         model = Complaint
-        fields = ['name', 'location', 'description', 'upload']
+        fields = ['name', 'location', 'description']
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control'}),
             'location': forms.TextInput(attrs={'class': 'form-control'}),
@@ -24,9 +24,8 @@ class AnonymousComplaintForm(forms.ModelForm):
 
     class Meta:
         model = Complaint
-        fields = ['name', 'location', 'description', 'upload', 'is_anonymous']
+        fields = ['name', 'location', 'description', 'is_anonymous']  # Removed 'upload'
         widgets = {
             'location': forms.TextInput(attrs={'class': 'form-control'}),
             'description': forms.Textarea(attrs={'class': 'form-control'}),
-            'upload': forms.FileInput(attrs={'class': 'form-control'}),
         }
