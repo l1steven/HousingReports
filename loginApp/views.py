@@ -25,11 +25,13 @@ def dashboard(request):
         name='Site Admin').exists()) else Complaint.objects.all()
 
     for complaint in complaints:
-        if complaint.upload:
-            mime_type, _ = mimetypes.guess_type(complaint.upload.url)
-            complaint.is_image = mime_type.startswith('image/') if mime_type else False
-            complaint.is_pdf = 'application/pdf' == mime_type if mime_type else False
-            complaint.is_text = 'text/plain' == mime_type if mime_type else False
+        complaint_files = ComplaintFile.objects.filter(complaint=complaint)
+        for complaint_file in complaint_files:
+            mime_type, _ = mimetypes.guess_type(complaint_file.file.url)
+            complaint_file.is_image = mime_type.startswith('image/') if mime_type else False
+            complaint_file.is_pdf = 'application/pdf' == mime_type if mime_type else False
+            complaint_file.is_text = 'text/plain' == mime_type if mime_type else False
+        complaint.files_info = complaint_files
 
     userType = 'loginApp/AdminDashboard.html' if request.user.groups.filter(
         name='Site Admin').exists() else 'loginApp/UserDashboard.html'
