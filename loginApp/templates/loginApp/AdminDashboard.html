@@ -66,45 +66,75 @@
     </style>
 </head>
 <body>
-    <header>
-        <div class="welcome-message">
-            Welcome, {{ user.username| capfirst }}! You're an admin user
-        </div>
-    </header>
+<header>
+    <div class="welcome-message">
+        Welcome, {{ user.username|capfirst }}! This is your User Dashboard - You are logged in as a Regular User.
+        Access the community forum for you: <a href="/forum" class="btn btn-primary">Go to Community Forum (For Anonymous Users)</a>
+    </div>
+</header>
+<div class="main-content">
+    <div class="dashboard-header">
+        <img src="{% static 'society.png' %}" alt="Rotunda Image" width="100" height="60">
+        <h1>Complaints You Have Submitted</h1>
+    </div>
+    <div style="margin: 2rem;">
+        <a href="{% url 'complaint_form' %}" class="btn btn-primary">File a Complaint</a>
+        <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
+    </div>
+    <div class="card-container" style="display: flex; flex-wrap: wrap; justify-content: space-between;">
+        {% for complaint in complaints %}
+            <div class="profile-card">
+                <h2>{{ complaint.name }}</h2>
+                <p>Location: {{ complaint.location }}</p>
+                <p>{{ complaint.description }}</p>
+                <p>Status: {{ complaint.get_status_display }}</p>
+                {% if complaint.review %}
+                    <p>Review: {{ complaint.review }}</p>
+                {% endif %}
 
-    <div class="container mt-4">
-        <h2>Complaints</h2>
-        <div class="row">
-            {% for complaint in complaints %}
-            <div class="col-md-4 mb-3">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Name: {{ complaint.name }}</h5>
-                        <p class="card-text">Location: {{  complaint.location }}</p>
-                        <p class="card-text">Description:  {{ complaint.description }}</p>      
-                        <small> Status: {{complaint.status}} </small>
-                        {% if complaint.review %}
-                        <small>    Review: {{complaint.review}} </small>
+                {% if complaint.files_info %}
+                    <div class="file-container">
+                        {% if complaint.files_info|length == 1 %}
+                            {% with file=complaint.files_info.first %}
+                                {% if file.is_image %}
+                                    <img src="{{ file.file.url }}" alt="Image preview" class="img-fluid">
+                                {% elif file.is_pdf %}
+                                    <iframe src="{{ file.file.url }}" width="100%" height="200"></iframe>
+                                {% elif file.is_text %}
+                                    <div class="text-file-content">
+                                        <a href="{{ file.file.url }}" target="_blank">View Text File</a>
+                                    </div>
+                                {% else %}
+                                    <a href="{{ file.file.url }}" target="_blank">Download File</a>
+                                {% endif %}
+                            {% endwith %}
+                        {% else %}
+                            <p>Files:</p>
+                            <ul>
+                                {% for file in complaint.files_info %}
+                                    <li><a href="{{ file.file.url }}" target="_blank">{{ file.file.name }}</a></li>
+                                {% endfor %}
+                            </ul>
                         {% endif %}
-                        {% if complaint.upload %}
-                            {% if complaint.is_image %}
-                                <img src="{{ complaint.upload.url }}" alt="Image preview" class="img-fluid">
-                            {% elif complaint.is_pdf %}
-                                <iframe src="{{ complaint.upload.url }}" width="100%" height="200"></iframe>
-                            {% elif complaint.is_text %}
-                                <a href="{{ complaint.upload.url }}" target="_blank">View Text File</a>
-                            {% else %}
-                                <a href="{{ complaint.upload.url }}" target="_blank">Download File</a>
-                            {% endif %}
-                        {% endif %}
-                        <a href="{% url 'complaints' complaint.id %}" class="btn btn-primary btn-sm mt-2">View Details</a>
                     </div>
+                {% endif %}
+                <div class="button-group">
+                    <form method="post" action="{% url 'delete_complaint' complaint.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-delete btn-sm">Delete</button>
+                    </form>
+                    <a href="{% url 'edit_complaint' complaint.id %}" class="btn btn-edit btn-sm">Edit</a>
                 </div>
             </div>
-            {% empty %}
-                <p class="col">No complaints have been submitted yet.</p>
-            {% endfor %}
-        </div>
+        {% empty %}
+            <div class="col-12 text-center">
+                <p>You have not submitted any complaints.</p>
+            </div>
+        {% endfor %}
     </div>
+</div>
+<div class="navbar fixed-bottom">
+    <span>This system is a class project and is not monitored. Do not submit real information. For more information, visit our project page at <a href="https://s24.cs3240.org/project.html" target="_blank">s24.cs3240.org/project.html</a>.</span>
+</div>
 </body>
 </html>
