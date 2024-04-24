@@ -133,17 +133,26 @@ def deletecomplaintcommon(request, complaint_id):
         return HttpResponseRedirect(reverse('dashboard'))
     return render(request, 'loginApp/delete_confirmation.html', {'complaint': complaint})
 
+
 @login_required
-def editcomplaintcommon(request, complaint):
-    complaint1 = Complaint.objects.filter(id=complaint).first()
+def editcomplaintcommon(request, complaint_id):
+    complaint = get_object_or_404(Complaint, id=complaint_id)
     if request.method == 'POST':
-        form = ComplaintForm(request.POST, request.FILES, instance=complaint1)
+        form = ComplaintForm(request.POST, request.FILES, instance=complaint)
         if form.is_valid():
-            form.save()
+            saved_complaint = form.save()
+
+            files = request.FILES.getlist('upload')
+            for file in files:
+                ComplaintFile.objects.create(complaint=saved_complaint, file=file)
+
+            for existing_file in saved_complaint.files.all():
+                existing_file.delete()
+
             return redirect('complaint_success')
     else:
-        form = ComplaintForm(instance=complaint1)
-    
+        form = ComplaintForm(instance=complaint)
+
     return render(request, 'loginApp/edit_form.html', {'form': form})
 
 
@@ -215,3 +224,16 @@ def handle_complaint_click(request, complaint_id):
 
 def about(request):
     return render(request, 'loginApp/about.html')
+
+@login_required
+def delete_all_complaints(request):
+    if request.user.groups.filter(name='Site Admin').exists():
+        messages.error(request, "You do not have permission to perform this action.")
+        return HttpResponseRedirect(reverse('dashboard'))
+
+    if request.method == 'POST':
+        Complaint.objects.all().delete()
+        messages.success(request, "All complaints have been deleted successfully.")
+        return HttpResponseRedirect(reverse('dashboard'))
+
+    return render(request, 'loginApp/delete_all_confirmation.html')
