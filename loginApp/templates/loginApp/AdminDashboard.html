@@ -99,6 +99,21 @@
 
                 {% if complaint.files_info %}
                     <div class="file-container">
+                        {% if complaint.files_info|length == 1 %}
+                            {% with file=complaint.files_info.first %}
+                                {% if file.is_image %}
+                                    <img src="{{ file.file.url }}" alt="Image preview" class="img-fluid">
+                                {% elif file.is_pdf %}
+                                    <iframe src="{{ file.file.url }}" width="100%" height="200"></iframe>
+                                {% elif file.is_text %}
+                                    <div class="text-file-content">
+                                        <a href="{{ file.file.url }}" target="_blank">View Text File</a>
+                                    </div>
+                                {% else %}
+                                    <a href="{{ file.file.url }}" target="_blank">Download File</a>
+                                {% endif %}
+                            {% endwith %}
+                        {% else %}
                             <p>Files:</p>
                             <ul>
                                 {% for file in complaint.files_info %}
@@ -117,5 +132,8 @@
             {% endfor %}
         </div>
     </div>
+        <div class="navbar fixed-bottom">
+            <span>This system is a class project and is not monitored. Do not submit real information. For more information, visit our project page at <a href="https://s24.cs3240.org/project.html" target="_blank">s24.cs3240.org/project.html</a>.</span>
+        </div>
 </body>
 </html>
