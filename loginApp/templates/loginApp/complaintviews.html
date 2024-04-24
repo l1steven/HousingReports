@@ -3,7 +3,6 @@
 {% load django_bootstrap5 %}
 {% bootstrap_css %}
 {% bootstrap_javascript %}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,57 +20,56 @@
        <hr>
        <h2>Complaints Overview</h2>
        <div class="list-group mt-4">
-                           <h5 class="mb-1">{{ complaints.name }}</h5>
-                       <p class="mb-1">Location: {{ complaints.location }}</p>
-                       <p class="mb-1">Description: {{ complaints.description|truncatechars:100 }}</p>
-                       {% if complaints.upload %}
-                           {% if complaints.is_image %}
-                           <img src="{{ complaints.upload.url }}" alt="Image preview" class="img-fluid">
-                           {% elif complaints.is_pdf %}
-                           <iframe src="{{ complaints.upload.url }}" width="100%" height="200"></iframe>
-                           {% elif complaints.is_text %}
-                           <a href="{{ complaints.upload.url }}" target="_blank">View Text File</a>
-                           {% else %}
-                           <a href="{{ complaints.upload.url }}" target="_blank">Download File</a>
-                           {% endif %}
-                       {% endif %}
-                       {% if complaints.user %}
-                           <small>By: {{ complaints.user.username }}</small>
-                       {% else %}
-                           <small>By: Anonymous</small>
-                       {% endif %}
-                       {% if complaints.review %}
-                           <small>{{ complaints.review }}</small>
-                       {% endif %}
-                       <small>{{ complaints.status }}</small>
-                       {% if complaints.status == 'reviewed' %}
-                           <p>Status: Reviewed</p>
-                       {% elif complaints.status == 'in_progress' or complaints.status == 'notreviewed' %}
-                           <form action="" method="post">
-                               {% csrf_token %}
-                               <label for="status">Set Status:</label>
-                               <select id="status" name="status">
-                                   <option value="in_progress" selected>In Progress</option>
-                                   <option value="reviewed">Reviewed</option>
-                                   <label for="review">Enter your review:</label>
-                                   <br>
-        <textarea id="review" name="review" rows="4" cols="50"></textarea><br>
-                               </select>
-                               <button type="submit" class="btn btn-primary">Submit</button>
-                           </form>
-                       {% else %}
-                           <form action="" method="post">
-                               {% csrf_token %}
-                               <label for="status">Set Status:</label>
-                               <select id="status" name="status">
-                                   <option value="in_progress">In Progress</option>
-                                   <option value="reviewed">Reviewed</option>
-                                   <!-- Add more options as needed -->
-                               </select>
-                               <button type="submit" class="btn btn-primary">Submit</button>
-                           </form>
-                       {% endif %}
-
+           <h5 class="mb-1">{{ complaints.name }}</h5>
+           <p class="mb-1">Location: {{ complaints.location }}</p>
+           <p class="mb-1">Description: {{ complaints.description|truncatechars:100 }}</p>
+           {% for upload in complaints.uploads.all %}
+               {% if upload.is_image %}
+                   <img src="{{ upload.url }}" alt="Image preview" class="img-fluid">
+               {% elif upload.is_pdf %}
+                   <iframe src="{{ upload.url }}" width="100%" height="200"></iframe>
+               {% elif upload.is_text %}
+                   <a href="{{ upload.url }}" target="_blank">View Text File</a>
+               {% else %}
+                   <a href="{{ upload.url }}" target="_blank">Download File</a>
+               {% endif %}
+           {% endfor %}
+           {% if complaints.user %}
+               <small>By: {{ complaints.user.username }}</small>
+           {% else %}
+               <small>By: Anonymous</small>
+           {% endif %}
+           {% if complaints.review %}
+               <small>{{ complaints.review }}</small>
+           {% endif %}
+           <small>{{ complaints.status }}</small>
+           {% if complaints.status == 'reviewed' %}
+               <p>Status: Reviewed</p>
+           {% elif complaints.status == 'in_progress' or complaints.status == 'notreviewed' %}
+               <form action="" method="post">
+                   {% csrf_token %}
+                   <label for="status">Set Status:</label>
+                   <select id="status" name="status">
+                       <option value="in_progress" selected>In Progress</option>
+                       <option value="reviewed">Reviewed</option>
+                   </select>
+                   <label for="review">Enter your review:</label>
+                   <br>
+                   <textarea id="review" name="review" rows="4" cols="50"></textarea><br>
+                   <button type="submit" class="btn btn-primary">Submit</button>
+               </form>
+           {% else %}
+               <form action="" method="post">
+                   {% csrf_token %}
+                   <label for="status">Set Status:</label>
+                   <select id="status" name="status">
+                       <option value="in_progress">In Progress</option>
+                       <option value="reviewed">Reviewed</option>
+                       <!-- Add more options as needed -->
+                   </select>
+                   <button type="submit" class="btn btn-primary">Submit</button>
+               </form>
+           {% endif %}
        </div>
    </div>
 </body>
