@@ -141,17 +141,19 @@ def editcomplaintcommon(request, complaint_id):
         form = ComplaintForm(request.POST, request.FILES, instance=complaint)
         if form.is_valid():
             saved_complaint = form.save()
+
+            files_to_delete = request.POST.getlist('delete_files')
+            if files_to_delete:
+                ComplaintFile.objects.filter(id__in=files_to_delete).delete()
+
             files = request.FILES.getlist('upload')
-            complaint.files.all().delete()
             for file in files:
                 ComplaintFile.objects.create(complaint=saved_complaint, file=file)
             return redirect('complaint_success')
     else:
         form = ComplaintForm(instance=complaint)
 
-    return render(request, 'loginApp/edit_form.html', {'form': form})
-
-
+    return render(request, 'loginApp/edit_form.html', {'form': form, 'complaint': complaint})
 
 class ThreadListView(ListView):
     template_name = "thread_list.html"

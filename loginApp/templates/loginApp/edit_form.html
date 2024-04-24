@@ -81,6 +81,27 @@
             <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 {% bootstrap_form form %}
+                <h3>Current Files</h3>
+                {% if complaint.files.all %}
+                    <div class="mb-3">
+                        {% for file in complaint.files.all %}
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" name="delete_files" value="{{ file.id }}" id="delete_file_{{ file.id }}">
+                                <label class="form-check-label" for="delete_file_{{ file.id }}">
+                                    {{ file.file.name }}
+                                </label>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p>No files uploaded.</p>
+                {% endif %}
+
+                <h3>Upload New Files</h3>
+                <div class="mb-3">
+                    <input type="file" class="form-control" name="upload" multiple>
+                </div>
+
                 <div class="button-container">
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
