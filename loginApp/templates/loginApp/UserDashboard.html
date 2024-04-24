@@ -176,9 +176,13 @@
     <h2>{{ complaint.name }}</h2>
     <p>Location: {{ complaint.location }}</p>
     <p>{{ complaint.description }}</p>
-    {% if complaint.status %}
-        <p>Status: {{ complaint.status }}</p>
-    {% endif %}
+   {% if complaint.status == "notreviewed" %}
+            <p>Status: Not Reviewed</p>
+        {% elif complaint.status == "in_progress" %}
+            <p>Status: In Progress</p>
+        {% elif complaint.status == "reviewed" %}
+            <p>Status: Reviewed</p>
+        {% endif %}
     {% if complaint.review %}
         <p>Review: {{ complaint.review }}</p>
     {% endif %}
