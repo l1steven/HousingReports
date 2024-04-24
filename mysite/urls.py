@@ -19,6 +19,7 @@ from django.urls import path, include
 from django.views.generic import TemplateView
 from django.contrib.auth.views import LogoutView
 from loginApp import views as loginAppView, views
+from loginApp.views import delete_all_complaints
 from machina import urls as machina_urls
 
 urlpatterns = [
