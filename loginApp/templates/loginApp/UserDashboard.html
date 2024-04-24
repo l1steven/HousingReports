@@ -152,13 +152,22 @@
                 margin-right: 0; /* No margin between cards on smaller screens */
             }
         }
+        .btn-header {
+    position: absolute;
+    top: 1rem; /* Adjust as needed */
+    right: 1rem; /* Adjust as needed */
+}
+        .welcome-message {
+    position: relative;
+}
+
     </style>
 </head>
 <body>
 <header>
     <div class="welcome-message">
         Welcome, {{ user.username|capfirst }}! This is your User Dashboard - You are logged in as a Regular User.
-        Access the community forum for you: <a href="/forum" class="btn btn-primary">Go to Community Forum (For Anonymous Users)</a>
+        Access the community forum for you: <a href="/forum" class="btn btn-header">Go to Community Forum (For Anonymous Users)</a>
     </div>
 </header>
 <div class="main-content">
