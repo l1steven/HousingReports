@@ -78,12 +78,16 @@
         <div class="card">
         <h1 class ="title">File a Complaint</h1>
         <form method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            {% bootstrap_form form %}
-            <div class="button-container">
-                    <button type="submit" class="btn btn-primary">Submit</button>
-            </div>
-        </form>
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    <div class="form-group">
+        <label for="upload">Upload Files:</label>
+        <input type="file" class="form-control" id="upload" name="upload" multiple>
+    </div>
+    <div class="button-container">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+</form>
         </div>
     </div>
     <div class="navbar fixed-bottom">
