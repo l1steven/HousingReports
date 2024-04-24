@@ -91,25 +91,34 @@
 <body>
     <header>
         <div class="welcome-message">
-            Welcome, Unnamed! You're an anonymous user. Go <a href="/">back to home.</a>
+            Welcome! You are submitting this complaint as an anonymous user.
+            <a href="/">Back to Home</a>.
         </div>
     </header>
 
     <div class="container">
         <div class="card">
-        <h1 class="title">Submit an Anonymous Complaint</h1>
-        <form method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            {% bootstrap_form form %}
-            <div class="button-container">
+            <h1 class="title">Submit an Anonymous Complaint</h1>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% bootstrap_form form %}
+                <div class="form-group">
+                    <label for="upload">Upload Files (you can select multiple files):</label>
+                    <input type="file" class="form-control" id="upload" name="upload" multiple>
+                </div>
+                <div class="button-container">
                     <button type="submit" class="btn btn-primary">Submit</button>
-            </div>
-        </form>
+                </div>
+            </form>
         </div>
     </div>
+
     <div class="navbar fixed-bottom">
-        <span>This system is a class project and is not monitored. Do not submit real information. For more information, visit our project page at <a href="https://s24.cs3240.org/project.html" target="_blank">s24.cs3240.org/project.html</a>.</span>
+        <span>This system is a class project and is not monitored. Do not submit real information.
+        For more information, visit our project page at
+        <a href="https://s24.cs3240.org/project.html" target="_blank">s24.cs3240.org/project.html</a>.</span>
     </div>
+
     {% bootstrap_javascript %}
 </body>
 </html>

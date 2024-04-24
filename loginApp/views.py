@@ -92,6 +92,11 @@ def anonymous_complaint_view(request):
             complaint.user = None
             complaint.is_anonymous = True
             complaint.save()
+
+            files = request.FILES.getlist('upload')
+            for file in files:
+                ComplaintFile.objects.create(complaint=complaint, file=file)
+
             return render(request, 'loginApp/complaint_success_anon.html')
     else:
         # when it is a GET request
