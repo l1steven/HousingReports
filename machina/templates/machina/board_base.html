@@ -9,12 +9,63 @@
 {{ block.super }}
 <link rel="stylesheet" href="{% static 'machina/build/css/machina.board_theme.vendor.min.css' %}" />
 <link rel="stylesheet" href="{% static 'machina/build/css/machina.board_theme.min.css' %}" />
+
+<style>
+
+
+  .btn-return-home {
+    background-color: #007bff; /* Bootstrap primary blue */
+    color: white; /* White text color for contrast */
+    border: none; /* Optional: removes the default border */
+  }
+
+  .btn-return-home:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+    color: white;
+  }
+
+  .navbar-brand {
+    font-weight: bold;
+  }
+
+  .navbar-header {
+    border-bottom: 2px solid #e0e0e0;
+  }
+
+  .navbar.fixed-bottom {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #394451;
+            color: #ffffff;
+            padding: 1rem 0;
+            width: 100%;
+            font-size: 1rem;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 1030;
+            text-align: center;
+        }
+
+        .navbar.fixed-bottom a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .navbar.fixed-bottom a:hover {
+            text-decoration: underline;
+        }
+</style>
+
 {% endblock css %}
 
 {% block body %}
 {% block header %}
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-  <a class="navbar-brand" href="{% url 'forum:index' %}">{% block brand %}{{ MACHINA_FORUM_NAME|default:"My forum" }}{% endblock %}</a>
+<nav class="navbar navbar-expand-lg navbar-light bg-white navbar-header">
+  <a class="navbar-brand" href="{% url 'forum:index' %}">{% block brand %}{% trans "UVA Housing Report Forum" %}{% endblock %}</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -29,7 +80,7 @@
     </div> -->
     {% endblock header_collapse %}
   </div>
-  <a class="btn btn-outline-light ml-auto" type="button" href="/">{% trans "Return Home" %}</a>
+  <a class="btn btn-return-home ml-auto" type="button" href="/">{% trans "Return Home" %}</a>
 </nav>
 {% endblock header %}
 <div class="my-5 container" id="main_container">
@@ -39,8 +90,8 @@
       <div class="float-right controls-link-wrapper">
       {% spaceless %}
       {% if not request.user.is_anonymous %}
-        <a href="{% url 'forum_member:user_subscriptions' %}" class="d-inline-block ml-3"><i class="fas fa-bookmark">&nbsp;</i>{% trans "Subscriptions" %}</a>
-        <a href="{% url 'forum_member:user_posts' request.user.id %}" class="d-inline-block ml-3"><i class="fas fa-comments">&nbsp;</i>{% trans "View my posts" %}</a>
+        <a href="{% url 'forum_member:user_subscriptions' %}" class="d-inline-block ml-3 link-black"><i class="fas fa-bookmark">&nbsp;</i>{% trans "Subscriptions" %}</a>
+        <a href="{% url 'forum_member:user_posts' request.user.id %}" class="d-inline-block ml-3 link-black"><i class="fas fa-comments">&nbsp;</i>{% trans "View my posts" %}</a>
       {% endif %}
       {% get_permission 'can_access_moderation_queue' request.user as can_access_moderation_queue %}
       {% if can_access_moderation_queue %}
@@ -60,8 +111,7 @@
   {% endblock content %}
 </div>
 <div class="navbar fixed-bottom">
-  <p>This system is a class project and is not monitored. Do not submit real info.</p>
-  <a href="https://s24.cs3240.org/project.html">Visit our project page for more info.</a>
+  <span>This system is a class project and is not monitored. Do not submit real information. For more information, visit our project page at <a href="https://s24.cs3240.org/project.html" target="_blank">s24.cs3240.org/project.html</a>.</span>
 </div>
 {% endblock body %}
 
