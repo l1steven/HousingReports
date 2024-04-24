@@ -9,7 +9,7 @@ class ComplaintForm(forms.ModelForm):
             'name': forms.TextInput(attrs={'class': 'form-control'}),
             'location': forms.TextInput(attrs={'class': 'form-control'}),
             'description': forms.Textarea(attrs={'class': 'form-control'}),
-            'upload': forms.ClearableFileInput(attrs={'class': 'form-control', 'multiple': True}),
+            'upload': forms.fileInput(attrs={'class': 'form-control', 'multiple': True}),
         }
 
 class AnonymousComplaintForm(forms.ModelForm):
