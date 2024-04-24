@@ -81,7 +81,7 @@
             <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 {% bootstrap_form form %}
-                <h3>Current Files</h3>
+                <h3>Current Files (check off to delete)</h3>
                 {% if complaint.files.all %}
                     <div class="mb-3">
                         {% for file in complaint.files.all %}
