@@ -226,7 +226,7 @@ def about(request):
 
 @login_required
 def delete_all_complaints(request):
-    if request.user.groups.filter(name='Site Admin').exists():
+    if not request.user.groups.filter(name='Site Admin').exists():
         messages.error(request, "You do not have permission to perform this action.")
         return HttpResponseRedirect(reverse('dashboard'))
 
