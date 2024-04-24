@@ -154,8 +154,11 @@
         }
         .btn-header {
     position: absolute;
-    top: 1rem; /* Adjust as needed */
-    right: 1rem; /* Adjust as needed */
+    top: 50%; /* Position at the middle vertically */
+    right: 1rem; /* Adjust as needed for right-hand corner */
+    transform: translateY(-50%); /* Move it up by half its height */
+    background-color: #394451;
+    color: #ffffff;
 }
         .welcome-message {
     position: relative;
@@ -167,7 +170,7 @@
 <header>
     <div class="welcome-message">
         Welcome, {{ user.username|capfirst }}! This is your User Dashboard - You are logged in as a Regular User.
-        Access the community forum for you: <a href="/forum" class="btn btn-header">Go to Community Forum (For Anonymous Users)</a>
+        <a href="/forum" class="btn btn-header">Go to Community Forum (For Anonymous Users)</a>
     </div>
 </header>
 <div class="main-content">
