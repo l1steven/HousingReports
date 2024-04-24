@@ -8,9 +8,14 @@ from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView
 
+from django.contrib import messages
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+from django.shortcuts import get_object_or_404
+
 from mysite import settings
 from .forms import ComplaintForm
-from .models import Complaint
+from .models import Complaint, ComplaintFile
 from .models import Thread, Post
 
 @login_required
@@ -54,6 +59,10 @@ def complaint_form(request):
             complaint.user = request.user
             complaint.save()
 
+            files = request.FILES.getlist('upload')
+            for file in files:
+                ComplaintFile.objects.create(complaint=complaint, file=file)
+
             if request.user.email:
                 subject = "Complaint Submission Confirmed"
                 message = f"Dear {request.user.username}, \n\nYour complaint has been successfully submitted and is now under review. \n\nComplaint details:\n- Name: {complaint.name}\n- Location: {complaint.location}\n- Description: {complaint.description}\n\nWe will notify you of any updates regarding your complaint status.\n\nThank you for bringing this to our attention."
@@ -93,13 +102,6 @@ def anonymous_complaint_view(request):
 def complaint_success(request):
     return render(request, 'loginApp/complaint_success.html')
 
-
-from django.contrib import messages
-from django.http import HttpResponseRedirect
-from django.urls import reverse
-from django.shortcuts import get_object_or_404
-
-
 @login_required
 def deletecomplaintcommon(request, complaint_id):
     complaint = get_object_or_404(Complaint, id=complaint_id)
@@ -118,6 +120,7 @@ def deletecomplaintcommon(request, complaint_id):
             except Exception as e:
                 messages.error(request, "Error deleting file from storage.")
                 return HttpResponseRedirect(reverse('dashboard'))
+        complaint.files.all().delete()
         complaint.delete()
         messages.success(request, "Complaint deleted successfully.")
         return HttpResponseRedirect(reverse('dashboard'))
