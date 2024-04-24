@@ -117,7 +117,7 @@ def deletecomplaintcommon(request, complaint_id):
         return HttpResponseRedirect(reverse('dashboard'))
 
     if request.method == 'POST':
-        if complaint.upload:
+        if hasattr(complaint, 'upload') and complaint.upload:
             s3 = boto3.client('s3')
             s3_url = complaint.upload.url
             parsed_url = urlparse(s3_url)
