@@ -24,7 +24,7 @@ class AnonymousComplaintForm(forms.ModelForm):
 
     class Meta:
         model = Complaint
-        fields = ['name', 'location', 'description', 'is_anonymous']  # Removed 'upload'
+        fields = ['name', 'location', 'description', 'is_anonymous']
         widgets = {
             'location': forms.TextInput(attrs={'class': 'form-control'}),
             'description': forms.Textarea(attrs={'class': 'form-control'}),
