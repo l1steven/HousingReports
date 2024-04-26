@@ -1,0 +1,56 @@
+{% extends "account/base.html" %}
+{% load i18n %}
+{% load allauth account %}
+{% load socialaccount %}
+{% load widget_tweaks %}
+{% block head_title %}
+    {% trans "Sign In" %}
+{% endblock head_title %}
+{% block content %}
+<div class="login-box">   
+    <img src="https://projectb28.s3.amazonaws.com/static/UHR-Main-Logo.png" class="logo" alt="App Logo" width="200" height="auto">
+    
+    {% element h2 %}
+        {% trans "Sign In" %}
+    {% endelement %}
+    <p>
+        {% blocktrans %}No account? 
+    <a href="{{ signup_url }}">Create one!</a>{% endblocktrans %}
+    </p>
+    <form method="post" action="{% url 'account_login' %}" class="form-signin">
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="form-group {% if field.field.widget.input_type != 'checkbox' %}mb-3{% endif %}">
+                {% if field.field.widget.input_type != 'checkbox' %}
+                    <!-- {{ field.label_tag }} -->
+                    {{ field|add_class:"form-control" }}
+                    {% if field.help_text %}
+                        <small class="form-text text-muted">{{ field.help_text }}</small>
+                    {% endif %}
+                
+                {% else %}
+                <!--
+                    <div class="form-check form-check-inline">
+                        {{ form.remember|add_class:"form-check-input" }}
+                        <label class="form-check-label" for="{{ field.id_for_label }}">
+                            {% trans "Remember Me" %}
+                        </label>
+                    </div>
+                -->
+                {% endif %}
+                {% for error in field.errors %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ error }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+        <button type="submit" class="btn btn-primary btn-block">{% trans "Sign In" %}</button>
+    </form>
+        <form method="post" action="{% provider_login_url 'google' method='post' %}">
+            {% csrf_token %}
+            <button type="submit" class="btn google-btn">
+                <img src="https://projectb28.s3.amazonaws.com/static/google-logo.png" class="google-logo" alt="Google Logo" width="20"> {% trans "Login With Google" %}
+            </button>
+        </form>
+{% endblock content %}
