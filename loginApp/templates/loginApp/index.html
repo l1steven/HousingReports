@@ -98,6 +98,10 @@
             box-sizing: border-box; /* Includes padding and border in the element's total width and height */
         }
 
+        .google-btn-container {
+            width: 80%;
+        }
+
         .google-btn:hover {
             background-color: #F2F2F2; /* Google button color */
             border-color: none;
@@ -122,31 +126,31 @@
             border-color: #e65c00;
         }
         .navbar.fixed-bottom {
-    display: flex;
-    justify-content: center; /* Horizontally center the content */
-    align-items: center; /* Vertically center the content */
-    background-color: #394451; /* Dark blue-ish gray color */
-    color: #ffffff; /* White text color for contrast */
-    padding: 1rem 0;
-    width: 100%;
-    font-size: 1rem;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 1030;
-    text-align: center;
-}
+            display: flex;
+            justify-content: center; /* Horizontally center the content */
+            align-items: center; /* Vertically center the content */
+            background-color: #394451; /* Dark blue-ish gray color */
+            color: #ffffff; /* White text color for contrast */
+            padding: 1rem 0;
+            width: 100%;
+            font-size: 1rem;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 1030;
+            text-align: center;
+        }
 
-.navbar.fixed-bottom a {
-    color: #ffffff; /* White text color for links for better visibility */
-    text-decoration: none;
-    font-weight: bold;
-}
+        .navbar.fixed-bottom a {
+            color: #ffffff; /* White text color for links for better visibility */
+            text-decoration: none;
+            font-weight: bold;
+        }
 
-.navbar.fixed-bottom a:hover {
-    text-decoration: underline; /* Underline on hover for links */
-}
+        .navbar.fixed-bottom a:hover {
+            text-decoration: underline; /* Underline on hover for links */
+        }
 
     </style>
 </head>
@@ -185,10 +189,11 @@
         </div>
     </nav>
 
+
     <!-- Content -->
     <div class="content">
         <div class="login-box">   
-            <img src="https://projectb28.s3.amazonaws.com/static/UHR-Logo-Transparent.png" class="logo" alt="App Logo" width="200" height="auto">
+            <img src="https://projectb28.s3.amazonaws.com/static/UHR-Main-Logo.png" class="logo" alt="App Logo" width="200" height="auto">
             <!-- <h1>UVA Housing Reporting App</h1> -->
             {% if user.is_authenticated %}
                 <p>Welcome, You are logged in as {{ user.username }}</p>
@@ -197,7 +202,7 @@
                     <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
                 </div>
             {% else %}
-                <a href="{% provider_login_url 'google' %}" class="btn google-btn">
+                <a href="{% url 'account_login' %}" class="btn google-btn">
                     <img src="https://projectb28.s3.amazonaws.com/static/google-logo.png" class="google-logo" alt="Google Logo" width="20" height="20">Login With Google
                 </a>
                 <a href="{% url 'anonymous_complaint_form' %}" class="btn btn-orange">Submit an Anonymous Complaint</a>
