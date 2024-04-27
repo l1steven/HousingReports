@@ -67,6 +67,7 @@
 </head>
 <body>
     <header>
+        <a href="{% url 'logout' %}" class="logout-button">Logout</a>
         <div class="welcome-message">
             Welcome, {{ user.username|capfirst }}! You're an admin user
         </div>
