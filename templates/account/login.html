@@ -47,10 +47,10 @@
         {% endfor %}
         <button type="submit" class="btn btn-primary btn-block">{% trans "Sign In" %}</button>
     </form>
-        <form method="post" action="{% provider_login_url 'google' method='post' %}">
+        <form class="google-form" action="{% provider_login_url 'google' method='post' %}">
             {% csrf_token %}
-            <button type="submit" class="btn google-btn">
-                <img src="https://projectb28.s3.amazonaws.com/static/google-logo.png" class="google-logo" alt="Google Logo" width="20"> {% trans "Login With Google" %}
+            <button type="submit" class="btn google-btn bottom-btn">
+                <img src="https://projectb28.s3.amazonaws.com/static/google-logo.png" class="google-logo" alt="Google Logo"> {% trans "Login With Google" %}
             </button>
         </form>
 {% endblock content %}
