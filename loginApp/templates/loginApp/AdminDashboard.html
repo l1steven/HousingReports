@@ -68,56 +68,40 @@
 <body>
     <header>
         <div class="welcome-message">
-            Welcome, {{ user.username|capfirst }}! You're an admin user
+            Welcome, {{ user.username|capfirst }}! This is your Admin Dashboard.
+            <a href="{% url 'logout' %}" class="btn btn-header">Logout</a>
         </div>
     </header>
 
-    <div class="container mt-4">
-        <h2>Complaints</h2>
-        <div class="row">
+    <div class="main-content">
+        <div class="dashboard-header">
+            <h1>Complaints Overview</h1>
+        </div>
+
+        <div class="card-container" style="display: flex; flex-wrap: wrap; justify-content: space-between;">
             {% for complaint in complaints %}
-            <div class="col-md-4 mb-3">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Name: {{ complaint.name }}</h5>
-                        <p class="card-text">Location: {{ complaint.location }}</p>
-                        <p class="card-text">Description: {{ complaint.description }}</p>
-                        <small>Status: {{ complaint.status }}</small>
-                        {% if complaint.review %}
-                        <small>Review: {{ complaint.review }}</small>
-                        {% endif %}
-                        {% if complaint.files_info %}
+                <div class="profile-card">
+                    <h2>{{ complaint.name }}</h2>
+                    <p>Location: {{ complaint.location }}</p>
+                    <p>{{ complaint.description }}</p>
+                    {% if complaint.upload %}
                         <div class="file-container">
-                            {% if complaint.files_info|length == 1 %}
-                            {% with file=complaint.files_info.first %}
-                            {% if file.is_image %}
-                            <img src="{{ file.file.url }}" alt="Image preview" class="img-fluid">
-                            {% elif file.is_pdf %}
-                            <iframe src="{{ file.file.url }}" width="100%" height="200"></iframe>
-                            {% elif file.is_text %}
-                            <div class="text-file-content">
-                                <a href="{{ file.file.url }}" target="_blank">View Text File</a>
-                            </div>
+                            {% if complaint.is_image %}
+                                <img src="{{ complaint.upload.url }}" alt="Image preview" class="img-fluid">
+                            {% elif complaint.is_pdf %}
+                                <iframe src="{{ complaint.upload.url }}" width="100%" height="200"></iframe>
+                            {% elif complaint.is_text %}
+                                <a href="{{ complaint.upload.url }}" target="_blank">View Text File</a>
                             {% else %}
-                            <a href="{{ file.file.url }}" target="_blank">Download File</a>
-                            {% endif %}
-                            {% endwith %}
-                            {% else %}
-                            <p>Files:</p>
-                            <ul>
-                                {% for file in complaint.files_info %}
-                                <li><a href="{{ file.file.url }}" target="_blank">{{ file.file.name }}</a></li>
-                                {% endfor %}
-                            </ul>
+                                <a href="{{ complaint.upload.url }}" target="_blank">Download File</a>
                             {% endif %}
                         </div>
-                        {% endif %}
-                        <a href="{% url 'complaints' complaint.id %}" class="btn btn-primary btn-sm mt-2">View Details</a>
-                    </div>
+                    {% endif %}
                 </div>
-            </div>
             {% empty %}
-            <p class="col">No complaints have been submitted yet.</p>
+                <div class="col-12 text-center">
+                    <p>No complaints have been submitted yet.</p>
+                </div>
             {% endfor %}
         </div>
     </div>
