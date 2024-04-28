@@ -72,10 +72,10 @@
 </head>
 <body>
     <header>
-        <a href="{% url 'logout' %}" class="logout-button">Logout</a>
         <div class="welcome-message">
             Welcome, {{ user.username|capfirst }}! You're an admin user
         </div>
+        <a href="{% url 'logout' %}" class="logout-button">Logout</a>
     </header>
 
     <div class="container mt-4">
@@ -229,18 +229,16 @@
                             {% endfor %}
                         </div>
                         {% endif %}
-                        </div>
-                        {% endif %}
                         <a href="{% url 'complaints' complaint.id %}" class="btn btn-primary btn-sm mt-2">View Details</a>
                     </div>
                 </div>
             </div>
+            {% endif %}
             {% empty %}
             <p class="col">No complaints in this category yet.</p>
             {% endfor %}
         </div>
     </div>
-
     <div class="navbar fixed-bottom">
         <span>This system is a class project and is not monitored. Do not submit real information. For more information, visit our project page at <a href="https://s24.cs3240.org/project.html" target="_blank">s24.cs3240.org/project.html</a>.</span>
     </div>
