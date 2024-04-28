@@ -19,6 +19,9 @@
             background-color: #f8f9fa; /* A light grey background */
         }
         header {
+            display: flex; /* Enables flexbox layout */
+            justify-content: space-between; /* Space between the welcome message and the logout button */
+            align-items: center; /* Vertically center aligns the items */
             background-color: #fff; /* White background for the header */
             padding: 1rem;
             box-shadow: 0 2px 4px rgba(0,0,0,.1); /* A subtle shadow for depth */
@@ -67,6 +70,18 @@
             border-bottom: 2px solid #ccc; /* Light gray bottom border */
             padding-bottom: 10px; /* Padding below the text to space out the border */
             margin-bottom: 20px; /* Additional space below the border */
+        }
+        .logout-button {
+            padding: 0.5rem 1rem; /* Smaller padding for the button */
+            background-color: #dc3545; /* Bootstrap's .btn-danger background color */
+            color: white; /* Text color */
+            text-decoration: none; /* Removes underline from links */
+            border-radius: 0.25rem; /* Rounded borders */
+            transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+        }
+
+        .logout-button:hover {
+            background-color: #c82333; /* Darker shade on hover, similar to Bootstrap's .btn-danger:hover */
         }
     </style>
 </head>
