@@ -74,9 +74,11 @@
     </header>
 
     <div class="container mt-4">
-        <h2>Complaints</h2>
+        <!-- Section for Not Reviewed complaints -->
+        <h2>Not Reviewed Complaints</h2>
         <div class="row">
             {% for complaint in complaints %}
+            {% if complaint.status == "notreviewed" %}
             <div class="col-md-4 mb-3">
                 <div class="card">
                     <div class="card-body">
@@ -87,38 +89,66 @@
                         {% if complaint.review %}
                         <small>Review: {{ complaint.review }}</small>
                         {% endif %}
-                        {% if complaint.files_info %}
-                        <div class="file-container">
-                            {% if complaint.files_info|length == 1 %}
-                            {% with file=complaint.files_info.first %}
-                            {% if file.is_image %}
-                            <img src="{{ file.file.url }}" alt="Image preview" class="img-fluid">
-                            {% elif file.is_pdf %}
-                            <iframe src="{{ file.file.url }}" width="100%" height="200"></iframe>
-                            {% elif file.is_text %}
-                            <div class="text-file-content">
-                                <a href="{{ file.file.url }}" target="_blank">View Text File</a>
-                            </div>
-                            {% else %}
-                            <a href="{{ file.file.url }}" target="_blank">Download File</a>
-                            {% endif %}
-                            {% endwith %}
-                            {% else %}
-                            <p>Files:</p>
-                            <ul>
-                                {% for file in complaint.files_info %}
-                                <li><a href="{{ file.file.url }}" target="_blank">{{ file.file.name }}</a></li>
-                                {% endfor %}
-                            </ul>
-                            {% endif %}
-                        </div>
-                        {% endif %}
+                        {% include 'complaint_files.html' with files=complaint.files_info %}
                         <a href="{% url 'complaints' complaint.id %}" class="btn btn-primary btn-sm mt-2">View Details</a>
                     </div>
                 </div>
             </div>
+            {% endif %}
             {% empty %}
-            <p class="col">No complaints have been submitted yet.</p>
+            <p class="col">No complaints in this category yet.</p>
+            {% endfor %}
+        </div>
+
+        <!-- Section for In Progress complaints -->
+        <h2>In Progress Complaints</h2>
+        <div class="row">
+            {% for complaint in complaints %}
+            {% if complaint.status == "in_progress" %}
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Name: {{ complaint.name }}</h5>
+                        <p class="card-text">Location: {{ complaint.location }}</p>
+                        <p class="card-text">Description: {{ complaint.description }}</p>
+                        <small>Status: {{ complaint.status }}</small>
+                        {% if complaint.review %}
+                        <small>Review: {{ complaint.review }}</small>
+                        {% endif %}
+                        {% include 'complaint_files.html' with files=complaint.files_info %}
+                        <a href="{% url 'complaints' complaint.id %}" class="btn btn-primary btn-sm mt-2">View Details</a>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% empty %}
+            <p class="col">No complaints in this category yet.</p>
+            {% endfor %}
+        </div>
+
+        <!-- Section for Reviewed complaints -->
+        <h2>Reviewed Complaints</h2>
+        <div class="row">
+            {% for complaint in complaints %}
+            {% if complaint.status == "reviewed" %}
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Name: {{ complaint.name }}</h5>
+                        <p class="card-text">Location: {{ complaint.location }}</p>
+                        <p class="card-text">Description: {{ complaint.description }}</p>
+                        <small>Status: {{ complaint.status }}</small>
+                        {% if complaint.review %}
+                        <small>Review: {{ complaint.review }}</small>
+                        {% endif %}
+                        {% include 'complaint_files.html' with files=complaint.files_info %}
+                        <a href="{% url 'complaints' complaint.id %}" class="btn btn-primary btn-sm mt-2">View Details</a>
+                    </div>
+                </div>
+            </div>
+            {% endif %}y
+            {% empty %}
+            <p class="col">No complaints in this category yet.</p>
             {% endfor %}
         </div>
     </div>
