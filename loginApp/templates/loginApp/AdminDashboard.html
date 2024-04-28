@@ -89,7 +89,23 @@
                         {% if complaint.review %}
                         <small>Review: {{ complaint.review }}</small>
                         {% endif %}
-                        {% include 'complaint_files.html' with files=complaint.files_info %}
+                        {% if complaint.files_info %}
+                        <div class="file-container">
+                            {% for file in complaint.files_info %}
+                            <div class="file">
+                                {% if file.is_image %}
+                                <img src="{{ file.file.url }}" alt="Image preview" class="img-fluid">
+                                {% elif file.is_pdf %}
+                                <iframe src="{{ file.file.url }}" width="100%" height="200"></iframe>
+                                {% elif file.is_text %}
+                                <a href="{{ file.file.url }}" target="_blank">View Text File</a>
+                                {% else %}
+                                <a href="{{ file.file.url }}" target="_blank">Download File</a>
+                                {% endif %}
+                            </div>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
                         <a href="{% url 'complaints' complaint.id %}" class="btn btn-primary btn-sm mt-2">View Details</a>
                     </div>
                 </div>
@@ -115,7 +131,23 @@
                         {% if complaint.review %}
                         <small>Review: {{ complaint.review }}</small>
                         {% endif %}
-                        {% include 'complaint_files.html' with files=complaint.files_info %}
+                        {% if complaint.files_info %}
+                        <div class="file-container">
+                            {% for file in complaint.files_info %}
+                            <div class="file">
+                                {% if file.is_image %}
+                                <img src="{{ file.file.url }}" alt="Image preview" class="img-fluid">
+                                {% elif file.is_pdf %}
+                                <iframe src="{{ file.file.url }}" width="100%" height="200"></iframe>
+                                {% elif file.is_text %}
+                                <a href="{{ file.file.url }}" target="_blank">View Text File</a>
+                                {% else %}
+                                <a href="{{ file.file.url }}" target="_blank">Download File</a>
+                                {% endif %}
+                            </div>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
                         <a href="{% url 'complaints' complaint.id %}" class="btn btn-primary btn-sm mt-2">View Details</a>
                     </div>
                 </div>
@@ -141,12 +173,28 @@
                         {% if complaint.review %}
                         <small>Review: {{ complaint.review }}</small>
                         {% endif %}
-                        {% include 'complaint_files.html' with files=complaint.files_info %}
+                        {% if complaint.files_info %}
+                        <div class="file-container">
+                            {% for file in complaint.files_info %}
+                            <div class="file">
+                                {% if file.is_image %}
+                                <img src="{{ file.file.url }}" alt="Image preview" class="img-fluid">
+                                {% elif file.is_pdf %}
+                                <iframe src="{{ file.file.url }}" width="100%" height="200"></iframe>
+                                {% elif file.is_text %}
+                                <a href="{{ file.file.url }}" target="_blank">View Text File</a>
+                                {% else %}
+                                <a href="{{ file.file.url }}" target="_blank">Download File</a>
+                                {% endif %}
+                            </div>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
                         <a href="{% url 'complaints' complaint.id %}" class="btn btn-primary btn-sm mt-2">View Details</a>
                     </div>
                 </div>
             </div>
-            {% endif %}y
+            {% endif %}
             {% empty %}
             <p class="col">No complaints in this category yet.</p>
             {% endfor %}
