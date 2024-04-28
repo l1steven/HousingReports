@@ -100,7 +100,7 @@
                        <small>{{ complaints.status }}</small>
                        {% if complaints.status == 'reviewed' %}
                            <p>Status: Reviewed</p>
-                       {% elif complaints.status == 'in_progress' or complaints.status == 'notreviewed' %}
+                       {% elif complaints.status == 'in_progress'%}
                            <form action="" method="post">
                                {% csrf_token %}
                                <label for="status">Set Status:</label>

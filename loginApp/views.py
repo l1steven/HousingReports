@@ -172,7 +172,6 @@ class CreatePostView(CreateView):
 
 def handle_complaint_click(request, complaint_id):
     complaint = Complaint.objects.filter(id=complaint_id).first()
-
     if request.method == 'POST':
         if complaint:
             status = request.POST.get('status')
@@ -202,7 +201,23 @@ def handle_complaint_click(request, complaint_id):
                     )
 
                 return render(request, 'loginApp/complaintviews.html', {'complaints': complaint})
+    else: 
+        if complaint:
+            status = complaint.status
+            if status == 'notreviewed':
+                complaint.status = 'in_progress'  
+                if complaint.user and complaint.user.email:
+                    subject = "Complaint Update"
+                    message = f'Dear {complaint.user},\n\nYour complaint status has changed to: {complaint.get_status_display()}.\n\nComplaint details:\n- Name: {complaint.name}\n- Location: {complaint.location}\n- Description: {complaint.description}\n\n'
+                    message += f'Your complaint is now being actively addressed.\n\nWe are committed to resolving it as swiftly as possible. You will receive further updates as we progress. Please feel free to reach out if you have any questions or need additional assistance in the meantime.'
 
+                    send_mail(
+                        subject,
+                        message,
+                        settings.EMAIL_HOST_USER,
+                        [complaint.user.email],
+                        fail_silently=False,
+                    )
     return render(request, 'loginApp/complaintviews.html', {'complaints': complaint})
 
 
