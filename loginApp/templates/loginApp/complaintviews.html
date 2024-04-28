@@ -105,21 +105,10 @@
                                {% csrf_token %}
                                <label for="status">Set Status:</label>
                                <select id="status" name="status">
-                                   <option value="in_progress" selected>In Progress</option>
                                    <option value="reviewed">Reviewed</option>
                                    <label for="review">Enter your review:</label>
                                    <br>
         <textarea id="review" name="review" rows="4" cols="50"></textarea><br>
-                               </select>
-                               <button type="submit" class="btn btn-primary">Submit</button>
-                           </form>
-                       {% else %}
-                           <form action="" method="post">
-                               {% csrf_token %}
-                               <label for="status">Set Status:</label>
-                               <select id="status" name="status">
-                                   <option value="reviewed">Reviewed</option>
-                                   <!-- Add more options as needed -->
                                </select>
                                <button type="submit" class="btn btn-primary">Submit</button>
                            </form>
