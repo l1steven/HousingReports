@@ -1,0 +1,43 @@
+{% extends "account/base.html" %}
+{% load i18n %}
+{% load allauth account %}
+{% load socialaccount %}
+{% load widget_tweaks %}
+
+{% block head_title %}
+    {% trans "Signup" %}
+{% endblock head_title %}
+
+{% block content %}
+<div class="login-box signup-box">
+    <img src="https://projectb28.s3.amazonaws.com/static/UHR-Main-Logo.png" class="logo" alt="App Logo" width="200" height="auto">
+
+    <h2>{% trans "Sign Up" %}</h2>
+    <p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
+    
+    <form method="post" action="{% url 'account_signup' %}" class="form-signin">
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="form-group {% if field.field.widget.input_type != 'checkbox' %}mb-3{% endif %}">
+                {{ field|add_class:"form-control" }}
+                {% if field.help_text %}
+                    <small class="form-text text-muted password-guidelines">
+                        <ul>
+                            <li>Your password can’t be too similar to your other personal information.</li>
+                            <li>Your password must contain at least 8 characters.</li>
+                            <li>Your password can’t be a commonly used password.</li>
+                            <li>Your password can’t be entirely numeric.</li>
+                        </ul>
+                    </small>
+                {% endif %}
+                {% for error in field.errors %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ error }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+        <button type="submit" class="btn btn-primary btn-block signup-btn">{% trans "Sign Up" %}</button>
+    </form>
+</div>
+{% endblock content %}
