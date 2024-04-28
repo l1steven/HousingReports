@@ -206,6 +206,7 @@ def handle_complaint_click(request, complaint_id):
             status = complaint.status
             if status == 'notreviewed':
                 complaint.status = 'in_progress'  
+                complaint.save()
                 if complaint.user and complaint.user.email:
                     subject = "Complaint Update"
                     message = f'Dear {complaint.user},\n\nYour complaint status has changed to: {complaint.get_status_display()}.\n\nComplaint details:\n- Name: {complaint.name}\n- Location: {complaint.location}\n- Description: {complaint.description}\n\n'
