@@ -116,9 +116,9 @@
                         <h5 class="card-title">Name: {{ complaint.name }}</h5>
                         <p class="card-text">Location: {{ complaint.location }}</p>
                         <p class="card-text">Description: {{ complaint.description }}</p>
-                        <small>Status: {{ complaint.status }}</small>
+                        <p>Status: {{ complaint.status }}</p>
                         {% if complaint.review %}
-                        <small>Review: {{ complaint.review }}</small>
+                        <p>Review: {{ complaint.review }}</p>
                         {% endif %}
                         <!-- File handling logic -->
                         {% if complaint.files_info %}
@@ -171,11 +171,11 @@
                         <p class="card-text">Location: {{ complaint.location }}</p>
                         <p class="card-text">Description: {{ complaint.description }}</p>
                         <div>
-                 asd       <small>Status: {{ complaint.status }}</small>
+                 asd       <p>Status: {{ complaint.status }}</p>
                         </div>
                         {% if complaint.review %}
                         <div>
-                        <small>Review: {{ complaint.review }}</small>
+                        <p>Review: {{ complaint.review }}</p>
                         </div>
                         {% endif %}
                         {% if complaint.files_info %}
@@ -227,9 +227,9 @@
                         <h5 class="card-title">Name: {{ complaint.name }}</h5>
                         <p class="card-text">Location: {{ complaint.location }}</p>
                         <p class="card-text">Description: {{ complaint.description }}</p>
-                        <small>Status: {{ complaint.status }}</small>
+                        <p>Status: {{ complaint.status }}<p>
                         {% if complaint.review %}
-                        <small>Review: {{ complaint.review }}</small>
+                        <p>Review: {{ complaint.review }}</p>
                         {% endif %}
                         {% if complaint.files_info %}
                         <div class="file-container">
