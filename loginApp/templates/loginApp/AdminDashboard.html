@@ -63,6 +63,11 @@
             justify-content: start; /* Align buttons to the start of the container */
             gap: 0.25rem; /* Space between buttons */
         }
+        h2 {
+            border-bottom: 2px solid #ccc; /* Light gray bottom border */
+            padding-bottom: 10px; /* Padding below the text to space out the border */
+            margin-bottom: 20px; /* Additional space below the border */
+        }
     </style>
 </head>
 <body>
@@ -89,20 +94,32 @@
                         {% if complaint.review %}
                         <small>Review: {{ complaint.review }}</small>
                         {% endif %}
+                        <!-- File handling logic -->
                         {% if complaint.files_info %}
                         <div class="file-container">
                             {% for file in complaint.files_info %}
-                            <div class="file">
-                                {% if file.is_image %}
-                                <img src="{{ file.file.url }}" alt="Image preview" class="img-fluid">
-                                {% elif file.is_pdf %}
-                                <iframe src="{{ file.file.url }}" width="100%" height="200"></iframe>
-                                {% elif file.is_text %}
-                                <a href="{{ file.file.url }}" target="_blank">View Text File</a>
-                                {% else %}
-                                <a href="{{ file.file.url }}" target="_blank">Download File</a>
-                                {% endif %}
-                            </div>
+                            {% if file.is_image %}
+                            <h6>Image Files:</h6>
+                            <a href="{{ file.file.url }}" target="_blank">{{ file.file.name }}</a>
+                            {% endif %}
+                            {% endfor %}
+                            {% for file in complaint.files_info %}
+                            {% if file.is_pdf %}
+                            <h6>PDF Files:</h6>
+                            <a href="{{ file.file.url }}" target="_blank">{{ file.file.name }}</a>
+                            {% endif %}
+                            {% endfor %}
+                            {% for file in complaint.files_info %}
+                            {% if file.is_text %}
+                            <h6>Text Files:</h6>
+                            <a href="{{ file.file.url }}" target="_blank">{{ file.file.name }}</a>
+                            {% endif %}
+                            {% endfor %}
+                            {% for file in complaint.files_info %}
+                            {% if not file.is_image and not file.is_pdf and not file.is_text %}
+                            <h6>Other Files:</h6>
+                            <a href="{{ file.file.url }}" target="_blank">{{ file.file.name }}</a>
+                            {% endif %}
                             {% endfor %}
                         </div>
                         {% endif %}
@@ -134,17 +151,28 @@
                         {% if complaint.files_info %}
                         <div class="file-container">
                             {% for file in complaint.files_info %}
-                            <div class="file">
-                                {% if file.is_image %}
-                                <img src="{{ file.file.url }}" alt="Image preview" class="img-fluid">
-                                {% elif file.is_pdf %}
-                                <iframe src="{{ file.file.url }}" width="100%" height="200"></iframe>
-                                {% elif file.is_text %}
-                                <a href="{{ file.file.url }}" target="_blank">View Text File</a>
-                                {% else %}
-                                <a href="{{ file.file.url }}" target="_blank">Download File</a>
-                                {% endif %}
-                            </div>
+                            {% if file.is_image %}
+                            <h6>Image Files:</h6>
+                            <a href="{{ file.file.url }}" target="_blank">{{ file.file.name }}</a>
+                            {% endif %}
+                            {% endfor %}
+                            {% for file in complaint.files_info %}
+                            {% if file.is_pdf %}
+                            <h6>PDF Files:</h6>
+                            <a href="{{ file.file.url }}" target="_blank">{{ file.file.name }}</a>
+                            {% endif %}
+                            {% endfor %}
+                            {% for file in complaint.files_info %}
+                            {% if file.is_text %}
+                            <h6>Text Files:</h6>
+                            <a href="{{ file.file.url }}" target="_blank">{{ file.file.name }}</a>
+                            {% endif %}
+                            {% endfor %}
+                            {% for file in complaint.files_info %}
+                            {% if not file.is_image and not file.is_pdf and not file.is_text %}
+                            <h6>Other Files:</h6>
+                            <a href="{{ file.file.url }}" target="_blank">{{ file.file.name }}</a>
+                            {% endif %}
                             {% endfor %}
                         </div>
                         {% endif %}
@@ -176,18 +204,31 @@
                         {% if complaint.files_info %}
                         <div class="file-container">
                             {% for file in complaint.files_info %}
-                            <div class="file">
-                                {% if file.is_image %}
-                                <img src="{{ file.file.url }}" alt="Image preview" class="img-fluid">
-                                {% elif file.is_pdf %}
-                                <iframe src="{{ file.file.url }}" width="100%" height="200"></iframe>
-                                {% elif file.is_text %}
-                                <a href="{{ file.file.url }}" target="_blank">View Text File</a>
-                                {% else %}
-                                <a href="{{ file.file.url }}" target="_blank">Download File</a>
-                                {% endif %}
-                            </div>
+                            {% if file.is_image %}
+                            <h6>Image Files:</h6>
+                            <a href="{{ file.file.url }}" target="_blank">{{ file.file.name }}</a>
+                            {% endif %}
                             {% endfor %}
+                            {% for file in complaint.files_info %}
+                            {% if file.is_pdf %}
+                            <h6>PDF Files:</h6>
+                            <a href="{{ file.file.url }}" target="_blank">{{ file.file.name }}</a>
+                            {% endif %}
+                            {% endfor %}
+                            {% for file in complaint.files_info %}
+                            {% if file.is_text %}
+                            <h6>Text Files:</h6>
+                            <a href="{{ file.file.url }}" target="_blank">{{ file.file.name }}</a>
+                            {% endif %}
+                            {% endfor %}
+                            {% for file in complaint.files_info %}
+                            {% if not file.is_image and not file.is_pdf and not file.is_text %}
+                            <h6>Other Files:</h6>
+                            <a href="{{ file.file.url }}" target="_blank">{{ file.file.name }}</a>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                        {% endif %}
                         </div>
                         {% endif %}
                         <a href="{% url 'complaints' complaint.id %}" class="btn btn-primary btn-sm mt-2">View Details</a>
