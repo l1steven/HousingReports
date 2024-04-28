@@ -123,36 +123,32 @@
                         <!-- File handling logic -->
                         {% if complaint.files_info %}
                         <div class="file-container">
-                            {% if complaint.image_files %}
+                            {% for file in complaint.files_info %}
+                            {% if file.is_image %}
                             <h6>Image Files:</h6>
-                            {% for file in complaint.image_files %}
-                            <a href="{{ file.file.url }}" target="_blank">{{ file.file.name }}</a><br>
-                            {% endfor %}
+                            <a href="{{ file.file.url }}" target="_blank">{{ file.file.name }}</a>
                             {% endif %}
-
-                            {% if complaint.pdf_files %}
+                            {% endfor %}
+                            {% for file in complaint.files_info %}
+                            {% if file.is_pdf %}
                             <h6>PDF Files:</h6>
-                            {% for file in complaint.pdf_files %}
-                            <a href="{{ file.file.url }}" target="_blank">{{ file.file.name }}</a><br>
-                            {% endfor %}
+                            <a href="{{ file.file.url }}" target="_blank">{{ file.file.name }}</a>
                             {% endif %}
-
-                            {% if complaint.text_files %}
+                            {% endfor %}
+                            {% for file in complaint.files_info %}
+                            {% if file.is_text %}
                             <h6>Text Files:</h6>
-                            {% for file in complaint.text_files %}
-                            <a href="{{ file.file.url }}" target="_blank">{{ file.file.name }}</a><br>
-                            {% endfor %}
+                            <a href="{{ file.file.url }}" target="_blank">{{ file.file.name }}</a>
                             {% endif %}
-
-                            {% if complaint.other_files %}
+                            {% endfor %}
+                            {% for file in complaint.files_info %}
+                            {% if not file.is_image and not file.is_pdf and not file.is_text %}
                             <h6>Other Files:</h6>
-                            {% for file in complaint.other_files %}
-                            <a href="{{ file.file.url }}" target="_blank">{{ file.file.name }}</a><br>
-                            {% endfor %}
+                            <a href="{{ file.file.url }}" target="_blank">{{ file.file.name }}</a>
                             {% endif %}
+                            {% endfor %}
                         </div>
                         {% endif %}
-
                         <a href="{% url 'complaints' complaint.id %}" class="btn btn-primary btn-sm mt-2">View Details</a>
                     </div>
                 </div>
@@ -170,12 +166,12 @@
             {% if complaint.status == "in_progress" %}
             <div class="col-md-4 mb-3">
                 <div class="card">
-              `      <div class="card-body">
+                    <div class="card-body">
                         <h5 class="card-title">Name: {{ complaint.name }}</h5>
                         <p class="card-text">Location: {{ complaint.location }}</p>
                         <p class="card-text">Description: {{ complaint.description }}</p>
                         <div>
-                        <p>Status: {{ complaint.status }}</p>
+                 asd       <p>Status: {{ complaint.status }}</p>
                         </div>
                         {% if complaint.review %}
                         <div>
@@ -184,36 +180,32 @@
                         {% endif %}
                         {% if complaint.files_info %}
                         <div class="file-container">
-                            {% if complaint.image_files %}
+                            {% for file in complaint.files_info %}
+                            {% if file.is_image %}
                             <h6>Image Files:</h6>
-                            {% for file in complaint.image_files %}
-                            <a href="{{ file.file.url }}" target="_blank">{{ file.file.name }}</a><br>
-                            {% endfor %}
+                            <a href="{{ file.file.url }}" target="_blank">{{ file.file.name }}</a>
                             {% endif %}
-
-                            {% if complaint.pdf_files %}
+                            {% endfor %}
+                            {% for file in complaint.files_info %}
+                            {% if file.is_pdf %}
                             <h6>PDF Files:</h6>
-                            {% for file in complaint.pdf_files %}
-                            <a href="{{ file.file.url }}" target="_blank">{{ file.file.name }}</a><br>
-                            {% endfor %}
+                            <a href="{{ file.file.url }}" target="_blank">{{ file.file.name }}</a>
                             {% endif %}
-
-                            {% if complaint.text_files %}
+                            {% endfor %}
+                            {% for file in complaint.files_info %}
+                            {% if file.is_text %}
                             <h6>Text Files:</h6>
-                            {% for file in complaint.text_files %}
-                            <a href="{{ file.file.url }}" target="_blank">{{ file.file.name }}</a><br>
-                            {% endfor %}
+                            <a href="{{ file.file.url }}" target="_blank">{{ file.file.name }}</a>
                             {% endif %}
-
-                            {% if complaint.other_files %}
+                            {% endfor %}
+                            {% for file in complaint.files_info %}
+                            {% if not file.is_image and not file.is_pdf and not file.is_text %}
                             <h6>Other Files:</h6>
-                            {% for file in complaint.other_files %}
-                            <a href="{{ file.file.url }}" target="_blank">{{ file.file.name }}</a><br>
-                            {% endfor %}
+                            <a href="{{ file.file.url }}" target="_blank">{{ file.file.name }}</a>
                             {% endif %}
+                            {% endfor %}
                         </div>
                         {% endif %}
-
                         <a href="{% url 'complaints' complaint.id %}" class="btn btn-primary btn-sm mt-2">View Details</a>
                     </div>
                 </div>
@@ -231,50 +223,42 @@
             {% if complaint.status == "reviewed" %}
             <div class="col-md-4 mb-3">
                 <div class="card">
-              `      <div class="card-body">
+                    <div class="card-body">
                         <h5 class="card-title">Name: {{ complaint.name }}</h5>
                         <p class="card-text">Location: {{ complaint.location }}</p>
                         <p class="card-text">Description: {{ complaint.description }}</p>
-                        <div>
-                        <p>Status: {{ complaint.status }}</p>
-                        </div>
+                        <p>Status: {{ complaint.status }}<p>
                         {% if complaint.review %}
-                        <div>
                         <p>Review: {{ complaint.review }}</p>
-                        </div>
                         {% endif %}
                         {% if complaint.files_info %}
                         <div class="file-container">
-                            {% if complaint.image_files %}
+                            {% for file in complaint.files_info %}
+                            {% if file.is_image %}
                             <h6>Image Files:</h6>
-                            {% for file in complaint.image_files %}
-                            <a href="{{ file.file.url }}" target="_blank">{{ file.file.name }}</a><br>
-                            {% endfor %}
+                            <a href="{{ file.file.url }}" target="_blank">{{ file.file.name }}</a>
                             {% endif %}
-
-                            {% if complaint.pdf_files %}
+                            {% endfor %}
+                            {% for file in complaint.files_info %}
+                            {% if file.is_pdf %}
                             <h6>PDF Files:</h6>
-                            {% for file in complaint.pdf_files %}
-                            <a href="{{ file.file.url }}" target="_blank">{{ file.file.name }}</a><br>
-                            {% endfor %}
+                            <a href="{{ file.file.url }}" target="_blank">{{ file.file.name }}</a>
                             {% endif %}
-
-                            {% if complaint.text_files %}
+                            {% endfor %}
+                            {% for file in complaint.files_info %}
+                            {% if file.is_text %}
                             <h6>Text Files:</h6>
-                            {% for file in complaint.text_files %}
-                            <a href="{{ file.file.url }}" target="_blank">{{ file.file.name }}</a><br>
-                            {% endfor %}
+                            <a href="{{ file.file.url }}" target="_blank">{{ file.file.name }}</a>
                             {% endif %}
-
-                            {% if complaint.other_files %}
+                            {% endfor %}
+                            {% for file in complaint.files_info %}
+                            {% if not file.is_image and not file.is_pdf and not file.is_text %}
                             <h6>Other Files:</h6>
-                            {% for file in complaint.other_files %}
-                            <a href="{{ file.file.url }}" target="_blank">{{ file.file.name }}</a><br>
-                            {% endfor %}
+                            <a href="{{ file.file.url }}" target="_blank">{{ file.file.name }}</a>
                             {% endif %}
+                            {% endfor %}
                         </div>
                         {% endif %}
-
                         <a href="{% url 'complaints' complaint.id %}" class="btn btn-primary btn-sm mt-2">View Details</a>
                     </div>
                 </div>
