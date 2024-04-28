@@ -123,32 +123,41 @@
                         <!-- File handling logic -->
                         {% if complaint.files_info %}
                         <div class="file-container">
-                            {% for file in complaint.files_info %}
-                            {% if file.is_image %}
+                            {% set image_files = complaint.files_info|selectattr("is_image", "equalto", true) %}
+                            {% set pdf_files = complaint.files_info|selectattr("is_pdf", "equalto", true) %}
+                            {% set text_files = complaint.files_info|selectattr("is_text", "equalto", true) %}
+                            {% set other_files = complaint.files_info|selectattr("is_image", "equalto", false)|selectattr("is_pdf", "equalto", false)|selectattr("is_text", "equalto", false) %}
+
+                            {% if image_files %}
                             <h6>Image Files:</h6>
-                            <a href="{{ file.file.url }}" target="_blank">{{ file.file.name }}</a>
-                            {% endif %}
+                            {% for file in image_files %}
+                            <a href="{{ file.file.url }}" target="_blank">{{ file.file.name }}</a><br>
                             {% endfor %}
-                            {% for file in complaint.files_info %}
-                            {% if file.is_pdf %}
+                            {% endif %}
+
+                            {% if pdf_files %}
                             <h6>PDF Files:</h6>
-                            <a href="{{ file.file.url }}" target="_blank">{{ file.file.name }}</a>
-                            {% endif %}
+                            {% for file in pdf_files %}
+                            <a href="{{ file.file.url }}" target="_blank">{{ file.file.name }}</a><br>
                             {% endfor %}
-                            {% for file in complaint.files_info %}
-                            {% if file.is_text %}
+                            {% endif %}
+
+                            {% if text_files %}
                             <h6>Text Files:</h6>
-                            <a href="{{ file.file.url }}" target="_blank">{{ file.file.name }}</a>
-                            {% endif %}
+                            {% for file in text_files %}
+                            <a href="{{ file.file.url }}" target="_blank">{{ file.file.name }}</a><br>
                             {% endfor %}
-                            {% for file in complaint.files_info %}
-                            {% if not file.is_image and not file.is_pdf and not file.is_text %}
+                            {% endif %}
+
+                            {% if other_files %}
                             <h6>Other Files:</h6>
-                            <a href="{{ file.file.url }}" target="_blank">{{ file.file.name }}</a>
-                            {% endif %}
+                            {% for file in other_files %}
+                            <a href="{{ file.file.url }}" target="_blank">{{ file.file.name }}</a><br>
                             {% endfor %}
+                            {% endif %}
                         </div>
                         {% endif %}
+
                         <a href="{% url 'complaints' complaint.id %}" class="btn btn-primary btn-sm mt-2">View Details</a>
                     </div>
                 </div>
@@ -180,32 +189,41 @@
                         {% endif %}
                         {% if complaint.files_info %}
                         <div class="file-container">
-                            {% for file in complaint.files_info %}
-                            {% if file.is_image %}
+                            {% set image_files = complaint.files_info|selectattr("is_image", "equalto", true) %}
+                            {% set pdf_files = complaint.files_info|selectattr("is_pdf", "equalto", true) %}
+                            {% set text_files = complaint.files_info|selectattr("is_text", "equalto", true) %}
+                            {% set other_files = complaint.files_info|selectattr("is_image", "equalto", false)|selectattr("is_pdf", "equalto", false)|selectattr("is_text", "equalto", false) %}
+
+                            {% if image_files %}
                             <h6>Image Files:</h6>
-                            <a href="{{ file.file.url }}" target="_blank">{{ file.file.name }}</a>
-                            {% endif %}
+                            {% for file in image_files %}
+                            <a href="{{ file.file.url }}" target="_blank">{{ file.file.name }}</a><br>
                             {% endfor %}
-                            {% for file in complaint.files_info %}
-                            {% if file.is_pdf %}
+                            {% endif %}
+
+                            {% if pdf_files %}
                             <h6>PDF Files:</h6>
-                            <a href="{{ file.file.url }}" target="_blank">{{ file.file.name }}</a>
-                            {% endif %}
+                            {% for file in pdf_files %}
+                            <a href="{{ file.file.url }}" target="_blank">{{ file.file.name }}</a><br>
                             {% endfor %}
-                            {% for file in complaint.files_info %}
-                            {% if file.is_text %}
+                            {% endif %}
+
+                            {% if text_files %}
                             <h6>Text Files:</h6>
-                            <a href="{{ file.file.url }}" target="_blank">{{ file.file.name }}</a>
-                            {% endif %}
+                            {% for file in text_files %}
+                            <a href="{{ file.file.url }}" target="_blank">{{ file.file.name }}</a><br>
                             {% endfor %}
-                            {% for file in complaint.files_info %}
-                            {% if not file.is_image and not file.is_pdf and not file.is_text %}
+                            {% endif %}
+
+                            {% if other_files %}
                             <h6>Other Files:</h6>
-                            <a href="{{ file.file.url }}" target="_blank">{{ file.file.name }}</a>
-                            {% endif %}
+                            {% for file in other_files %}
+                            <a href="{{ file.file.url }}" target="_blank">{{ file.file.name }}</a><br>
                             {% endfor %}
+                            {% endif %}
                         </div>
                         {% endif %}
+
                         <a href="{% url 'complaints' complaint.id %}" class="btn btn-primary btn-sm mt-2">View Details</a>
                     </div>
                 </div>
@@ -233,32 +251,43 @@
                         {% endif %}
                         {% if complaint.files_info %}
                         <div class="file-container">
-                            {% for file in complaint.files_info %}
-                            {% if file.is_image %}
-                            <h6>Image Files:</h6>
-                            <a href="{{ file.file.url }}" target="_blank">{{ file.file.name }}</a>
+                            {% if complaint.files_info %}
+                            <div class="file-container">
+                                {% set image_files = complaint.files_info|selectattr("is_image", "equalto", true) %}
+                                {% set pdf_files = complaint.files_info|selectattr("is_pdf", "equalto", true) %}
+                                {% set text_files = complaint.files_info|selectattr("is_text", "equalto", true) %}
+                                {% set other_files = complaint.files_info|selectattr("is_image", "equalto", false)|selectattr("is_pdf", "equalto", false)|selectattr("is_text", "equalto", false) %}
+
+                                {% if image_files %}
+                                <h6>Image Files:</h6>
+                                {% for file in image_files %}
+                                <a href="{{ file.file.url }}" target="_blank">{{ file.file.name }}</a><br>
+                                {% endfor %}
+                                {% endif %}
+
+                                {% if pdf_files %}
+                                <h6>PDF Files:</h6>
+                                {% for file in pdf_files %}
+                                <a href="{{ file.file.url }}" target="_blank">{{ file.file.name }}</a><br>
+                                {% endfor %}
+                                {% endif %}
+
+                                {% if text_files %}
+                                <h6>Text Files:</h6>
+                                {% for file in text_files %}
+                                <a href="{{ file.file.url }}" target="_blank">{{ file.file.name }}</a><br>
+                                {% endfor %}
+                                {% endif %}
+
+                                {% if other_files %}
+                                <h6>Other Files:</h6>
+                                {% for file in other_files %}
+                                <a href="{{ file.file.url }}" target="_blank">{{ file.file.name }}</a><br>
+                                {% endfor %}
+                                {% endif %}
+                            </div>
                             {% endif %}
-                            {% endfor %}
-                            {% for file in complaint.files_info %}
-                            {% if file.is_pdf %}
-                            <h6>PDF Files:</h6>
-                            <a href="{{ file.file.url }}" target="_blank">{{ file.file.name }}</a>
-                            {% endif %}
-                            {% endfor %}
-                            {% for file in complaint.files_info %}
-                            {% if file.is_text %}
-                            <h6>Text Files:</h6>
-                            <a href="{{ file.file.url }}" target="_blank">{{ file.file.name }}</a>
-                            {% endif %}
-                            {% endfor %}
-                            {% for file in complaint.files_info %}
-                            {% if not file.is_image and not file.is_pdf and not file.is_text %}
-                            <h6>Other Files:</h6>
-                            <a href="{{ file.file.url }}" target="_blank">{{ file.file.name }}</a>
-                            {% endif %}
-                            {% endfor %}
-                        </div>
-                        {% endif %}
+
                         <a href="{% url 'complaints' complaint.id %}" class="btn btn-primary btn-sm mt-2">View Details</a>
                     </div>
                 </div>
